@@ -2,7 +2,7 @@
 const { useState, useEffect, useRef } = React;
 
 /* ----------------------------------------------------------------
-   Brand mark — official VitaTap "Vital Drop" logo
+   Brand mark - official VitaTap "Vital Drop" logo
 ----------------------------------------------------------------- */
 function Logo({ className = "logo" }) {
   return <img className={className} src="assets/vitatap-mark.png" alt="VitaTap" />;

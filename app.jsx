@@ -2,7 +2,7 @@
    Header, Hero, Trust, Aanpak, Werking, Wetenschap, Dashboard, DeKraan, Lifestyle, Prijzen, Locator, Installer, FAQ, CTA, Advies, StickyCTA, Footer */
 const { useState: uSA, useEffect: uEA } = React;
 
-/* palette presets — accent hex maps to an oklch hue + chroma multiplier */
+/* palette presets - accent hex maps to an oklch hue + chroma multiplier */
 const PALETTES = {
   "#1FA9A6": { hue: 195, c: 1.0,  label: "Teal" },
   "#2E78D0": { hue: 233, c: 0.92, label: "Ocean" },
@@ -76,7 +76,7 @@ const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
   "density": "compact",
   "finish": "steel",
   "heroTitle": "Zuiver. Vitaal. Onbeperkt.",
-  "heroSub": "6-staps omgekeerde osmose met UV-sterilisatie en moleculaire H₂. Verwijdert ~97% van opgeloste stoffen en houdt PFAS, microplastics en bacteriën tegen — daarna geremineraliseerd en verrijkt met waterstof. Vanaf €39 per maand, onderhoud en filters inbegrepen."
+  "heroSub": "6-staps omgekeerde osmose met UV-sterilisatie en moleculaire H₂. Verwijdert ~97% van opgeloste stoffen en houdt PFAS, microplastics en bacteriën tegen - daarna geremineraliseerd en verrijkt met waterstof. Vanaf €39 per maand, onderhoud en filters inbegrepen."
 }/*EDITMODE-END*/;
 
 function App() {

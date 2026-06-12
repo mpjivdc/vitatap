@@ -2,13 +2,13 @@
 const { useState: uS5, useEffect: uE5 } = React;
 
 /* ----------------------------------------------------------------
-   GRATIS ADVIES — lead form (alle CTA's landen hier)
+   GRATIS ADVIES - lead form (alle CTA's landen hier)
 ----------------------------------------------------------------- */
 const PLAN_OPTS = [
   ["", "Nog geen voorkeur"],
-  ["m", "Maandelijks — €65 / mnd"],
-  ["y", "Jaarlijks — €45 / mnd"],
-  ["5", "5-jaarlijks — €39 / mnd"],
+  ["m", "Maandelijks - €65 / mnd"],
+  ["y", "Jaarlijks - €45 / mnd"],
+  ["5", "5-jaarlijks - €39 / mnd"],
 ];
 
 function Advies() {
@@ -46,12 +46,12 @@ function Advies() {
     <section className="section advies bg-paper2" id="contact" data-screen-label="Gratis advies">
       <div className="wrap advies-grid">
         <div className="advies-copy">
-          <p className="eyebrow">10 — Gratis advies</p>
+          <p className="eyebrow">10 - Gratis advies</p>
           <h2 className="display" style={{ fontSize: "clamp(32px,4vw,52px)", marginTop: 16 }}>Eerst advies,<br />dan beslissen.</h2>
-          <p className="lead" style={{ marginTop: 18 }}>Laat je gegevens achter en we contacteren je binnen 2 werkdagen voor een gratis en vrijblijvend adviesgesprek — op een moment dat jou past.</p>
+          <p className="lead" style={{ marginTop: 18 }}>Laat je gegevens achter en we contacteren je binnen 2 werkdagen voor een gratis en vrijblijvend adviesgesprek - op een moment dat jou past.</p>
           <ul className="advies-points">
             <li><Ico.check className="ck" /><span>Een <b>erkende installateur uit jouw regio</b> bekijkt je keuken en aansluiting</span></li>
-            <li><Ico.check className="ck" /><span>Op afspraak — <b>bij jou thuis of telefonisch</b>, zoals je zelf wil</span></li>
+            <li><Ico.check className="ck" /><span>Op afspraak - <b>bij jou thuis of telefonisch</b>, zoals je zelf wil</span></li>
             <li><Ico.check className="ck" /><span><b>Volledig vrijblijvend.</b> Geen aankoopverplichting, geen opdringerige opvolging</span></li>
           </ul>
         </div>
