@@ -12,17 +12,32 @@ Hosted via GitHub Pages → **https://mpjivdc.github.io/vitatap/**
 
 ## How it works
 
-This is a self-contained static site. `index.html` loads React + Babel from a
-CDN and transpiles the JSX components (`comp1`–`comp5.jsx`, `app.jsx`) in the
-browser. Styling lives in `styles.css`; imagery in `assets/`.
+A self-contained static site. `index.html` loads production **React** from a CDN
+and a prebuilt **`bundle.js`** — the JSX is transpiled and minified ahead of time
+(`build.js`), so there's no in-browser compiler and the page renders immediately.
+Styling lives in `styles.css`; imagery in `assets/`.
 
-No build step is required — open `index.html` (or serve the folder) and it runs.
+No server needed — open `index.html` (or serve the folder statically) and it runs.
 
 | File | Purpose |
 |------|---------|
-| `index.html` | Entry point (copy of `VitaTap.html`) |
+| `index.html` | Entry point — loads React + `bundle.js` |
+| `bundle.js` | Prebuilt output (transpiled + minified JSX) |
+| `build.js` | Regenerates `bundle.js` from the JSX sources |
 | `app.jsx` | Root component, theme + section layout |
 | `comp1`–`comp5.jsx` | Page sections (hero, science, pricing, FAQ, …) |
 | `tweaks-panel.jsx` | Design-tool live editor (hidden for visitors) |
 | `styles.css` | All styling |
 | `assets/` | Product photography & marks |
+
+## Rebuilding the bundle
+
+Edit any `.jsx` source, then regenerate `bundle.js`:
+
+```bash
+npm install @babel/core @babel/preset-react terser react@18.3.1 react-dom@18.3.1
+node build.js
+```
+
+`build.js` also prints fresh SRI hashes for the React CDN tags — paste them into
+`index.html` if you bump the React version.
