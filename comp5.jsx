@@ -11,6 +11,8 @@ const PLAN_OPTS = [
   ["5", "5-jaarlijks - €39 / mnd"],
 ];
 
+const W3F_KEY = "2ad121b7-621a-4eb7-864f-3b7e6e63945e";
+
 function Advies() {
   const [plan, setPlan] = uS5("");
   const [sent, setSent] = uS5(() => {
@@ -19,6 +21,8 @@ function Advies() {
   const [firstName, setFirstName] = uS5(() => {
     try { return localStorage.getItem("vt-lead-name") || ""; } catch (e) { return ""; }
   });
+  const [loading, setLoading] = uS5(false);
+  const [error, setError] = uS5("");
 
   uE5(() => {
     const on = (e) => { setPlan(e.detail || ""); setSent(false); };
@@ -26,19 +30,49 @@ function Advies() {
     return () => window.removeEventListener("vt-plan", on);
   }, []);
 
-  const submit = (e) => {
+  const submit = async (e) => {
     e.preventDefault();
+    setLoading(true);
+    setError("");
     const fd = new FormData(e.target);
     const nm = String(fd.get("naam") || "").trim().split(" ")[0];
-    setFirstName(nm);
-    setSent(true);
+    const payload = {
+      access_key: W3F_KEY,
+      subject: "Nieuwe adviesaanvraag - VitaTap",
+      from_name: "VitaTap website",
+      naam: fd.get("naam"),
+      email: fd.get("email"),
+      telefoon: fd.get("telefoon"),
+      postcode: fd.get("postcode"),
+      interesse: fd.get("plan") || "Geen voorkeur",
+      bericht: fd.get("bericht") || "",
+    };
     try {
-      localStorage.setItem("vt-lead-sent", "1");
-      localStorage.setItem("vt-lead-name", nm);
-    } catch (err) { /* private mode */ }
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setFirstName(nm);
+        setSent(true);
+        try {
+          localStorage.setItem("vt-lead-sent", "1");
+          localStorage.setItem("vt-lead-name", nm);
+        } catch (err) { /* private mode */ }
+      } else {
+        setError("Er ging iets mis. Probeer het opnieuw of mail ons rechtstreeks.");
+      }
+    } catch (err) {
+      setError("Geen verbinding. Controleer je internet en probeer opnieuw.");
+    } finally {
+      setLoading(false);
+    }
   };
   const reset = () => {
     setSent(false);
+    setError("");
     try { localStorage.setItem("vt-lead-sent", "0"); } catch (err) { /* noop */ }
   };
 
@@ -89,7 +123,10 @@ function Advies() {
             <label>Vraag of opmerking <span className="opt">(optioneel)</span>
               <textarea name="bericht" placeholder="Bv. type keukenblad, huidige kraan, beste belmoment..."></textarea>
             </label>
-            <button className="btn btn-primary" type="submit">Plan mijn gratis adviesgesprek <Ico.arrow className="arr" width="18" height="18" /></button>
+            <button className="btn btn-primary" type="submit" disabled={loading}>
+              {loading ? "Versturen..." : <span>Plan mijn gratis adviesgesprek <Ico.arrow className="arr" width="18" height="18" /></span>}
+            </button>
+            {error && <p className="form-note" style={{ color: "var(--teal-700)" }}>{error}</p>}
             <p className="form-note">Binnen 2 werkdagen contact · gratis &amp; vrijblijvend</p>
           </form>
         )}
