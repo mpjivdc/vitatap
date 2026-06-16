@@ -20,6 +20,59 @@ const PLANS = [
     billing: "Eén betaling van €2.340 per 5 jaar", extra: "−40% · prijsgarantie 5 jaar", featured: false, tag: "Beste waarde" },
 ];
 
+const WATER_BRANDS = [
+  { key: "dl",  name: "Delhaize huismerk", priceL: 0.15 },
+  { key: "spa", name: "Spa Reine",          priceL: 0.43 },
+  { key: "vit", name: "Vittel",             priceL: 0.49 },
+];
+const VT_MONTH_INCL = 47.19; // 5-jarenplan €39/mnd excl. 21% btw
+
+function fmt(n) { return n.toFixed(2).replace(".", ","); }
+
+function LiterSim() {
+  const [people, setPeople] = uS4(2);
+  const litersPerMonth = people * 2 * 30;
+  const maxCost = Math.max(VT_MONTH_INCL, ...WATER_BRANDS.map(b => b.priceL * litersPerMonth));
+
+  return (
+    <div className="liter-compare">
+      <div className="lc-head">Bereken jouw besparing</div>
+      <div className="lc-sim-row">
+        <span className="lc-sim-label">Personen in huis</span>
+        <div className="lc-pills">
+          {[1, 2, 3, 4].map(n => (
+            <button key={n} className={"lc-pill" + (people === n ? " active" : "")} onClick={() => setPeople(n)}>
+              {n}{n === 4 ? "+" : ""}
+            </button>
+          ))}
+        </div>
+        <span className="lc-usage">{people * 2} l/dag · 2 l/persoon</span>
+      </div>
+      <div className="lc-rows">
+        <div className="lc-row vt">
+          <span className="lc-name">VitaTap</span>
+          <div className="lc-bar"><span style={{ width: Math.round(VT_MONTH_INCL / maxCost * 100) + "%" }}></span></div>
+          <span className="lc-val">€{fmt(VT_MONTH_INCL)} / mnd†</span>
+        </div>
+        {WATER_BRANDS.map(b => {
+          const monthly = b.priceL * litersPerMonth;
+          return (
+            <div key={b.key} className="lc-row">
+              <span className="lc-name">{b.name}</span>
+              <div className="lc-bar"><span style={{ width: Math.round(monthly / maxCost * 100) + "%" }}></span></div>
+              <span className="lc-val">€{fmt(monthly)} / mnd</span>
+            </div>
+          );
+        })}
+      </div>
+      <p className="lc-note">
+        †5-jarenplan · €39/mnd excl. 21% btw (€47,19 incl. btw) · vaste kost ongeacht verbruik · excl. eenmalige opstartkost €605 incl. btw.<br />
+        Flessenwater: gemiddelde winkelprijs mei 2026, incl. 6% btw - zonder sleuren, statiegeld of plastic.
+      </p>
+    </div>
+  );
+}
+
 function Prijzen() {
   return (
     <section className="section bg-paper" id="prijzen">
@@ -57,22 +110,7 @@ function Prijzen() {
           <span><Ico.recycle className="ic" width="20" height="20" /> Onderhoud &amp; filters inbegrepen</span>
           <span><Ico.shield className="ic" width="20" height="20" /> Prijzen excl. btw · incl. btw telkens vermeld</span>
         </div>
-        <div className="liter-compare">
-          <div className="lc-head">Wat kost een liter?</div>
-          <div className="lc-rows">
-            <div className="lc-row vt">
-              <span className="lc-name">VitaTap</span>
-              <div className="lc-bar"><span style={{ width: "30%" }}></span></div>
-              <span className="lc-val">vanaf €0,26 / l*</span>
-            </div>
-            <div className="lc-row">
-              <span className="lc-name">Flessenwater</span>
-              <div className="lc-bar"><span style={{ width: "100%" }}></span></div>
-              <span className="lc-val">€0,55 – €0,90 / l</span>
-            </div>
-          </div>
-          <p className="lc-note">*5-jarenplan bij 5 liter per dag, excl. eenmalige opstartkost en btw. Flessenwater: gangbare supermarktprijs per liter - zonder sleuren, statiegeld of plastic.</p>
-        </div>
+        <LiterSim />
         <p className="price-foot">Liever eerst advies? <a href="#contact" style={{ color: "var(--teal-700)", textDecoration: "underline" }}>Plan een gratis en vrijblijvend adviesgesprek →</a></p>
       </div>
     </section>
