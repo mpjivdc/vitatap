@@ -29,35 +29,66 @@ const VT_MONTH_INCL = 47.19; // 5-jarenplan €39/mnd excl. 21% btw
 
 function fmt(n) { return n.toFixed(2).replace(".", ","); }
 
+const VT_QUALITY = [
+  "PFAS & microplastics verwijderd",
+  "Geremineraliseerd (Ca, Mg)",
+  "Moleculaire H₂ - antioxidant",
+  "UV-gesteriliseerd",
+  "Geen plastic flessen",
+  "Onbeperkt beschikbaar",
+];
+const BOTTLE_ML = 0.5; // 50cl referentiefles voor plastic teller
+
 function LiterSim() {
   const [people, setPeople] = uS4(2);
-  const litersPerMonth = people * 2 * 30;
+  const [litersPerPerson, setLitersPerPerson] = uS4(4);
+  const litersPerDay = people * litersPerPerson;
+  const litersPerMonth = litersPerDay * 30;
   const maxCost = Math.max(VT_MONTH_INCL, ...WATER_BRANDS.map(b => b.priceL * litersPerMonth));
+  const bottlesPerYear = Math.round(litersPerDay * 365 / BOTTLE_ML);
+  const bestBottled = Math.min(...WATER_BRANDS.map(b => b.priceL * litersPerMonth));
+  const savings = bestBottled > VT_MONTH_INCL ? null : VT_MONTH_INCL - bestBottled;
+  const vtWins = WATER_BRANDS.filter(b => b.priceL * litersPerMonth > VT_MONTH_INCL).length;
 
   return (
     <div className="liter-compare">
       <div className="lc-head">Bereken jouw besparing</div>
-      <div className="lc-sim-row">
-        <span className="lc-sim-label">Personen in huis</span>
-        <div className="lc-pills">
-          {[1, 2, 3, 4].map(n => (
-            <button key={n} className={"lc-pill" + (people === n ? " active" : "")} onClick={() => setPeople(n)}>
-              {n}{n === 4 ? "+" : ""}
-            </button>
-          ))}
+
+      <div className="lc-controls">
+        <div className="lc-sim-row">
+          <span className="lc-sim-label">Personen in huis</span>
+          <div className="lc-pills">
+            {[1, 2, 3, 4].map(n => (
+              <button key={n} className={"lc-pill" + (people === n ? " active" : "")} onClick={() => setPeople(n)}>
+                {n}{n === 4 ? "+" : ""}
+              </button>
+            ))}
+          </div>
         </div>
-        <span className="lc-usage">{people * 2} l/dag · 2 l/persoon</span>
+        <div className="lc-sim-row">
+          <span className="lc-sim-label">Liter / persoon / dag</span>
+          <div className="lc-pills">
+            {[2, 3, 4, 5].map(n => (
+              <button key={n} className={"lc-pill" + (litersPerPerson === n ? " active" : "")} onClick={() => setLitersPerPerson(n)}>
+                {n}L
+              </button>
+            ))}
+          </div>
+          <span className="lc-usage">{litersPerDay}L/dag totaal</span>
+        </div>
       </div>
+
       <div className="lc-rows">
         <div className="lc-row vt">
           <span className="lc-name">VitaTap</span>
           <div className="lc-bar"><span style={{ width: Math.round(VT_MONTH_INCL / maxCost * 100) + "%" }}></span></div>
-          <span className="lc-val">€{fmt(VT_MONTH_INCL)} / mnd incl. btw†</span>
+          <span className="lc-val">€{fmt(VT_MONTH_INCL)} / mnd†</span>
         </div>
         {WATER_BRANDS.map(b => {
           const monthly = b.priceL * litersPerMonth;
+          const cheaper = monthly < VT_MONTH_INCL;
           return (
-            <div key={b.key} className="lc-row">
+            <div key={b.key} className={"lc-row" + (cheaper ? " lc-cheaper" : "")}>
               <span className="lc-name">{b.name}</span>
               <div className="lc-bar"><span style={{ width: Math.round(monthly / maxCost * 100) + "%" }}></span></div>
               <span className="lc-val">€{fmt(monthly)} / mnd</span>
@@ -65,9 +96,38 @@ function LiterSim() {
           );
         })}
       </div>
+
+      <div className="lc-insights">
+        <div className="lc-insight">
+          <span className="lc-insight-val">{bottlesPerYear.toLocaleString("nl-BE")}</span>
+          <span className="lc-insight-lab">plastic flessen per jaar vermeden</span>
+        </div>
+        {vtWins > 0 ? (
+          <div className="lc-insight lc-insight-win">
+            <span className="lc-insight-val">€{fmt((WATER_BRANDS.filter(b => b.priceL * litersPerMonth > VT_MONTH_INCL).reduce((s,b) => s + b.priceL * litersPerMonth, 0) / vtWins) - VT_MONTH_INCL)}</span>
+            <span className="lc-insight-lab">goedkoper per maand dan merkenwater</span>
+          </div>
+        ) : (
+          <div className="lc-insight lc-insight-neutral">
+            <span className="lc-insight-val">{litersPerPerson < 4 ? "↑ verbruik" : "4+ pers."}</span>
+            <span className="lc-insight-lab">voor prijsvoordeel — verhoog slider</span>
+          </div>
+        )}
+        <div className="lc-insight">
+          <span className="lc-insight-val">6-staps</span>
+          <span className="lc-insight-lab">zuivering incl. PFAS, UV & H₂</span>
+        </div>
+      </div>
+
+      <div className="lc-quality">
+        {VT_QUALITY.map((q, i) => (
+          <span key={i} className="lc-qtag"><Ico.check width="12" height="12" /> {q}</span>
+        ))}
+      </div>
+
       <p className="lc-note">
-        †VitaTap 5-jarenplan · €39/mnd excl. 21% btw · vaste maandkost ongeacht verbruik · excl. eenmalige opstartkost €605 incl. btw · alle btw-bedragen zijn wat de consument effectief betaalt.<br />
-        Flessenwater: winkelprijs Delhaize.be juni 2026 (6×1,5 l), incl. 6% btw - zonder sleuren, statiegeld of plastic. Prijzen kunnen variëren.
+        †VitaTap 5-jarenplan · €39/mnd excl. 21% btw (€47,19 incl. btw) · vaste kost ongeacht verbruik · excl. eenmalige opstartkost €605 incl. btw.<br />
+        Flessenwater: winkelprijs Delhaize.be juni 2026 (6×1,5 l), incl. 6% btw. Plastic: 1 fles = 50 cl. Prijzen kunnen variëren.
       </p>
     </div>
   );
