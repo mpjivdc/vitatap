@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0e5e61"/>
+      <stop offset="1" stop-color="#16868a"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- brand mark + wordmark, top-left -->
+  <g transform="translate(90,84)">
+    <rect width="80" height="80" rx="20" fill="#0b4d50"/>
+    <g transform="translate(40,42)" stroke="#dff5f4" fill="none" stroke-width="4.2" stroke-linecap="round">
+      <path d="M-13 -3c4 0 5 -6 9 -6s5 6 9 6"/>
+      <path d="M-13 5c4 0 5 -6 9 -6s5 6 9 6" opacity="0.6"/>
+    </g>
+  </g>
+  <text x="190" y="138" font-family="DejaVu Sans" font-weight="bold" font-size="38" letter-spacing="7" fill="#ffffff">VITATAP</text>
+
+  <!-- headline -->
+  <text x="90" y="318" font-family="DejaVu Sans" font-weight="bold" font-size="86" fill="#ffffff">Zuiver. Vitaal.</text>
+  <text x="90" y="410" font-family="DejaVu Sans" font-weight="bold" font-size="86" fill="#bdeae8">Onbeperkt.</text>
+  <text x="92" y="476" font-family="DejaVu Sans" font-size="29" fill="#d7efee">6-staps omgekeerde osmose &#183; UV-sterilisatie &#183; moleculaire H2</text>
+
+  <!-- price chip -->
+  <rect x="90" y="516" width="300" height="60" rx="30" fill="#ffffff"/>
+  <text x="118" y="555" font-family="DejaVu Sans" font-weight="bold" font-size="29" fill="#0e5e61">Vanaf &#8364;39 / mnd</text>
+
+  <!-- oversized drop mark, right -->
+  <g transform="translate(950,300)">
+    <path d="M0,-160 C74,-58 138,-10 138,74 a138,138 0 1 1 -276,0 C-138,-10 -74,-58 0,-160 Z" fill="#0b4d50" opacity="0.45"/>
+    <g stroke="#dff5f4" fill="none" stroke-width="9" stroke-linecap="round" transform="translate(0,46)">
+      <path d="M-74 -16c24 0 28 -32 50 -32s28 32 50 32"/>
+      <path d="M-74 22c24 0 28 -32 50 -32s28 32 50 32" opacity="0.6"/>
+    </g>
+  </g>
+</svg>

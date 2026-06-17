@@ -35,10 +35,16 @@ async function main() {
   fs.writeFileSync(path.join(SITE, "bundle.js"), min.code, "utf8");
   console.log("bundle.js written:", min.code.length, "bytes (from", out.length, "raw)");
 
-  // 3. SRI hashes for the production React UMD builds referenced in index.html
-  const sri = (mod) => "sha384-" + crypto.createHash("sha384")
-    .update(fs.readFileSync(require.resolve(mod))).digest("base64");
-  console.log("REACT_SRI=" + sri("react/umd/react.production.min.js"));
-  console.log("REACTDOM_SRI=" + sri("react-dom/umd/react-dom.production.min.js"));
+  // 3. Prerender the bundle into index.html (#root) for SEO / social scrapers
+  await require("./prerender")();
+
+  // 4. SRI hashes for the production React UMD builds referenced in index.html
+  const umd = {
+    react: path.join(SITE, "node_modules/react/umd/react.production.min.js"),
+    reactDom: path.join(SITE, "node_modules/react-dom/umd/react-dom.production.min.js"),
+  };
+  const sri = (file) => "sha384-" + crypto.createHash("sha384").update(fs.readFileSync(file)).digest("base64");
+  console.log("REACT_SRI=" + sri(umd.react));
+  console.log("REACTDOM_SRI=" + sri(umd.reactDom));
 }
 main().catch((e) => { console.error(e); process.exit(1); });
