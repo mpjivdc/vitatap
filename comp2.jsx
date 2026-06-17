@@ -10,7 +10,7 @@ const STEPS = [
   { name: "Actieve-koolblok", sub: "Chloor, smaak & geur", tag: "Carbon", purity: 52,
     desc: "Een geperst koolblok bindt chloor, organische stoffen en geurtjes - de basis voor een neutrale, zuivere smaak." },
   { name: "RO-membraan", sub: "PFAS · virussen · microplastics", tag: "0,0001 µm", purity: 96,
-    desc: "Het hart van het systeem: een halfdoorlatend membraan houdt bacteriën, virussen, PFAS, microplastics en zware metalen tegen. Verwijdert gemiddeld ~97% van opgeloste vaste stoffen." },
+    desc: "Het hart van het systeem: een halfdoorlatend membraan houdt bacteriën, virussen, PFAS, microplastics en zware metalen tot 99,9% tegen. De gemiddelde TDS-reductie (totaal opgeloste stoffen) bedraagt ~97%." },
   { name: "Remineralisatie", sub: "Calcium & magnesium terug", tag: "pH 7,2–7,8", purity: 97,
     desc: "Zuiver water krijgt bewust calcium en magnesium terug en wordt in pH gebalanceerd - precies wat je lichaam terugvraagt." },
   { name: "SPE Waterstof-infusie", sub: "Moleculaire H₂ via SPE", tag: "1200–1600 ppb", purity: 99,
@@ -208,8 +208,8 @@ function Werking() {
    WETENSCHAP - the science
 ----------------------------------------------------------------- */
 const SCI = [
-  { ico: "shield", h: "PFAS & microplastics eruit", p: "Het RO-membraan houdt 'forever chemicals', microplastics, lood en nitraten tegen. Gemiddeld ~97% verwijdering van opgeloste vaste stoffen; bacteriën en virussen worden nagenoeg volledig gestopt.",
-    k: "TDS-reductie", big: "~97%" },
+  { ico: "shield", h: "PFAS & microplastics eruit", p: "Het RO-membraan houdt 'forever chemicals', microplastics, lood en nitraten tot 99,9% tegen; bacteriën en virussen worden nagenoeg volledig gestopt. De TDS-reductie (totaal opgeloste stoffen) bedraagt gemiddeld ~97%.",
+    k: "Verwijdering verontreinigingen", big: "tot 99,9%" },
   { ico: "bolt", h: "Moleculaire waterstof erin", p: "De SPE-cel (Solid Polymer Electrolysis) genereert opgeloste H₂ - een kleine, selectieve antioxidant die neutrale watermoleculen en mineralen ongemoeid laat.",
     k: "Concentratie H₂", big: "1200–1600 ppb" },
   { ico: "spark", h: "UV-sterilisatie: 100% zuiver", p: "Een ingebouwde UV-C-lamp doodt in de laatste stap alle resterende bacteriën en virussen - zonder chemicaliën, zonder bijsmaak.",
@@ -246,10 +246,10 @@ function Wetenschap() {
         </div>
         <div className="callout">
           <div className="qi">“</div>
-          <p className="qt">Wat je lichaam terugvraagt: schoon water, herkenbare mineralen en een antioxidante lading. VitaTap zuivert tot 97% van opgeloste stoffen en steriliseert daarna met UV-C - vers en vitaal aan de uitloop.</p>
+          <p className="qt">Wat je lichaam terugvraagt: schoon water, herkenbare mineralen en een antioxidante lading. VitaTap houdt PFAS, microplastics en bacteriën tot 99,9% tegen, reduceert de opgeloste stoffen met ~97% en steriliseert daarna met UV-C - vers en vitaal aan de uitloop.</p>
           <a className="btn btn-ghost" href="#kraan" style={{ color: "#fff", borderColor: "rgba(255,255,255,.5)" }}>Bekijk de kraan</a>
         </div>
-        <p className="claims-note">~97%-reductie van opgeloste vaste stoffen (TDS) is een gemiddelde fabrikantsmeting van het RO-membraan. UV-sterilisatie elimineert bacteriën en virussen in het opslagtank-stadium. H₂-concentratie (1,2–1,6 ppm) en ORP-waarden (−400/−600 mV) zijn fabrikantspecificaties gemeten aan de uitloop. Verwijzingen naar antioxidante eigenschappen beschrijven algemene kenmerken van moleculaire waterstof - geen medische of gezondheidsclaims.</p>
+        <p className="claims-note">Verwijdering tot 99,9% verwijst naar specifieke verontreinigingen (PFAS, microplastics, lood, bacteriën en virussen) volgens fabrikantsmetingen van het RO-membraan. De ~97%-reductie van totaal opgeloste stoffen (TDS) is een gemiddelde fabrikantsmeting van datzelfde membraan. UV-sterilisatie elimineert bacteriën en virussen in het opslagtank-stadium. H₂-concentratie (1,2–1,6 ppm) en ORP-waarden (−400/−600 mV) zijn fabrikantspecificaties gemeten aan de uitloop. Verwijzingen naar antioxidante eigenschappen beschrijven algemene kenmerken van moleculaire waterstof - geen medische of gezondheidsclaims.</p>
       </div>
     </section>
   );

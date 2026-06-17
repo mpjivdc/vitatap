@@ -87,7 +87,7 @@ function Hero({ t, finish }) {
           <h1 className="display">{t.heroTitle}</h1>
           <p className="hero-sub">{t.heroSub}</p>
           <div className="hero-stats">
-            <div className="stat-chip"><div className="val">~97%</div><div className="cap">TDS-reductie via RO</div></div>
+            <div className="stat-chip"><div className="val">tot 99,9%</div><div className="cap">PFAS, microplastics &amp; bacteriën</div></div>
             <div className="stat-chip"><div className="val">1200–1600 ppb</div><div className="cap">Moleculaire H₂</div></div>
             <div className="stat-chip"><div className="val">100%</div><div className="cap">UV-sterilisatie</div></div>
           </div>
