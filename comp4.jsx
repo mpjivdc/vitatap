@@ -271,7 +271,7 @@ function CTA() {
 const FOOT = [
   ["Product", [["De aanpak", "#aanpak"], ["Werking", "#werking"], ["De kraan", "#kraan"], ["Wetenschap", "#wetenschap"]]],
   ["Service", [["Prijzen", "#prijzen"], ["Installateurs", "#installateurs"], ["Installatie", "#installatie"], ["FAQ", "#faq"]]],
-  ["Bedrijf", [["Over VitaTap", "#"], ["Erkend partner worden", "#installateurs"], ["Duurzaamheid", "#"], ["Pers", "#"]]],
+  ["Juridisch", [["Erkend partner worden", "#installateurs"], ["Privacybeleid", "privacy.html"], ["Algemene voorwaarden", "voorwaarden.html"], ["Cookiebeleid", "cookiebeleid.html"]]],
 ];
 
 function Footer() {
@@ -287,6 +287,10 @@ function Footer() {
               <span className="bc-chip"><img src="assets/bluecare-shield.png" alt="Blue Care Products" /></span>
               <div className="et"><b>Een merk van Blue Care Products</b>Veilig &amp; professioneel waterbeheer</div>
             </div>
+            <address className="foot-legal">
+              Blue Care Products BV · Minister Liebaertlaan 1, 8500 Kortrijk<br />
+              BTW BE 0653.897.883
+            </address>
           </div>
           {FOOT.map(([h, links]) => (
             <div className="foot-col" key={h}>
@@ -297,7 +301,7 @@ function Footer() {
         </div>
         <div className="foot-bottom">
           <span>© 2026 VitaTap · Prijzen excl. btw tenzij anders vermeld</span>
-          <span>hallo@vitatap.be · +32 9 000 00 00</span>
+          <span><a href="mailto:info@vitatap.be">info@vitatap.be</a> · <a href="tel:+32476371722">+32 476 37 17 22</a></span>
         </div>
       </div>
     </footer>

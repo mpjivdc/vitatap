@@ -123,6 +123,10 @@ function Advies() {
             <label>Vraag of opmerking <span className="opt">(optioneel)</span>
               <textarea name="bericht" placeholder="Bv. type keukenblad, huidige kraan, beste belmoment..."></textarea>
             </label>
+            <label className="consent">
+              <input name="consent" type="checkbox" required />
+              <span>Ik ga akkoord dat VitaTap mijn gegevens gebruikt om mijn adviesaanvraag te behandelen, zoals beschreven in het <a href="privacy.html" target="_blank" rel="noopener">privacybeleid</a>.</span>
+            </label>
             <button className="btn btn-primary" type="submit" disabled={loading}>
               {loading ? "Versturen..." : <span>Plan mijn gratis adviesgesprek <Ico.arrow className="arr" width="18" height="18" /></span>}
             </button>

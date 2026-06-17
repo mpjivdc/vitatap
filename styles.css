@@ -623,6 +623,9 @@ button{ font-family: inherit; cursor: pointer; }
 .foot-col a:hover{ color:#fff; }
 .foot-bottom{ display:flex; justify-content:space-between; flex-wrap:wrap; gap:16px; margin-top: 56px; padding-top: 26px; border-top:1px solid rgba(255,255,255,.1);
   font-family:var(--font-mono); font-size: 12px; letter-spacing:.03em; color: rgba(255,255,255,.55); }
+.foot-bottom a{ color: rgba(255,255,255,.78); }
+.foot-bottom a:hover{ color:#fff; }
+.foot-legal{ font-style:normal; margin-top: 18px; font-family:var(--font-mono); font-size: 11px; line-height: 1.7; letter-spacing:.03em; color: rgba(255,255,255,.45); }
 @media (max-width: 860px){ .foot-grid{ grid-template-columns: 1fr 1fr; gap: 32px; } }
 
 /* ============================================================
@@ -739,6 +742,10 @@ button{ font-family: inherit; cursor: pointer; }
   outline:none; border-color: var(--teal-500); background:#fff; box-shadow: 0 0 0 3px var(--teal-100);
 }
 .advies-form textarea{ resize: vertical; min-height: 88px; }
+.advies-form label.consent{ flex-direction:row; align-items:flex-start; gap:10px; text-transform:none; letter-spacing:.01em;
+  font-family:var(--font-body); font-size:13px; line-height:1.5; color:var(--ink-soft); }
+.advies-form label.consent input{ width:18px; height:18px; flex:none; margin-top:1px; accent-color: var(--teal-600); }
+.advies-form label.consent a{ color:var(--teal-700); text-decoration:underline; }
 .advies-form .btn{ justify-content:center; margin-top: 4px; }
 .advies-form .form-note{ margin:0; font-size:12px; color:var(--ink-faint); text-align:center; font-family:var(--font-mono); letter-spacing:.02em; }
 .advies-form.success{ align-items:flex-start; gap:10px; }
