@@ -21,7 +21,7 @@ const PLANS = [
 ];
 
 const WATER_BRANDS = [
-  { key: "dl",  name: "Delhaize huismerk", priceL: 0.80 },
+  { key: "dl",  name: "Delhaize huismerk", priceL: 0.27 },
   { key: "spa", name: "Spa Reine",          priceL: 0.57 },
   { key: "vit", name: "Vittel",             priceL: 0.57 },
 ];
@@ -52,7 +52,7 @@ function LiterSim() {
         <div className="lc-row vt">
           <span className="lc-name">VitaTap</span>
           <div className="lc-bar"><span style={{ width: Math.round(VT_MONTH_INCL / maxCost * 100) + "%" }}></span></div>
-          <span className="lc-val">€{fmt(VT_MONTH_INCL)} / mnd†</span>
+          <span className="lc-val">€{fmt(VT_MONTH_INCL)} / mnd incl. btw†</span>
         </div>
         {WATER_BRANDS.map(b => {
           const monthly = b.priceL * litersPerMonth;
@@ -66,8 +66,8 @@ function LiterSim() {
         })}
       </div>
       <p className="lc-note">
-        †5-jarenplan · €39/mnd excl. 21% btw (€47,19 incl. btw) · vaste kost ongeacht verbruik · excl. eenmalige opstartkost €605 incl. btw.<br />
-        Flessenwater: winkelprijs Delhaize.be juni 2026, incl. 6% btw - zonder sleuren, statiegeld of plastic.
+        †VitaTap 5-jarenplan · €39/mnd excl. 21% btw · vaste maandkost ongeacht verbruik · excl. eenmalige opstartkost €605 incl. btw · alle btw-bedragen zijn wat de consument effectief betaalt.<br />
+        Flessenwater: winkelprijs Delhaize.be juni 2026 (6×1,5 l), incl. 6% btw - zonder sleuren, statiegeld of plastic. Prijzen kunnen variëren.
       </p>
     </div>
   );
