@@ -591,6 +591,28 @@ button{ font-family: inherit; cursor: pointer; }
 @media (max-width: 560px){ .install-grid{ grid-template-columns: 1fr; } }
 
 /* ============================================================
+   BEWEZEN - founder credibility
+   ============================================================ */
+.bewezen-grid{ display:grid; grid-template-columns: 1.3fr 1fr; gap: clamp(32px,5vw,72px); align-items:center; }
+.bewezen-marks{ display:flex; flex-direction:column; gap: 14px; }
+.bw-mark{ display:flex; align-items:center; gap: 16px; background: var(--paper); border:1px solid var(--line); border-radius: 14px; padding: 18px 20px; }
+.bw-mark .ico{ width:48px; height:48px; flex:none; border-radius:12px; display:grid; place-items:center; color: var(--teal-700); background: var(--paper-3); }
+.bw-mark .big{ font-family:var(--font-display); font-weight:800; font-size: 22px; color: var(--teal-800); line-height:1.1; }
+.bw-mark .sm{ font-size: 13.5px; color: var(--ink-soft); margin-top: 2px; }
+@media (max-width: 860px){ .bewezen-grid{ grid-template-columns: 1fr; } }
+
+/* ============================================================
+   WAARBORGEN - risk-reversal band
+   ============================================================ */
+.waarborg-grid{ display:grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+.waarborg{ display:flex; align-items:flex-start; gap: 14px; background: var(--paper-2); border:1px solid var(--line-soft); border-radius: 16px; padding: 22px 22px; }
+.waarborg .wi{ width:46px; height:46px; flex:none; border-radius:12px; display:grid; place-items:center; color:#fff; background: linear-gradient(135deg, var(--teal-600), var(--teal-500)); }
+.waarborg h4{ font-family:var(--font-display); font-weight:700; font-size: 16px; margin: 2px 0 4px; color: var(--ink); }
+.waarborg p{ font-size: 13.5px; color: var(--ink-soft); line-height: 1.4; margin: 0; }
+@media (max-width: 900px){ .waarborg-grid{ grid-template-columns: 1fr 1fr; } }
+@media (max-width: 520px){ .waarborg-grid{ grid-template-columns: 1fr; } }
+
+/* ============================================================
    FAQ
    ============================================================ */
 .faq-list{ margin-top: 50px; max-width: 880px; border-top: 1px solid var(--line); }

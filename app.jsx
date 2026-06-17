@@ -1,5 +1,5 @@
 /* global React, ReactDOM, useTweaks, TweaksPanel, TweakSection, TweakColor, TweakSelect, TweakRadio, TweakText,
-   Header, Hero, Trust, Aanpak, Werking, Wetenschap, Dashboard, DeKraan, Lifestyle, Prijzen, Locator, Installer, FAQ, CTA, Advies, StickyCTA, Footer */
+   Header, Hero, Trust, Aanpak, Werking, Wetenschap, Bewezen, Dashboard, DeKraan, Lifestyle, Waarborgen, Prijzen, Locator, Installer, FAQ, CTA, Advies, StickyCTA, Footer */
 const { useState: uSA, useEffect: uEA } = React;
 
 /* palette presets - accent hex maps to an oklch hue + chroma multiplier */
@@ -57,7 +57,7 @@ function applyTheme(t) {
 /* reveal-on-scroll for a curated set of elements */
 function useReveal(dep) {
   uEA(() => {
-    const sel = ".sec-head, .stat-chip, .step-item, .sci-card, .sci-shot, .callout, .feature-row, .phone, .werk-step, .werking-faucet, .life-card, .price-card, .install-card, .install-meta .m, .faq-item, .startup-banner, .liter-compare, .advies-form";
+    const sel = ".sec-head, .stat-chip, .step-item, .sci-card, .sci-shot, .callout, .feature-row, .phone, .werk-step, .werking-faucet, .life-card, .price-card, .install-card, .install-meta .m, .faq-item, .startup-banner, .liter-compare, .advies-form, .bw-mark, .waarborg, .bewezen-copy";
     const els = Array.from(document.querySelectorAll(sel));
     els.forEach((el, i) => { el.classList.add("reveal"); el.style.transitionDelay = (i % 6) * 0.05 + "s"; });
     const io = new IntersectionObserver((ents) => {
@@ -96,9 +96,11 @@ function App() {
         <Aanpak />
         <Werking />
         <Wetenschap />
+        <Bewezen />
         <Dashboard />
         <DeKraan finish={finish} setFinish={setFinish} />
         <Lifestyle />
+        <Waarborgen />
         <Prijzen />
         <Locator />
         <Installer />
