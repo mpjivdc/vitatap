@@ -118,13 +118,8 @@ function Prijzen() {
 }
 
 /* ----------------------------------------------------------------
-   PARTNER LOCATOR
+   INSTALLATIE IN JOUW REGIO
 ----------------------------------------------------------------- */
-const INSTALLERS = [
-  { nm: "AquaVrij Installaties", city: "Gent", km: "3,2", av: "A" },
-  { nm: "WaterWerk Vlaanderen", city: "Merelbeke", km: "6,8", av: "W" },
-  { nm: "PuurTap Service", city: "Deinze", km: "11,4", av: "P" },
-];
 const PINS = [
   { l: 28, t: 34 }, { l: 62, t: 22 }, { l: 74, t: 58 }, { l: 40, t: 66 },
 ];
@@ -138,28 +133,29 @@ function Locator() {
       <div className="wrap">
         <div className="loc-grid">
           <div>
-            <p className="eyebrow on-dark">07 - Partner gateway</p>
-            <h2 className="display" style={{ color: "#fff", fontSize: "clamp(32px,4vw,52px)", marginTop: 16 }}>Vind je erkende installateur</h2>
-            <p className="lead" style={{ color: "rgba(255,255,255,.88)", marginTop: 18 }}>Geef je postcode in en we tonen de dichtstbijzijnde erkende VitaTap-installateurs - getraind in het 30-minuten plaatsingsprotocol en de Blue Compagnion-kalibratie.</p>
+            <p className="eyebrow on-dark">07 - Installatie in jouw regio</p>
+            <h2 className="display" style={{ color: "#fff", fontSize: "clamp(32px,4vw,52px)", marginTop: 16 }}>Installatie bij jou thuis</h2>
+            <p className="lead" style={{ color: "rgba(255,255,255,.88)", marginTop: 18 }}>Geef je postcode in en we bevestigen de plaatsing in jouw regio. Een erkende vakman - uit ons eigen team of een gecertificeerde partner - plaatst alles volgens het 30-minuten protocol en kalibreert via de Blue Compagnion-app.</p>
             <form className="loc-form" onSubmit={submit}>
               <input value={zip} onChange={(e) => setZip(e.target.value)} inputMode="numeric" placeholder="Bv. 9000" aria-label="Postcode" maxLength="6" />
-              <button className="btn btn-primary solid-white" type="submit">Zoek <Ico.arrow className="arr" width="18" height="18" /></button>
+              <button className="btn btn-primary solid-white" type="submit">Check beschikbaarheid <Ico.arrow className="arr" width="18" height="18" /></button>
             </form>
-            <p className="loc-note">Meer dan 120 erkende installateurs in België &amp; Nederland.</p>
+            <p className="loc-note">Actief in heel België · plaatsing in ongeveer 30 minuten.</p>
             <div className="loc-results">
-              {shown && INSTALLERS.map((it, i) => (
-                <div className="installer" key={i} style={{ animationDelay: i * 0.08 + "s" }}>
-                  <span className="av">{it.av}</span>
-                  <div>
-                    <div className="nm">{it.nm}</div>
-                    <div className="ds">{it.city} · {it.km} km</div>
+              {shown && (
+                <div className="loc-confirm" role="status">
+                  <span className="lc-ico"><Ico.check width="22" height="22" /></span>
+                  <div className="lc-body">
+                    <div className="lc-ti">Goed nieuws - we komen tot bij jou{zip.trim() ? " (" + zip.trim() + ")" : ""}.</div>
+                    <p className="lc-tx">Laat je gegevens achter en we plannen samen een datum voor je gratis adviesgesprek en installatie.</p>
+                    <a className="btn btn-primary solid-white" href="#contact">Plan mijn installatie <Ico.arrow className="arr" width="18" height="18" /></a>
                   </div>
-                  <span className="badge">Erkend</span>
                 </div>
-              ))}
+              )}
             </div>
+            <p className="loc-partner">Ben je zelf installateur? <a href="#contact" onClick={() => window.dispatchEvent(new CustomEvent("vt-topic", { detail: "partner" }))}>Word erkende VitaTap-partner →</a></p>
           </div>
-          <div className="loc-map">
+          <div className="loc-map" aria-hidden="true">
             {PINS.map((p, i) => (
               <span className="loc-pin" key={i} style={{ left: p.l + "%", top: p.t + "%" }}><span className="p" /></span>
             ))}

@@ -23,11 +23,20 @@ function Advies() {
   });
   const [loading, setLoading] = uS5(false);
   const [error, setError] = uS5("");
+  const [bericht, setBericht] = uS5("");
 
   uE5(() => {
     const on = (e) => { setPlan(e.detail || ""); setSent(false); };
+    const onTopic = (e) => {
+      if (e.detail === "partner") {
+        setPlan("");
+        setBericht("Ik ben geïnteresseerd om erkende VitaTap-installatiepartner te worden.");
+        setSent(false);
+      }
+    };
     window.addEventListener("vt-plan", on);
-    return () => window.removeEventListener("vt-plan", on);
+    window.addEventListener("vt-topic", onTopic);
+    return () => { window.removeEventListener("vt-plan", on); window.removeEventListener("vt-topic", onTopic); };
   }, []);
 
   const submit = async (e) => {
@@ -121,7 +130,7 @@ function Advies() {
               </label>
             </div>
             <label>Vraag of opmerking <span className="opt">(optioneel)</span>
-              <textarea name="bericht" placeholder="Bv. type keukenblad, huidige kraan, beste belmoment..."></textarea>
+              <textarea name="bericht" value={bericht} onChange={(e) => setBericht(e.target.value)} placeholder="Bv. type keukenblad, huidige kraan, beste belmoment..."></textarea>
             </label>
             <label className="consent">
               <input name="consent" type="checkbox" required />

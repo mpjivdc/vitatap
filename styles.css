@@ -551,6 +551,14 @@ button{ font-family: inherit; cursor: pointer; }
 .installer .nm{ font-family:var(--font-display); font-weight:700; text-transform:uppercase; font-size: 14px; letter-spacing:.02em; }
 .installer .ds{ font-size: 12.5px; color: rgba(255,255,255,.7); font-family:var(--font-mono); }
 .installer .badge{ font-family:var(--font-mono); font-size:10px; letter-spacing:.08em; text-transform:uppercase; color: var(--teal-950); background: var(--teal-300); padding:5px 9px; border-radius:999px; }
+.loc-confirm{ display:flex; gap:16px; align-items:flex-start; background: rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.18);
+  border-radius:16px; padding:20px 22px; animation: rise .4s ease both; }
+.loc-confirm .lc-ico{ width:42px; height:42px; border-radius:12px; flex:none; display:grid; place-items:center; color: var(--teal-950); background: var(--teal-300); }
+.loc-confirm .lc-ti{ font-family:var(--font-display); font-weight:700; font-size:16px; }
+.loc-confirm .lc-tx{ margin:6px 0 14px; font-size:14px; color: rgba(255,255,255,.82); }
+.loc-confirm .btn{ font-size:14px; }
+.loc-partner{ margin-top:22px; font-size:14px; color: rgba(255,255,255,.72); }
+.loc-partner a{ color:#fff; font-weight:600; text-decoration:underline; text-underline-offset:3px; }
 .loc-map{ position: relative; border-radius: 22px; overflow:hidden; border:1px solid rgba(255,255,255,.18);
   background:
     linear-gradient(rgba(8,40,44,.4), rgba(8,40,44,.4)),
