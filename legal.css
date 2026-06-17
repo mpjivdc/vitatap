@@ -45,6 +45,13 @@ a:hover{ text-decoration:underline; }
   line-height:1.08; margin:0 0 10px; letter-spacing:-.01em;
 }
 .legal-updated{ color:var(--ink-faint); font-size:14px; margin:0 0 40px; }
+.legal-cta{ display:inline-flex; align-items:center; justify-content:center; gap:8px;
+  background:var(--teal-600); color:#fff; font-family:var(--font-display); font-weight:700;
+  text-transform:uppercase; letter-spacing:.04em; font-size:14px; padding:14px 24px;
+  border-radius:12px; border:1.5px solid var(--teal-600); transition:background .15s ease, transform .15s ease; }
+.legal-cta:hover{ background:var(--teal-700); border-color:var(--teal-700); text-decoration:none; transform:translateY(-1px); }
+.legal-cta.ghost{ background:none; color:var(--teal-700); }
+.legal-cta.ghost:hover{ background:var(--paper-2); color:var(--teal-700); }
 .legal-main h2{
   font-family:var(--font-display); font-weight:700; font-size:22px; margin:44px 0 12px;
   padding-top:8px; letter-spacing:-.01em;
