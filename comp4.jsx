@@ -21,9 +21,9 @@ const PLANS = [
 ];
 
 const WATER_BRANDS = [
-  { key: "dl",  name: "Delhaize huismerk", priceL: 0.15 },
-  { key: "spa", name: "Spa Reine",          priceL: 0.43 },
-  { key: "vit", name: "Vittel",             priceL: 0.49 },
+  { key: "dl",  name: "Delhaize huismerk", priceL: 0.80 },
+  { key: "spa", name: "Spa Reine",          priceL: 0.57 },
+  { key: "vit", name: "Vittel",             priceL: 0.57 },
 ];
 const VT_MONTH_INCL = 47.19; // 5-jarenplan €39/mnd excl. 21% btw
 
@@ -67,7 +67,7 @@ function LiterSim() {
       </div>
       <p className="lc-note">
         †5-jarenplan · €39/mnd excl. 21% btw (€47,19 incl. btw) · vaste kost ongeacht verbruik · excl. eenmalige opstartkost €605 incl. btw.<br />
-        Flessenwater: gemiddelde winkelprijs mei 2026, incl. 6% btw - zonder sleuren, statiegeld of plastic.
+        Flessenwater: winkelprijs Delhaize.be juni 2026, incl. 6% btw - zonder sleuren, statiegeld of plastic.
       </p>
     </div>
   );
