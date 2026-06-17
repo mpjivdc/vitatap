@@ -108,10 +108,10 @@ function Dashboard() {
    DE KRAAN - finish configurator
 ----------------------------------------------------------------- */
 const FINISHES = {
-  steel:  { name: "Geborsteld staal", img: "assets/finish-steel.png",  dot: "linear-gradient(135deg,#cfd3d6,#9aa0a4)" },
-  chrome: { name: "Chroom",           img: "assets/finish-chrome.png", dot: "linear-gradient(135deg,#f1f4f6,#aeb6bd 60%,#7d858c)" },
-  black:  { name: "Mat zwart",        img: "assets/finish-black.png",  dot: "linear-gradient(135deg,#3a3a3c,#101012)" },
-  gold:   { name: "Geborsteld goud",  img: "assets/finish-gold.png",   dot: "linear-gradient(135deg,#e2c578,#b48a3c)" },
+  steel:  { name: "Geborsteld staal", img: "assets/finish-steel.webp",  dot: "linear-gradient(135deg,#cfd3d6,#9aa0a4)" },
+  chrome: { name: "Chroom",           img: "assets/finish-chrome.webp", dot: "linear-gradient(135deg,#f1f4f6,#aeb6bd 60%,#7d858c)" },
+  black:  { name: "Mat zwart",        img: "assets/finish-black.webp",  dot: "linear-gradient(135deg,#3a3a3c,#101012)" },
+  gold:   { name: "Geborsteld goud",  img: "assets/finish-gold.webp",   dot: "linear-gradient(135deg,#e2c578,#b48a3c)" },
 };
 const FINISH_ORDER = ["steel", "chrome", "black", "gold"];
 const KSPECS = [
@@ -138,7 +138,7 @@ function DeKraan({ finish, setFinish }) {
         <div className="kraan-grid">
           <div className="kraan-stage">
             <div className="frame">
-              <img src={cur.img} alt={"VitaTap-kraan in " + cur.name} className={swapping ? "swapping" : ""} />
+              <img src={cur.img} alt={"VitaTap-kraan in " + cur.name} className={swapping ? "swapping" : ""} width="760" height="1140" loading="lazy" decoding="async" />
             </div>
             <span className="finish-name">{cur.name}</span>
           </div>
@@ -174,12 +174,12 @@ function Lifestyle() {
       <div className="wrap">
         <div className="lifestyle">
           <div className="life-card">
-            <img src="assets/kitchen-light.png" alt="Familie in een lichte loft-keuken" />
+            <img src="assets/kitchen-light.webp" alt="Familie in een lichte loft-keuken" width="820" height="1230" loading="lazy" decoding="async" />
             <span className="ov" />
             <div className="txt"><div className="k">Voor het hele gezin</div><h3>Elke dag</h3></div>
           </div>
           <div className="life-card">
-            <img src="assets/kitchen-dark.png" alt="Koppel in een moderne donkere keuken" />
+            <img src="assets/kitchen-dark.webp" alt="Koppel in een moderne donkere keuken" width="820" height="1230" loading="lazy" decoding="async" />
             <span className="ov" />
             <div className="txt"><div className="k">Design dat past</div><h3>In elke keuken</h3></div>
           </div>

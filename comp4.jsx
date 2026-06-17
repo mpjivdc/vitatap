@@ -250,7 +250,7 @@ function FAQ() {
 function CTA() {
   return (
     <section className="section cta-band photo">
-      <div className="cta-bg"><img src="assets/kitchen-dark.png" alt="" /></div>
+      <div className="cta-bg"><img src="assets/kitchen-dark.webp" alt="" width="820" height="1230" loading="lazy" decoding="async" /></div>
       <div className="wrap">
         <p className="eyebrow on-dark" style={{ justifyContent: "center", display: "flex" }}>Klaar voor de overstap?</p>
         <h2 className="display">Zuiver water. Elke dag.</h2>
@@ -280,7 +280,7 @@ function Footer() {
             <div className="wordmark">VitaTap</div>
             <p>Gezuiverd, geremineraliseerd en waterstofrijk water - rechtstreeks uit je kraan. De wellness-utility voor elke keuken.</p>
             <div className="foot-endorse">
-              <span className="bc-chip"><img src="assets/bluecare-shield.png" alt="Blue Care Products" /></span>
+              <span className="bc-chip"><img src="assets/bluecare-shield.webp" alt="Blue Care Products" width="220" height="234" loading="lazy" decoding="async" /></span>
               <div className="et"><b>Een merk van Blue Care Products</b>Veilig &amp; professioneel waterbeheer</div>
             </div>
             <address className="foot-legal">

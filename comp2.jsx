@@ -175,10 +175,10 @@ function Werking() {
         <div className="werking-grid">
           <div className="werking-visual">
             <div className="werking-faucet">
-              <img src="assets/faucet-annotated.png" alt="VitaTap-kraan met aparte uitloop voor gezuiverd, vitaal water en gewoon leidingwater" />
+              <img src="assets/faucet-annotated.webp" alt="VitaTap-kraan met aparte uitloop voor gezuiverd, vitaal water en gewoon leidingwater" width="1000" height="1501" loading="lazy" decoding="async" />
             </div>
             <div className="werking-filter">
-              <img src="assets/under-sink-filter.png" alt="Het 6-staps zuiveringssysteem onder de gootsteen" />
+              <img src="assets/under-sink-filter.webp" alt="Het 6-staps zuiveringssysteem onder de gootsteen" width="900" height="900" loading="lazy" decoding="async" />
               <span className="cap">Onder de gootsteen</span>
             </div>
           </div>
@@ -222,7 +222,7 @@ function Wetenschap() {
       <div className="wrap">
         <div className="sci-feature">
           <div className="sci-shot">
-            <img src="assets/dark-teal-pour.png" alt="Waterstofrijk water met micro-bubbels stroomt uit de VitaTap-kraan" />
+            <img src="assets/dark-teal-pour.webp" alt="Waterstofrijk water met micro-bubbels stroomt uit de VitaTap-kraan" width="1000" height="1501" loading="lazy" decoding="async" />
             <span className="tag">Micro-bubbels · moleculaire H₂</span>
           </div>
           <div className="sec-head">

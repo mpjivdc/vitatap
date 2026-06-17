@@ -2,7 +2,7 @@
  * Build step: transpile the JSX sources into a single minified bundle.js and
  * print SRI hashes for the production React UMD builds.
  *
- *   npm install @babel/core @babel/preset-react terser react@18.3.1 react-dom@18.3.1
+ *   npm install @babel/core @babel/preset-react terser jsdom react@18.3.1 react-dom@18.3.1
  *   node build.js
  *
  * If the React version changes, paste the printed SRI hashes into index.html.
@@ -21,7 +21,7 @@ async function main() {
   let out = "";
   for (const f of ORDER) {
     const src = fs.readFileSync(path.join(SITE, f), "utf8");
-    const res = babel.transform(src, {
+    const res = babel.transformSync(src, {
       presets: [["@babel/preset-react", { runtime: "classic" }]],
       compact: false,
       comments: false,

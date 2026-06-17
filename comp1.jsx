@@ -5,7 +5,7 @@ const { useState, useEffect, useRef } = React;
    Brand mark - official VitaTap "Vital Drop" logo
 ----------------------------------------------------------------- */
 function Logo({ className = "logo" }) {
-  return <img className={className} src="assets/vitatap-mark.png" alt="VitaTap" />;
+  return <img className={className} src="assets/vitatap-mark.png" alt="VitaTap" width="180" height="171" decoding="async" />;
 }
 
 /* ---- tiny line-icon set (currentColor) ---- */
@@ -100,7 +100,7 @@ function Hero({ t, finish }) {
         <div className="hero-media">
           <div className="hero-card">
             <span className="hero-finish-tag">{FINISH_LABEL[finish] || "Geborsteld staal"}</span>
-            <div className="frame"><img src="assets/hero-lifestyle.png" alt="Vrouw vult een glas met gezuiverd water aan de VitaTap-kraan" /></div>
+            <div className="frame"><img src="assets/hero-lifestyle.webp" alt="Vrouw vult een glas met gezuiverd water aan de VitaTap-kraan" width="760" height="1351" loading="eager" fetchPriority="high" decoding="async" /></div>
             <div className="hero-badge">
               <span className="ico"><Ico.drop width="20" height="20" /></span>
               <div>
