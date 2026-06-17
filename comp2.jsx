@@ -111,7 +111,7 @@ const STEP_ART = [
 ];
 
 function Aanpak() {
-  const [active, setActive] = useState2(2);
+  const [active, setActive] = useState2(0);
   const s = STEPS[active];
   return (
     <section className="section bg-paper" id="aanpak">
