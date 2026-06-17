@@ -40,6 +40,19 @@ async function prerender() {
     throw new Error("Prerender produced suspiciously little markup (" + markup.length + " chars)");
   }
 
+  // Generate FAQ structured data straight from the rendered DOM, so the
+  // FAQPage schema can never drift from the visible Q&A (Google requires
+  // structured data to match the content the user sees).
+  const faqItems = [...window.document.querySelectorAll(".faq-item")].map((it) => ({
+    "@type": "Question",
+    name: it.querySelector(".faq-q").textContent.trim(),
+    acceptedAnswer: { "@type": "Answer", text: it.querySelector(".faq-a .inner").textContent.trim() },
+  }));
+  if (faqItems.length < 3) {
+    throw new Error("Prerender found too few FAQ items (" + faqItems.length + ")");
+  }
+  const faqLd = JSON.stringify({ "@context": "https://schema.org", "@type": "FAQPage", mainEntity: faqItems }).replace(/</g, "\\u003c");
+
   let html = read("index.html");
   const filled = `<div id="root">${START}${markup}${END}</div>`;
   const re = new RegExp(`<div id="root">[\\s\\S]*?${END}<\\/div>`);
@@ -48,9 +61,13 @@ async function prerender() {
   } else {
     html = html.replace('<div id="root"></div>', filled);
   }
+  html = html.replace(
+    /(<script type="application\/ld\+json" id="faq-ld">)[\s\S]*?(<\/script>)/,
+    (_, open, close) => open + faqLd + close
+  );
   fs.writeFileSync(path.join(SITE, "index.html"), html, "utf8");
   dom.window.close();
-  console.log("index.html prerendered:", markup.length, "chars baked into #root");
+  console.log("index.html prerendered:", markup.length, "chars baked into #root,", faqItems.length, "FAQ items into #faq-ld");
 }
 
 module.exports = prerender;
