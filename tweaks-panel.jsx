@@ -227,9 +227,19 @@ function TweaksPanel({ title = 'Tweaks', children }) {
   }, [open, clampToViewport]);
 
   React.useEffect(() => {
+    // Production loads only the 4 fonts the live site uses. The editor's font
+    // pickers preview extra families, so pull those in lazily on activation.
+    const loadEditorFonts = () => {
+      if (document.getElementById('twk-editor-fonts')) return;
+      const l = document.createElement('link');
+      l.id = 'twk-editor-fonts';
+      l.rel = 'stylesheet';
+      l.href = 'https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Space+Grotesk:wght@400;500;700&family=Hanken+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@400;500;700&family=Krona+One&family=Unbounded:wght@500;600;700&family=Montserrat:wght@700;800&family=Poppins:wght@600;700&family=Nunito:wght@700;800&display=swap';
+      document.head.appendChild(l);
+    };
     const onMsg = (e) => {
       const t = e?.data?.type;
-      if (t === '__activate_edit_mode') setOpen(true);
+      if (t === '__activate_edit_mode') { loadEditorFonts(); setOpen(true); }
       else if (t === '__deactivate_edit_mode') setOpen(false);
     };
     window.addEventListener('message', onMsg);

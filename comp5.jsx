@@ -100,7 +100,7 @@ function Advies() {
         </div>
 
         {sent ? (
-          <div className="advies-form success">
+          <div className="advies-form success" role="status" aria-live="polite">
             <span className="ok"><Ico.check width="30" height="30" /></span>
             <h3>Bedankt{firstName ? ", " + firstName : ""}!</h3>
             <p>Je aanvraag is goed ontvangen. We bellen of mailen je binnen 2 werkdagen om een gratis en vrijblijvend adviesgesprek in te plannen.</p>
@@ -121,7 +121,7 @@ function Advies() {
             </label>
             <div className="f-row">
               <label>Postcode
-                <input name="postcode" inputMode="numeric" maxLength="6" placeholder="Bv. 9000" required />
+                <input name="postcode" inputMode="numeric" maxLength="4" pattern="[0-9]{4}" title="Een Belgische postcode bestaat uit 4 cijfers" placeholder="Bv. 9000" onInput={(e) => { e.target.value = e.target.value.replace(/\D/g, "").slice(0, 4); }} required />
               </label>
               <label>Interesse
                 <select name="plan" value={plan} onChange={(e) => setPlan(e.target.value)}>
@@ -139,7 +139,7 @@ function Advies() {
             <button className="btn btn-primary" type="submit" disabled={loading}>
               {loading ? "Versturen..." : <span>Plan mijn gratis adviesgesprek <Ico.arrow className="arr" width="18" height="18" /></span>}
             </button>
-            {error && <p className="form-note" style={{ color: "var(--teal-700)" }}>{error}</p>}
+            {error && <p className="form-note form-error" role="alert">{error}</p>}
             <p className="form-note">Binnen 2 werkdagen contact · gratis &amp; vrijblijvend</p>
           </form>
         )}

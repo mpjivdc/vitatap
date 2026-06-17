@@ -137,7 +137,7 @@ function Locator() {
             <h2 className="display" style={{ color: "#fff", fontSize: "clamp(32px,4vw,52px)", marginTop: 16 }}>Installatie bij jou thuis</h2>
             <p className="lead" style={{ color: "rgba(255,255,255,.88)", marginTop: 18 }}>Geef je postcode in en we bevestigen de plaatsing in jouw regio. Een erkende vakman - uit ons eigen team of een gecertificeerde partner - plaatst alles volgens het 30-minuten protocol en kalibreert via de Blue Compagnion-app.</p>
             <form className="loc-form" onSubmit={submit}>
-              <input value={zip} onChange={(e) => setZip(e.target.value)} inputMode="numeric" placeholder="Bv. 9000" aria-label="Postcode" maxLength="6" />
+              <input value={zip} onChange={(e) => setZip(e.target.value.replace(/\D/g, "").slice(0, 4))} inputMode="numeric" placeholder="Bv. 9000" aria-label="Postcode" maxLength="4" />
               <button className="btn btn-primary solid-white" type="submit">Check beschikbaarheid <Ico.arrow className="arr" width="18" height="18" /></button>
             </form>
             <p className="loc-note">Actief in heel België · plaatsing in ongeveer 30 minuten.</p>
@@ -233,7 +233,7 @@ function FAQ() {
               <button className="faq-q" onClick={() => setOpen(open === i ? -1 : i)}>
                 {q}<Ico.plus className="pm" />
               </button>
-              <div className="faq-a" style={{ maxHeight: open === i ? "320px" : "0" }}>
+              <div className="faq-a">
                 <div className="inner">{a}</div>
               </div>
             </div>
