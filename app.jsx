@@ -89,8 +89,9 @@ function App() {
 
   return (
     <React.Fragment>
+      <a className="skip-link" href="#main">Naar inhoud</a>
       <Header />
-      <main>
+      <main id="main">
         <Hero t={t} finish={finish} />
         <Trust />
         <Aanpak />

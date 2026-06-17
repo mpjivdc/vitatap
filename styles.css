@@ -56,6 +56,10 @@
 html{ scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
 section[id], [id]{ scroll-margin-top: 100px; }
 :focus-visible{ outline: 2.5px solid var(--teal-600); outline-offset: 3px; border-radius: 4px; }
+.skip-link{ position: absolute; left: 12px; top: -60px; z-index: 200; background: var(--teal-700); color:#fff;
+  padding: 10px 16px; border-radius: 0 0 10px 10px; font-family: var(--font-display); font-weight: 700;
+  text-transform: uppercase; letter-spacing: .04em; font-size: 13px; transition: top .2s ease; }
+.skip-link:focus{ top: 0; }
 .hero :focus-visible, .locator :focus-visible, .cta-band :focus-visible{ outline-color: #fff; }
 body{
   margin: 0;
