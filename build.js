@@ -38,6 +38,18 @@ async function main() {
   // 3. Prerender the bundle into index.html (#root) for SEO / social scrapers
   await require("./prerender")();
 
+  // 3b. Cache-busting: stamp the asset URLs in index.html with a short content
+  // hash so a new deploy is never served from a stale browser/CDN cache.
+  const shortHash = (file) => crypto.createHash("sha256").update(fs.readFileSync(path.join(SITE, file))).digest("hex").slice(0, 8);
+  let indexHtml = fs.readFileSync(path.join(SITE, "index.html"), "utf8");
+  for (const asset of ["bundle.js", "styles.css", "fonts.css"]) {
+    const v = shortHash(asset);
+    const esc = asset.replace(/\./g, "\\.");
+    indexHtml = indexHtml.replace(new RegExp(`((?:src|href)="${esc})(?:\\?v=[a-f0-9]+)?(")`, "g"), `$1?v=${v}$2`);
+  }
+  fs.writeFileSync(path.join(SITE, "index.html"), indexHtml, "utf8");
+  console.log("cache-busting: stamped bundle.js, styles.css, fonts.css");
+
   // 4. SRI hashes for the production React UMD builds referenced in index.html
   const umd = {
     react: path.join(SITE, "node_modules/react/umd/react.production.min.js"),
