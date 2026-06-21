@@ -190,40 +190,6 @@ function Lifestyle() {
 }
 
 /* ----------------------------------------------------------------
-   BEWEZEN - founder credibility / proven technology (no fabricated reviews)
------------------------------------------------------------------ */
-const BW_MARKS = [
-  { ico: "clock", big: "1 jaar+", sm: "Dagelijks in eigen gebruik" },
-  { ico: "leaf", big: "10+ jaar", sm: "Ervaring met deze technologie" },
-  { ico: "shield", big: "Eigen team", sm: "Wij drinken wat we leveren" },
-];
-
-function Bewezen() {
-  return (
-    <section className="section bg-paper3 bewezen">
-      <div className="wrap bewezen-grid">
-        <div className="bewezen-copy">
-          <p className="eyebrow">Bewezen, niet bedacht</p>
-          <h2 className="display" style={{ fontSize: "clamp(30px,3.6vw,46px)", marginTop: 14 }}>Eerst zelf jaren gedronken.<br />Daarna pas aangeboden.</h2>
-          <p className="lead" style={{ marginTop: 16 }}>We zijn niet over één nacht ijs gegaan. Dit systeem staat al meer dan een jaar dagelijks bij ons eigen team en gezin in de keuken - en het bevalt elke dag opnieuw. De technologie zelf is bovendien geen experiment: onze medeoprichter bouwde meer dan tien jaar geleden al ervaring op met een vorige generatie van dit zuiveringssysteem. Wat je vandaag krijgt, is de verfijnde versie daarvan.</p>
-        </div>
-        <div className="bewezen-marks">
-          {BW_MARKS.map((m, i) => {
-            const I = Ico[m.ico];
-            return (
-              <div className="bw-mark" key={i}>
-                <span className="ico"><I width="24" height="24" /></span>
-                <div><div className="big">{m.big}</div><div className="sm">{m.sm}</div></div>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ----------------------------------------------------------------
    WAARBORGEN - honest risk-reversal band
 ----------------------------------------------------------------- */
 const GUARANTEES = [
@@ -253,4 +219,4 @@ function Waarborgen() {
   );
 }
 
-Object.assign(window, { Dashboard, DeKraan, Lifestyle, Bewezen, Waarborgen });
+Object.assign(window, { Dashboard, DeKraan, Lifestyle, Waarborgen });
