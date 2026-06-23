@@ -89,7 +89,7 @@ button{ font-family: inherit; cursor: pointer; }
   font-family: var(--font-mono);
   font-size: 12.5px;
   font-weight: 500;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--teal-700);
   display: inline-flex;
@@ -265,7 +265,7 @@ button{ font-family: inherit; cursor: pointer; }
   padding-block: clamp(64px, 8vw, 104px);
 }
 .hero-eyebrow{
-  font-family: var(--font-mono); font-size: 12.5px; letter-spacing: 0.2em;
+  font-family: var(--font-mono); font-size: 12.5px; letter-spacing: 0.14em;
   text-transform: uppercase; color: rgba(255,255,255,.82);
   display: inline-flex; align-items: center; gap: 12px; margin: 0 0 26px;
 }
@@ -385,8 +385,8 @@ button{ font-family: inherit; cursor: pointer; }
   background: var(--teal-100); color: var(--teal-800); transition: background .2s, color .2s;
 }
 .step-item.active .idx{ background: var(--teal-600); color:#fff; }
-.step-item .st-name{ font-family: var(--font-display); font-weight:700; text-transform:uppercase; letter-spacing:.02em; font-size: 16px; color: var(--ink); }
-.step-item .st-sub{ font-size: 13.5px; color: var(--ink-soft); margin-top: 3px; }
+.step-item .st-name{ display:block; font-family: var(--font-display); font-weight:700; text-transform:uppercase; letter-spacing:.02em; font-size: 16px; color: var(--ink); }
+.step-item .st-sub{ display:block; font-size: 13.5px; color: var(--ink-soft); margin-top: 3px; }
 .step-item .st-tag{ font-family: var(--font-mono); font-size: 11px; letter-spacing:.05em; color: var(--teal-700);
   background: var(--teal-50); border:1px solid var(--teal-100); padding: 5px 9px; border-radius: 8px; white-space:nowrap; }
 
@@ -716,6 +716,7 @@ button{ font-family: inherit; cursor: pointer; }
   padding:10px 12px; margin: -10px 0 20px; text-align:center;
 }
 .price-setup b{ font-family:var(--font-display); font-weight:800; color: var(--ink); }
+.price-setup .ps-incl{ display:block; margin-top: 3px; opacity: .72; }
 .price-card.featured .price-setup{ background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.35); color: rgba(255,255,255,.85); }
 .price-card.featured .price-setup b{ color:#fff; }
 

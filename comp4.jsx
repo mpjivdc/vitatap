@@ -157,7 +157,7 @@ function Prijzen() {
                 <li><Ico.check className="ck" /><span><strong>{p.extra}</strong></span></li>
                 {COMMON.map((f, i) => <li key={i}><Ico.check className="ck" /><span>{f}</span></li>)}
               </ul>
-              <div className="price-setup">+ <b>€500</b> opstartkost eenmalig · €605 incl. btw</div>
+              <div className="price-setup">+ <b>€500</b> opstartkost eenmalig<span className="ps-incl">€605 incl. btw</span></div>
               <a className={"btn " + (p.featured ? "btn-primary solid-white" : "btn-primary")} href="#contact"
                 onClick={() => window.dispatchEvent(new CustomEvent("vt-plan", { detail: p.key }))}>
                 Kies {p.name.toLowerCase()} <Ico.arrow className="arr" width="18" height="18" />
@@ -234,7 +234,7 @@ const INSTALL = [
   { ph: "01", ti: "Voorbereiding", p: "De bestaande kraanopening (21 mm) en de 3/8\"-aansluiting vrijmaken. Geen extra boorwerk nodig.", chip: "21 mm · 3/8\"" },
   { ph: "02", ti: "Plaatsing", p: "Systeem in de onderkast, kraan monteren en leidingen koppelen, in zo'n 30 minuten.", chip: "± 30 min" },
   { ph: "03", ti: "Kalibratie", p: "Met de Blue Compagnion-app de ORP-waarden bevestigen tussen −400 en −600 mV.", chip: "−400 / −600 mV" },
-  { ph: "04", ti: "Service-ID", p: "Digitale ID aanmaken voor tracking van de verplichte 12-maandelijkse filterbeurt.", chip: "12-mnd cyclus" },
+  { ph: "04", ti: "Service-ID", p: "Digitale ID aanmaken voor tracking van de verplichte 12-maandelijkse filterbeurt.", chip: "12 mnd cyclus" },
 ];
 
 function Installer() {

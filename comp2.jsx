@@ -223,7 +223,7 @@ function Wetenschap() {
         <div className="sci-feature">
           <div className="sci-shot">
             <img src="assets/dark-teal-pour.webp" alt="Waterstofrijk water met micro-bubbels stroomt uit de VitaTap-kraan" width="1000" height="1501" loading="lazy" decoding="async" />
-            <span className="tag">Micro-bubbels · moleculaire H₂</span>
+            <span className="tag">Microbubbels · moleculaire H₂</span>
           </div>
           <div className="sec-head">
             <p className="eyebrow">03 · Wetenschap</p>
