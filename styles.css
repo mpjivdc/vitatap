@@ -608,6 +608,22 @@ button{ font-family: inherit; cursor: pointer; }
 @media (max-width: 520px){ .waarborg-grid{ grid-template-columns: 1fr; } }
 
 /* ============================================================
+   CERTIFICERING - proof band
+   ============================================================ */
+.certs-badges{ display:grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 50px; }
+.cert-badge{ display:flex; align-items:center; gap: 14px; background: var(--paper); border:1px solid var(--line); border-radius: 14px; padding: 18px 20px; }
+.cert-badge .cb-ico{ width:44px; height:44px; flex:none; border-radius:11px; display:grid; place-items:center; color:#fff; background: linear-gradient(135deg, var(--teal-600), var(--teal-500)); }
+.cert-badge .cb-t{ font-family:var(--font-display); font-weight:700; font-size:15px; color:var(--ink); }
+.cert-badge .cb-s{ font-size:12.5px; color:var(--ink-soft); margin-top:2px; line-height:1.35; }
+.certs-specs{ display:grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 16px; }
+.cert-spec{ background: var(--paper); border:1px solid var(--line-soft); border-radius: 14px; padding: 22px 20px; }
+.cert-spec .cs-v{ font-family:var(--font-display); font-weight:800; font-size: 26px; color: var(--teal-800); line-height:1; }
+.cert-spec .cs-u{ font-family:var(--font-mono); font-size:13px; font-weight:500; color: var(--ink-soft); }
+.cert-spec .cs-l{ font-size:12.5px; color: var(--ink-soft); margin-top:9px; line-height:1.4; }
+@media (max-width: 900px){ .certs-badges, .certs-specs{ grid-template-columns: 1fr 1fr; } }
+@media (max-width: 520px){ .certs-badges, .certs-specs{ grid-template-columns: 1fr; } }
+
+/* ============================================================
    FAQ
    ============================================================ */
 .faq-list{ margin-top: 50px; max-width: 880px; border-top: 1px solid var(--line); }

@@ -219,4 +219,53 @@ function Waarborgen() {
   );
 }
 
-Object.assign(window, { Dashboard, DeKraan, Lifestyle, Waarborgen });
+/* ----------------------------------------------------------------
+   CERTIFICERING - proven, document-backed quality (no source named)
+----------------------------------------------------------------- */
+const CERTS = [
+  { ico: "shield", t: "BPA-vrij", s: "Onafhankelijk laboratorium getest" },
+  { ico: "check", t: "CE-gekeurd", s: "Voldoet aan Europese normen" },
+  { ico: "drop", t: "NSF-materialen", s: "Veilig in contact met drinkwater" },
+  { ico: "wrench", t: "RVS 304", s: "Roestvrijstalen designkraan" },
+];
+const VSPECS = [
+  { v: "1,2–1,6", u: "ppm", l: "Opgeloste waterstof (H₂)" },
+  { v: "−400/−600", u: "mV", l: "ORP antioxidant-potentiaal" },
+  { v: "6", u: "stappen", l: "RO · remineralisatie · UV · SPE" },
+  { v: "UV-C", u: "", l: "Sterilisatie in de tank" },
+];
+
+function Certificering() {
+  return (
+    <section className="section bg-paper3 certs">
+      <div className="wrap">
+        <div className="sec-head" style={{ maxWidth: 760 }}>
+          <p className="eyebrow">Getest &amp; gemeten</p>
+          <h2 className="display">Zwart op wit.</h2>
+          <p className="lead">Geen loze beloftes. Dit zijn de keuringen en gemeten waarden waarmee VitaTap is gebouwd.</p>
+        </div>
+        <div className="certs-badges">
+          {CERTS.map((c, i) => {
+            const I = Ico[c.ico];
+            return (
+              <div className="cert-badge" key={i}>
+                <span className="cb-ico"><I width="22" height="22" /></span>
+                <div><div className="cb-t">{c.t}</div><div className="cb-s">{c.s}</div></div>
+              </div>
+            );
+          })}
+        </div>
+        <div className="certs-specs">
+          {VSPECS.map((s, i) => (
+            <div className="cert-spec" key={i}>
+              <div className="cs-v">{s.v}{s.u && <span className="cs-u"> {s.u}</span>}</div>
+              <div className="cs-l">{s.l}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+Object.assign(window, { Dashboard, DeKraan, Lifestyle, Waarborgen, Certificering });

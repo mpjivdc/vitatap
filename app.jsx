@@ -1,5 +1,5 @@
 /* global React, ReactDOM, useTweaks, TweaksPanel, TweakSection, TweakColor, TweakSelect, TweakRadio, TweakText,
-   Header, Hero, Trust, Aanpak, Werking, Wetenschap, Dashboard, DeKraan, Lifestyle, Waarborgen, Prijzen, Locator, Installer, FAQ, CTA, Advies, StickyCTA, Footer */
+   Header, Hero, Trust, Aanpak, Werking, Wetenschap, Certificering, Dashboard, DeKraan, Lifestyle, Waarborgen, Prijzen, Locator, Installer, FAQ, CTA, Advies, StickyCTA, Footer */
 const { useState: uSA, useEffect: uEA } = React;
 
 /* palette presets - accent hex maps to an oklch hue + chroma multiplier */
@@ -57,7 +57,7 @@ function applyTheme(t) {
 /* reveal-on-scroll for a curated set of elements */
 function useReveal(dep) {
   uEA(() => {
-    const sel = ".sec-head, .stat-chip, .step-item, .sci-card, .sci-shot, .callout, .feature-row, .phone, .werk-step, .werking-faucet, .life-card, .price-card, .install-card, .install-meta .m, .faq-item, .startup-banner, .liter-compare, .advies-form, .waarborg";
+    const sel = ".sec-head, .stat-chip, .step-item, .sci-card, .sci-shot, .callout, .feature-row, .phone, .werk-step, .werking-faucet, .life-card, .price-card, .install-card, .install-meta .m, .faq-item, .startup-banner, .liter-compare, .advies-form, .waarborg, .cert-badge, .cert-spec";
     const els = Array.from(document.querySelectorAll(sel));
     els.forEach((el, i) => { el.classList.add("reveal"); el.style.transitionDelay = (i % 6) * 0.05 + "s"; });
     const io = new IntersectionObserver((ents) => {
@@ -76,7 +76,7 @@ const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
   "density": "compact",
   "finish": "steel",
   "heroTitle": "Zuiver. Vitaal. Onbeperkt.",
-  "heroSub": "6-staps omgekeerde osmose met UV-sterilisatie en moleculaire H₂. Houdt PFAS, microplastics en bacteriën tot 99,9% tegen en verwijdert ~97% van de opgeloste stoffen (TDS). Daarna geremineraliseerd en verrijkt met waterstof. Vanaf €39 per maand, onderhoud en filters inbegrepen."
+  "heroSub": "6-staps omgekeerde osmose met UV-sterilisatie en moleculaire H₂. Houdt PFAS, microplastics en bacteriën tot 99,9% tegen en verwijdert tot 95% van de opgeloste stoffen (TDS). Daarna geremineraliseerd en verrijkt met waterstof. Vanaf €39 per maand, onderhoud en filters inbegrepen."
 }/*EDITMODE-END*/;
 
 function App() {
@@ -97,6 +97,7 @@ function App() {
         <Aanpak />
         <Werking />
         <Wetenschap />
+        <Certificering />
         <Dashboard />
         <DeKraan finish={finish} setFinish={setFinish} />
         <Lifestyle />
