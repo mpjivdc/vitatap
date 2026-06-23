@@ -32,7 +32,7 @@ function fmt(n) { return n.toFixed(2).replace(".", ","); }
 const VT_QUALITY = [
   "PFAS & microplastics verwijderd",
   "Geremineraliseerd (Ca, Mg)",
-  "Moleculaire H₂ - antioxidant",
+  "Moleculaire H₂, antioxidant",
   "UV-gesteriliseerd",
   "Geen plastic flessen",
   "Onbeperkt beschikbaar",
@@ -110,7 +110,7 @@ function LiterSim() {
         ) : (
           <div className="lc-insight lc-insight-neutral">
             <span className="lc-insight-val">{litersPerPerson < 4 ? "↑ verbruik" : "4+ pers."}</span>
-            <span className="lc-insight-lab">voor prijsvoordeel — verhoog slider</span>
+            <span className="lc-insight-lab">meer verbruik, meer voordeel</span>
           </div>
         )}
         <div className="lc-insight">
@@ -138,9 +138,9 @@ function Prijzen() {
     <section className="section bg-paper" id="prijzen">
       <div className="wrap">
         <div className="sec-head" style={{ maxWidth: 820 }}>
-          <p className="eyebrow">06 - Prijzen</p>
+          <p className="eyebrow">06 · Prijzen</p>
           <h2 className="display">Alles inbegrepen.<br />Altijd zuiver, altijd vitaal.</h2>
-          <p className="lead">Onderhoud, filtervervanging en support zitten er standaard in. Kies de looptijd die bij je past - hoe langer, hoe voordeliger.</p>
+          <p className="lead">Onderhoud, filtervervanging en support zitten er standaard in. Kies de looptijd die bij je past. Hoe langer, hoe voordeliger.</p>
         </div>
         <div className="price-grid">
           {PLANS.map((p) => (
@@ -166,7 +166,7 @@ function Prijzen() {
           ))}
         </div>
         <div className="startup-banner">
-          <span><Ico.wrench className="ic" width="20" height="20" /> <span>Installatie door <b>erkende vakman</b> - opstartkost €500 eenmalig</span></span>
+          <span><Ico.wrench className="ic" width="20" height="20" /> <span>Installatie door <b>erkende vakman</b> · opstartkost €500 eenmalig</span></span>
           <span><Ico.recycle className="ic" width="20" height="20" /> Onderhoud &amp; filters inbegrepen</span>
           <span><Ico.shield className="ic" width="20" height="20" /> Prijzen excl. btw · incl. btw telkens vermeld</span>
         </div>
@@ -193,9 +193,9 @@ function Locator() {
       <div className="wrap">
         <div className="loc-grid">
           <div>
-            <p className="eyebrow on-dark">07 - Installatie in jouw regio</p>
+            <p className="eyebrow on-dark">07 · Installatie in jouw regio</p>
             <h2 className="display" style={{ color: "#fff", fontSize: "clamp(32px,4vw,52px)", marginTop: 16 }}>Installatie bij jou thuis</h2>
-            <p className="lead" style={{ color: "rgba(255,255,255,.88)", marginTop: 18 }}>Geef je postcode in en we bevestigen de plaatsing in jouw regio. Een erkende vakman - uit ons eigen team of een gecertificeerde partner - plaatst alles volgens het 30-minuten protocol en kalibreert via de Blue Compagnion-app.</p>
+            <p className="lead" style={{ color: "rgba(255,255,255,.88)", marginTop: 18 }}>Geef je postcode in en we bevestigen de plaatsing in jouw regio. Een erkende vakman, uit ons eigen team of een gecertificeerde partner, plaatst alles volgens het 30-minuten protocol en kalibreert via de Blue Compagnion-app.</p>
             <form className="loc-form" onSubmit={submit}>
               <input value={zip} onChange={(e) => setZip(e.target.value.replace(/\D/g, "").slice(0, 4))} inputMode="numeric" placeholder="Bv. 9000" aria-label="Postcode" maxLength="4" />
               <button className="btn btn-primary solid-white" type="submit">Check beschikbaarheid <Ico.arrow className="arr" width="18" height="18" /></button>
@@ -206,7 +206,7 @@ function Locator() {
                 <div className="loc-confirm" role="status">
                   <span className="lc-ico"><Ico.check width="22" height="22" /></span>
                   <div className="lc-body">
-                    <div className="lc-ti">Goed nieuws - we komen tot bij jou{zip.trim() ? " (" + zip.trim() + ")" : ""}.</div>
+                    <div className="lc-ti">Goed nieuws, we komen tot bij jou{zip.trim() ? " (" + zip.trim() + ")" : ""}.</div>
                     <p className="lc-tx">Laat je gegevens achter en we plannen samen een datum voor je gratis adviesgesprek en installatie.</p>
                     <a className="btn btn-primary solid-white" href="#contact">Plan mijn installatie <Ico.arrow className="arr" width="18" height="18" /></a>
                   </div>
@@ -231,8 +231,8 @@ function Locator() {
    INSTALLER ONBOARDING
 ----------------------------------------------------------------- */
 const INSTALL = [
-  { ph: "01", ti: "Voorbereiding", p: "De bestaande kraanopening (21 mm) en de 3/8\"-aansluiting vrijmaken - geen extra boorwerk nodig.", chip: "21 mm · 3/8\"" },
-  { ph: "02", ti: "Plaatsing", p: "Systeem in de onderkast, kraan monteren en leidingen koppelen - in zo'n 30 minuten.", chip: "± 30 min" },
+  { ph: "01", ti: "Voorbereiding", p: "De bestaande kraanopening (21 mm) en de 3/8\"-aansluiting vrijmaken. Geen extra boorwerk nodig.", chip: "21 mm · 3/8\"" },
+  { ph: "02", ti: "Plaatsing", p: "Systeem in de onderkast, kraan monteren en leidingen koppelen, in zo'n 30 minuten.", chip: "± 30 min" },
   { ph: "03", ti: "Kalibratie", p: "Met de Blue Compagnion-app de ORP-waarden bevestigen tussen −400 en −600 mV.", chip: "−400 / −600 mV" },
   { ph: "04", ti: "Service-ID", p: "Digitale ID aanmaken voor tracking van de verplichte 12-maandelijkse filterbeurt.", chip: "12-mnd cyclus" },
 ];
@@ -242,9 +242,9 @@ function Installer() {
     <section className="section bg-paper2" id="installatie">
       <div className="wrap">
         <div className="sec-head" style={{ maxWidth: 820 }}>
-          <p className="eyebrow">08 - Installatie &amp; service</p>
+          <p className="eyebrow">08 · Installatie &amp; service</p>
           <h2 className="display">In 30 minuten<br />geïnstalleerd.</h2>
-          <p className="lead">Onze erkende installateurs volgen een strak protocol - van voorbereiding tot kalibratie - zodat je dezelfde dag nog vitaal water tapt.</p>
+          <p className="lead">Onze erkende installateurs volgen een strak protocol, van voorbereiding tot kalibratie, zodat je dezelfde dag nog vitaal water tapt.</p>
         </div>
         <div className="install-grid">
           {INSTALL.map((s) => (
@@ -270,13 +270,13 @@ function Installer() {
    FAQ
 ----------------------------------------------------------------- */
 const FAQS = [
-  ["Wat doet waterstofrijk water voor mijn lichaam?", "Moleculaire waterstof (H₂) is een van nature voorkomend, smaakloos gas dat volledig opgelost in het water zit. Als selectieve antioxidant neutraliseert het schadelijke vrije radicalen zonder de nuttige moleculen in je lichaam te beïnvloeden. Dagelijks drinken is volkomen normaal - je proeft alleen zuiver, fris water."],
+  ["Wat doet waterstofrijk water voor mijn lichaam?", "Moleculaire waterstof (H₂) is een van nature voorkomend, smaakloos gas dat volledig opgelost in het water zit. Als selectieve antioxidant neutraliseert het schadelijke vrije radicalen zonder de nuttige moleculen in je lichaam te beïnvloeden. Dagelijks drinken is volkomen normaal. Je proeft alleen zuiver, fris water."],
   ["Hoeveel water verbruikt het systeem?", "Onze moleculaire RO is geoptimaliseerd op een gunstige verhouding tussen gezuiverd en afvoerwater. Voor dagelijks drink- en kookwater blijft het verbruik beperkt, en het systeem produceert alleen wanneer je tapt."],
-  ["Hoe vaak moet het filter vervangen worden?", "De meeste filters gaan een jaar mee, maar elk onderdeel heeft zijn eigen levensduur. Vuistregels: sedimentfilter 3–12 maanden (afhankelijk van waterkwaliteit), koolfilter en remineralisatiefilter elk jaar, UV-lamp elk jaar, RO-membraan elke 3 jaar. Al dit onderhoud zit in het abonnement inbegrepen - de Blue Compagnion-app houdt automatisch bij wanneer vervanging nodig is."],
+  ["Hoe vaak moet het filter vervangen worden?", "De meeste filters gaan een jaar mee, maar elk onderdeel heeft zijn eigen levensduur. Vuistregels: sedimentfilter 3–12 maanden (afhankelijk van waterkwaliteit), koolfilter en remineralisatiefilter elk jaar, UV-lamp elk jaar, RO-membraan elke 3 jaar. Al dit onderhoud zit in het abonnement inbegrepen. De Blue Compagnion-app houdt automatisch bij wanneer vervanging nodig is."],
   ["Past de kraan op mijn bestaande keuken?", "In de meeste keukens wel. De kraan gebruikt een standaard 21 mm doorvoer en 3/8\"-aansluiting, en het systeem verdwijnt compact in je onderkast. Een erkende installateur controleert dit vooraf."],
-  ["Wat is het verschil met een gewone waterfilter?", "Een gewone filter haalt alleen smaak en chloor weg. VitaTap zuivert moleculair en houdt verontreinigingen zoals PFAS, microplastics en bacteriën tot 99,9% tegen, remineraliseert daarna bewust en voegt moleculaire waterstof toe - zuiver én vitaal, niet zomaar gefilterd."],
+  ["Wat is het verschil met een gewone waterfilter?", "Een gewone filter haalt alleen smaak en chloor weg. VitaTap zuivert moleculair en houdt verontreinigingen zoals PFAS, microplastics en bacteriën tot 99,9% tegen, remineraliseert daarna bewust en voegt moleculaire waterstof toe. Zuiver én vitaal, niet zomaar gefilterd."],
   ["Koop of abonnement?", "VitaTap werkt met een abonnement waarin installatie-ondersteuning, onderhoud en filters zijn inbegrepen. Zo blijft je water altijd op niveau zonder verrassingen. Een eenmalige opstartkost van €500 dekt de installatie."],
-  ["Wat als ik verhuis?", "Je abonnement verhuist gewoon mee. Een erkende installateur demonteert het systeem op je oude adres en plaatst het opnieuw op je nieuwe adres - je betaalt enkel de verplaatsing, geen nieuwe opstartkost. Eén telefoontje volstaat om dit in te plannen."],
+  ["Wat als ik verhuis?", "Je abonnement verhuist gewoon mee. Een erkende installateur demonteert het systeem op je oude adres en plaatst het opnieuw op je nieuwe adres. Je betaalt enkel de verplaatsing, geen nieuwe opstartkost. Eén telefoontje volstaat om dit in te plannen."],
   ["Hoe zeg ik mijn abonnement op?", "Het maandplan is per maand opzegbaar; jaar- en 5-jaarplannen lopen tot het einde van de gekozen periode en worden nooit stilzwijgend voor een nieuwe volledige termijn verlengd. Bij stopzetting komt een erkende installateur het systeem netjes demonteren."],
   ["Welke garantie krijg ik?", "Zolang je abonnement loopt, valt de werking van kraan en systeem onder de service: defecte onderdelen worden hersteld of vervangen zonder extra kosten, en het jaarlijkse onderhoud met filtervervanging zit standaard inbegrepen."],
 ];
@@ -286,7 +286,7 @@ function FAQ() {
   return (
     <section className="section bg-paper" id="faq">
       <div className="wrap">
-        <div className="sec-head"><p className="eyebrow">09 - FAQ</p><h2 className="display">Veelgestelde vragen</h2></div>
+        <div className="sec-head"><p className="eyebrow">09 · FAQ</p><h2 className="display">Veelgestelde vragen</h2></div>
         <div className="faq-list">
           {FAQS.map(([q, a], i) => (
             <div className={"faq-item" + (open === i ? " open" : "")} key={i}>
@@ -338,7 +338,7 @@ function Footer() {
           <div className="foot-brand">
             <Logo className="logo" />
             <div className="wordmark">VitaTap</div>
-            <p>Gezuiverd, geremineraliseerd en waterstofrijk water - rechtstreeks uit je kraan. De wellness-utility voor elke keuken.</p>
+            <p>Gezuiverd, geremineraliseerd en waterstofrijk water, rechtstreeks uit je kraan. De wellness-utility voor elke keuken.</p>
             <div className="foot-endorse">
               <span className="bc-chip"><img src="assets/bluecare-shield.webp" alt="Blue Care Products" width="220" height="234" loading="lazy" decoding="async" /></span>
               <div className="et"><b>Een merk van Blue Care Products</b>Veilig &amp; professioneel waterbeheer</div>

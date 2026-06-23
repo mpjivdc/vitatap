@@ -47,9 +47,9 @@ function Dashboard() {
       <div className="wrap">
         <div className="dash-grid">
           <div>
-            <p className="eyebrow">04 - Wellness-dashboard</p>
+            <p className="eyebrow">04 · Wellness-dashboard</p>
             <h2 className="display" style={{ fontSize: "clamp(32px,4vw,52px)", marginTop: 16 }}>Je water,<br />in cijfers.</h2>
-            <p className="lead" style={{ marginTop: 18 }}>De Blue Compagnion-app maakt het onzichtbare zichtbaar. Volg de kwaliteit van elk glas, kalibreer je ORP-waarden en plan onderhoud - alles vanaf je telefoon.</p>
+            <p className="lead" style={{ marginTop: 18 }}>Met de Blue Compagnion-app zie je precies wat er uit je kraan komt. Volg de kwaliteit van elk glas, kalibreer je ORP-waarden en plan onderhoud, allemaal vanaf je telefoon.</p>
             <div className="feature-list">
               {feats.map((f, i) => {
                 const I = Ico[f.ico];
@@ -131,9 +131,9 @@ function DeKraan({ finish, setFinish }) {
     <section className="section kraan" id="kraan">
       <div className="wrap">
         <div className="sec-head">
-          <p className="eyebrow">05 - De kraan</p>
+          <p className="eyebrow">05 · De kraan</p>
           <h2 className="display">Vier finishes.<br />Eén statement.</h2>
-          <p className="lead">Dezelfde strakke designkraan met sensorbediening - afgewerkt in de toon van jouw keuken. Kies je finish en zie het direct.</p>
+          <p className="lead">Dezelfde strakke designkraan met sensorbediening, afgewerkt in de toon van jouw keuken. Kies je finish en zie het direct.</p>
         </div>
         <div className="kraan-grid">
           <div className="kraan-stage">
