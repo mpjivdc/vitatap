@@ -480,7 +480,9 @@ button{ font-family: inherit; cursor: pointer; }
   font-family:var(--font-display); font-weight:800; text-transform:uppercase; font-size: 22px; letter-spacing:.02em; color: var(--ink);
   background: rgba(255,255,255,.7); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); padding: 8px 14px; border-radius: 10px; }
 .swatches{ display:flex; gap: 14px; margin: 30px 0; padding-top: 12px; }
-.swatch{ display:flex; flex-direction:column; align-items:center; gap:10px; background:none; border:none; padding:0; position: relative; }
+.swatch{ display:flex; flex-direction:column; align-items:center; gap:10px; background:none; border:none; padding:0; position: relative; -webkit-tap-highlight-color: transparent; }
+.swatch:focus{ outline: none; }
+.swatch:focus-visible{ outline: 2px solid var(--teal-600); outline-offset: 6px; border-radius: 14px; }
 .swatch-default{ position:absolute; top:-10px; left:50%; transform:translateX(-50%); font-family:var(--font-mono); font-size:9px; letter-spacing:.06em; text-transform:uppercase; color:var(--teal-700); background:var(--teal-50); border:1px solid var(--teal-200); padding:2px 6px; border-radius:999px; white-space:nowrap; }
 .swatch .dot{ width: 52px; height:52px; border-radius: 50%; aspect-ratio: 1; flex-shrink: 0; border: 3px solid transparent; box-shadow: inset 0 2px 5px rgba(0,0,0,.15), 0 4px 12px rgba(0,0,0,.12);
   transition: transform .18s ease, border-color .18s ease; }

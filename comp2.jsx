@@ -23,89 +23,63 @@ const STEPS = [
 const ART_P = { stroke: "currentColor", fill: "none", strokeLinecap: "round", strokeLinejoin: "round" };
 const ART_T = { fill: "currentColor", stroke: "none", fontFamily: "'JetBrains Mono', monospace", fontSize: "10", textAnchor: "middle", opacity: ".9" };
 const STEP_ART = [
-  /* 01 - zeef: vuil water in, zand & roest blijft achter, schoon water door */
+  /* 01 sediment: funnel catches coarse particles */
   () => (
     <svg viewBox="0 0 150 110" {...ART_P}>
-      <text x="42" y="20" {...ART_T}>zand &amp; roest</text>
-      <path d="M6 58h26" strokeWidth="2" />
-      <path d="M42 40l7 3-1 8-9 2-3-7 6-6Z" fill="currentColor" stroke="none" opacity=".85" />
-      <circle cx="57" cy="70" r="4.5" fill="currentColor" stroke="none" opacity=".7" />
-      <circle cx="38" cy="82" r="3" fill="currentColor" stroke="none" opacity=".55" />
-      <path d="M75 26v70" strokeWidth="2.6" />
-      <path d="M69 34h12M69 48h12M69 62h12M69 76h12M69 90h12" strokeWidth="1.5" opacity=".65" />
-      <path d="M88 58h52m0 0-8-8m8 8-8 8" strokeWidth="2" />
+      <circle cx="60" cy="24" r="5" fill="currentColor" stroke="none" opacity=".9" />
+      <circle cx="80" cy="17" r="4" fill="currentColor" stroke="none" opacity=".7" />
+      <circle cx="93" cy="26" r="3.5" fill="currentColor" stroke="none" opacity=".55" />
+      <path d="M42 38 H108 L83 68 V85 H67 V68 Z" strokeWidth="3" />
+      <path d="M75 92 C68 102 68 105 75 105 C82 105 82 102 75 92 Z" fill="currentColor" stroke="none" />
     </svg>
   ),
-  /* 02 - koolblok: chloor & geur blijven aan het blok plakken */
+  /* 02 carbon block: water passes through, chlorine and odour bound */
   () => (
     <svg viewBox="0 0 150 110" {...ART_P}>
-      <text x="38" y="20" {...ART_T}>chloor &amp; geur</text>
-      <path d="M6 58h22" strokeWidth="2" />
-      <rect x="64" y="26" width="34" height="70" rx="9" strokeWidth="2.2" />
-      <path d="M70 42l12-9M70 60l21-15M70 78l25-18M76 92l19-14" strokeWidth="1.4" opacity=".55" />
-      <circle cx="50" cy="46" r="3" fill="currentColor" stroke="none" opacity=".8" />
-      <circle cx="58" cy="64" r="2.5" fill="currentColor" stroke="none" opacity=".7" />
-      <circle cx="46" cy="78" r="2" fill="currentColor" stroke="none" opacity=".55" />
-      <path d="M40 46h6M48 64h6M36 78h6" strokeWidth="1.2" opacity=".5" />
-      <path d="M106 58h36m0 0-8-8m8 8-8 8" strokeWidth="2" />
+      <path d="M14 55 H42" strokeWidth="3" />
+      <rect x="54" y="30" width="42" height="50" rx="8" strokeWidth="3" />
+      <path d="M61 45 l12 -11 M61 59 l20 -17 M61 73 l27 -22 M72 80 l16 -13" strokeWidth="1.6" opacity=".45" />
+      <path d="M108 55 H136 m0 0 -8 -7 m8 7 -8 7" strokeWidth="3" />
     </svg>
   ),
-  /* 03 - RO-membraan: grote vervuilers geblokt, alleen water door de porie */
+  /* 03 RO membrane: large contaminants blocked, water passes */
   () => (
     <svg viewBox="0 0 150 110" {...ART_P}>
-      <text x="44" y="16" {...ART_T} fontSize="9.5">PFAS · virussen</text>
-      <path d="M78 24v24M78 58v36" strokeWidth="2.8" />
-      <circle cx="58" cy="38" r="9" strokeWidth="2.2" />
-      <circle cx="54" cy="74" r="6.5" strokeWidth="2" />
-      <circle cx="70" cy="53" r="2" fill="currentColor" stroke="none" opacity=".9" />
-      <circle cx="87" cy="53" r="2" fill="currentColor" stroke="none" opacity=".9" />
-      <path d="M94 53h44m0 0-8-8m8 8-8 8" strokeWidth="2" />
-      <text x="114" y="76" {...ART_T} fontSize="9.5" opacity=".75">alleen water</text>
+      <path d="M72 20 V90" strokeWidth="3" />
+      <circle cx="48" cy="40" r="11" strokeWidth="2.6" />
+      <circle cx="45" cy="72" r="8" strokeWidth="2.4" />
+      <path d="M82 55 H132 m0 0 -8 -7 m8 7 -8 7" strokeWidth="3" />
+      <circle cx="98" cy="43" r="2.5" fill="currentColor" stroke="none" opacity=".85" />
+      <circle cx="112" cy="67" r="2.5" fill="currentColor" stroke="none" opacity=".7" />
     </svg>
   ),
-  /* 04 - remineralisatie: Ca en Mg gaan terug in de druppel */
+  /* 04 remineralisation: minerals added back to the drop */
   () => (
     <svg viewBox="0 0 150 110" {...ART_P}>
-      <circle cx="28" cy="38" r="13" strokeWidth="2" />
-      <text x="28" y="42" {...ART_T}>Ca</text>
-      <path d="M44 38h22m0 0-7-7m7 7-7 7" strokeWidth="2" />
-      <circle cx="28" cy="76" r="13" strokeWidth="2" />
-      <text x="28" y="80" {...ART_T}>Mg</text>
-      <path d="M44 76h20m0 0-7-7m7 7-7 7" strokeWidth="2" />
-      <path d="M100 16c13 17 23 26 23 40a23 23 0 1 1-46 0c0-14 10-23 23-40Z" strokeWidth="2.2" />
-      <path d="M92 60h16M100 52v16" strokeWidth="2.2" />
+      <path d="M75 18 C56 44 47 57 47 71 a28 28 0 0 0 56 0 c0 -14 -9 -27 -28 -53 Z" strokeWidth="3" />
+      <path d="M66 71 H84 M75 62 V80" strokeWidth="3.4" />
     </svg>
   ),
-  /* 05 - H₂-infusie: glas water bruist van de waterstofbubbels */
+  /* 05 SPE hydrogen infusion: H2 dissolved with micro-bubbles */
   () => (
     <svg viewBox="0 0 150 110" {...ART_P}>
-      <path d="M52 24v58a10 10 0 0 0 10 10h26a10 10 0 0 0 10-10V24" strokeWidth="2.2" />
-      <path d="M52 38c5 0 7-4 11.5-4s6.5 4 11.5 4 7-4 11.5-4 6.5 4 11.5 4" strokeWidth="1.7" opacity=".8" />
-      <circle cx="64" cy="80" r="3" strokeWidth="1.6" />
-      <circle cx="86" cy="76" r="2.2" strokeWidth="1.6" />
-      <circle cx="64" cy="52" r="2" strokeWidth="1.6" />
-      <circle cx="86" cy="50" r="2.5" strokeWidth="1.6" />
-      <circle cx="75" cy="64" r="10.5" strokeWidth="2" />
-      <text x="75" y="68" {...ART_T}>H₂</text>
-      <path d="M112 44h8M116 40v8M120 64h7M30 56h8M34 52v8" strokeWidth="1.5" opacity=".5" />
+      <circle cx="75" cy="57" r="25" strokeWidth="3" />
+      <text x="75" y="63" {...ART_T} fontSize="15">H₂</text>
+      <circle cx="42" cy="40" r="4.5" strokeWidth="2" />
+      <circle cx="111" cy="44" r="5.5" strokeWidth="2" />
+      <circle cx="49" cy="82" r="3.5" strokeWidth="2" />
+      <circle cx="107" cy="80" r="4" strokeWidth="2" />
     </svg>
   ),
-  /* 06 - UV-sterilisatie: UV-lamp in de tank doodt bacteriën */
+  /* 06 UV sterilisation: UV-C lamp neutralises microbes */
   () => (
     <svg viewBox="0 0 150 110" {...ART_P}>
-      {/* tank */}
-      <rect x="30" y="50" width="90" height="50" rx="8" strokeWidth="2.2" />
-      {/* UV lamp tube */}
-      <rect x="62" y="22" width="26" height="36" rx="13" strokeWidth="2.2" />
-      {/* rays */}
-      <path d="M75 16v-8M58 20l-6-6M92 20l6-6M52 34h-8M106 34h-8" strokeWidth="1.6" opacity=".75" />
-      {/* UV label */}
-      <text x="75" y="44" {...ART_T}>UV-C</text>
-      {/* bubbles/sterilisation in water */}
-      <circle cx="55" cy="72" r="3" strokeWidth="1.6" opacity=".7" />
-      <circle cx="75" cy="78" r="2" strokeWidth="1.6" opacity=".6" />
-      <circle cx="95" cy="68" r="2.5" strokeWidth="1.6" opacity=".7" />
-      <text x="75" y="100" {...ART_T}>100% steriel</text>
+      <rect x="63" y="22" width="24" height="46" rx="12" strokeWidth="3" />
+      <text x="75" y="52" {...ART_T} fontSize="11">UV</text>
+      <path d="M75 14 V6 M99 28 l7 -6 M51 28 l-7 -6 M106 48 h8 M44 48 h-8" strokeWidth="2.4" opacity=".85" />
+      <path d="M56 86 H94" strokeWidth="3" opacity=".5" />
+      <circle cx="64" cy="80" r="2.4" fill="currentColor" stroke="none" opacity=".55" />
+      <circle cx="86" cy="80" r="2.4" fill="currentColor" stroke="none" opacity=".55" />
     </svg>
   ),
 ];
