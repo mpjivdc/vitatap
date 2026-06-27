@@ -676,8 +676,9 @@ button{ font-family: inherit; cursor: pointer; }
 .werking-grid{ display:grid; grid-template-columns: 1.05fr 0.95fr; gap: clamp(36px,5vw,72px); align-items:center; margin-top: 56px; }
 .werking-visual{ position: relative; }
 .werking-faucet{ background: radial-gradient(120% 90% at 60% 20%, #fff, var(--paper-2)); border:1px solid var(--line);
-  border-radius: 24px; padding: 22px; box-shadow: var(--shadow-card); }
-.werking-faucet img{ width:100%; display:block; border-radius: 12px; }
+  border-radius: 24px; padding: 22px; box-shadow: var(--shadow-card);
+  display: flex; align-items: center; justify-content: center; }
+.werking-faucet img{ height: min(480px, 60vh); width: auto; max-width: 100%; display:block; border-radius: 12px; }
 .werking-filter{ position:absolute; left: -26px; bottom: -30px; width: 210px; border-radius: 16px; overflow:hidden;
   border: 5px solid #fff; box-shadow: var(--shadow-card); background:#fff; }
 .werking-filter img{ width:100%; display:block; }
