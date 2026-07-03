@@ -83,7 +83,7 @@ function Werking() {
         <div className="werking-grid">
           <div className="werking-visual">
             <div className="werking-faucet">
-              <img src="assets/faucet-clean.webp" alt="VitaTap-designkraan in geborsteld staal met een aparte uitloop voor gezuiverd, vitaal water" width="1000" height="1501" loading="lazy" decoding="async" />
+              <img src="assets/finish-steel.webp" alt="VitaTap-designkraan in geborsteld staal met een aparte uitloop voor gezuiverd, vitaal water" width="760" height="1140" loading="lazy" decoding="async" />
             </div>
             <div className="werking-filter">
               <img src="assets/under-sink-filter.webp" alt="Het 6-staps zuiveringssysteem onder de gootsteen" width="900" height="900" loading="lazy" decoding="async" />
