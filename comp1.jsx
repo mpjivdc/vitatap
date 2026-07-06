@@ -55,8 +55,6 @@ function Header() {
         <nav className="nav">
           {NAV.map(([label, href]) => <a key={href} href={href}>{label}</a>)}
         </nav>
-        <a className="header-tel" href="tel:+32476371722" aria-label="Bel VitaTap">+32 476 37 17 22</a>
-        <a className="header-wa" href="https://wa.me/32476371722" target="_blank" rel="noopener" aria-label="WhatsApp VitaTap">WhatsApp</a>
         <a className="btn header-cta" href="#contact">Gratis advies</a>
         <button className="menu-btn" aria-label={open ? "Sluit menu" : "Open menu"} aria-expanded={open} onClick={() => setOpen(!open)}>
           {open ?

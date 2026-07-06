@@ -9,7 +9,7 @@ const COMMON = [
   "6-staps zuiveringssysteem onder de gootsteen",
   "Jaarlijks onderhoud inbegrepen",
   "12-maandelijkse filtervervanging inbegrepen",
-  "Blue Compagnion-app & support",
+  "Blue Companion-app & support",
 ];
 const PLANS = [
   { key: "m", name: "Maandelijks", sub: "Maximale flexibiliteit", num: "65", incl: "78,65", per: "/ mnd",
@@ -196,7 +196,7 @@ function Locator() {
           <div>
             <p className="eyebrow on-dark">07 · Installatie in jouw regio</p>
             <h2 className="display" style={{ color: "#fff", fontSize: "clamp(32px,4vw,52px)", marginTop: 16 }}>Installatie bij jou thuis</h2>
-            <p className="lead" style={{ color: "rgba(255,255,255,.88)", marginTop: 18 }}>Geef je postcode in en we bevestigen de plaatsing in jouw regio. Een erkende vakman, uit ons eigen team of een gecertificeerde partner, plaatst alles volgens het 30-minuten protocol en kalibreert via de Blue Compagnion-app.</p>
+            <p className="lead" style={{ color: "rgba(255,255,255,.88)", marginTop: 18 }}>Geef je postcode in en we bevestigen de plaatsing in jouw regio. Een erkende vakman, uit ons eigen team of een gecertificeerde partner, plaatst alles volgens het 30-minuten protocol en kalibreert via de Blue Companion-app.</p>
             <form className="loc-form" onSubmit={submit}>
               <input value={zip} onChange={(e) => setZip(e.target.value.replace(/\D/g, "").slice(0, 4))} inputMode="numeric" placeholder="Bv. 9000" aria-label="Postcode" maxLength="4" />
               <button className="btn btn-primary solid-white" type="submit">Check beschikbaarheid <Ico.arrow className="arr" width="18" height="18" /></button>
@@ -238,7 +238,7 @@ function Locator() {
 const INSTALL = [
   { ph: "01", ti: "Voorbereiding", p: "De bestaande kraanopening (21 mm) en de 3/8\"-aansluiting vrijmaken. Geen extra boorwerk nodig.", chip: "21 mm · 3/8\"" },
   { ph: "02", ti: "Plaatsing", p: "Systeem in de onderkast, kraan monteren en leidingen koppelen, in zo'n 30 minuten.", chip: "± 30 min" },
-  { ph: "03", ti: "Kalibratie", p: "Met de Blue Compagnion-app de ORP-waarden bevestigen tussen −400 en −600 mV.", chip: "−400 / −600 mV" },
+  { ph: "03", ti: "Kalibratie", p: "Met de Blue Companion-app de ORP-waarden bevestigen tussen −400 en −600 mV.", chip: "−400 / −600 mV" },
   { ph: "04", ti: "Service-ID", p: "Digitale ID aanmaken voor tracking van de verplichte 12-maandelijkse filterbeurt.", chip: "12 mnd cyclus" },
 ];
 
@@ -277,7 +277,7 @@ function Installer() {
 const FAQS = [
   ["Wat doet waterstofrijk water voor mijn lichaam?", "Moleculaire waterstof (H₂) is een van nature voorkomend, smaakloos gas dat volledig opgelost in het water zit. Wetenschappelijk onderzoek naar moleculaire waterstof als selectieve antioxidant loopt volop; wij doen geen medische claims. Wat vaststaat, zijn de gemeten waarden aan de uitloop: 1.200–1.600 ppb opgeloste H₂ en een ORP van −400/−600 mV. Dagelijks drinken is volkomen normaal. Je proeft zuiver, fris water."],
   ["Hoeveel water verbruikt het systeem?", "Zoals elk omgekeerde-osmosesysteem gebruikt VitaTap spoelwater om het membraan schoon te houden. Het systeem produceert alleen wanneer je tapt: voor dagelijks drink- en kookwater gaat het om enkele extra liters per dag, een fractie van wat één wasbeurt verbruikt."],
-  ["Hoe vaak moet het filter vervangen worden?", "De meeste filters gaan een jaar mee, maar elk onderdeel heeft zijn eigen levensduur. Vuistregels: sedimentfilter 3–12 maanden (afhankelijk van waterkwaliteit), koolfilter en remineralisatiefilter elk jaar, UV-lamp elk jaar, RO-membraan elke 3 jaar. Al dit onderhoud zit in het abonnement inbegrepen. De Blue Compagnion-app houdt automatisch bij wanneer vervanging nodig is."],
+  ["Hoe vaak moet het filter vervangen worden?", "De meeste filters gaan een jaar mee, maar elk onderdeel heeft zijn eigen levensduur. Vuistregels: sedimentfilter 3–12 maanden (afhankelijk van waterkwaliteit), koolfilter en remineralisatiefilter elk jaar, UV-lamp elk jaar, RO-membraan elke 3 jaar. Al dit onderhoud zit in het abonnement inbegrepen. De Blue Companion-app houdt automatisch bij wanneer vervanging nodig is."],
   ["Past de kraan op mijn bestaande keuken?", "In de meeste keukens wel. De kraan gebruikt een standaard 21 mm doorvoer en 3/8\"-aansluiting, en het systeem verdwijnt compact in je onderkast. Een erkende installateur controleert dit vooraf."],
   ["Wat is het verschil met een gewone waterfilter?", "Een gewone filter haalt alleen smaak en chloor weg. VitaTap zuivert moleculair en houdt verontreinigingen zoals PFAS, microplastics en bacteriën tot 99,9% tegen, remineraliseert daarna bewust en voegt moleculaire waterstof toe. Zuiver én vitaal, niet zomaar gefilterd."],
   ["Koop of abonnement?", "VitaTap werkt met een abonnement waarin installatie-ondersteuning, onderhoud en filters zijn inbegrepen. Zo blijft je water altijd op niveau zonder verrassingen. Een eenmalige opstartkost van €500 dekt de installatie."],

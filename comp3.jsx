@@ -38,7 +38,7 @@ function Dashboard() {
     return () => clearInterval(id);
   }, []);
   const feats = [
-    { ico: "phone", h: "Draadloze app-verbinding", p: "Koppel de Blue Compagnion-app en lees TDS, H₂-concentratie en ORP (−400/−600 mV) rechtstreeks van je kraan af." },
+    { ico: "phone", h: "Draadloze app-verbinding", p: "Koppel de Blue Companion-app en lees TDS, H₂-concentratie en ORP (−400/−600 mV) rechtstreeks van je kraan af." },
     { ico: "gauge", h: "Live waterkwaliteit", p: "Realtime metingen tonen exact hoe zuiver en hoe waterstofrijk je water op dit moment is." },
     { ico: "recycle", h: "Filter-levenscyclus", p: "Een digitale ID houdt je 12-maandelijkse filterbeurt bij en seint op tijd je installateur in." },
   ];
@@ -49,7 +49,7 @@ function Dashboard() {
           <div>
             <p className="eyebrow">04 · Wellness-dashboard</p>
             <h2 className="display" style={{ fontSize: "clamp(32px,4vw,52px)", marginTop: 16 }}>Je water,<br />in cijfers.</h2>
-            <p className="lead" style={{ marginTop: 18 }}>Met de Blue Compagnion-app zie je precies wat er uit je kraan komt. Volg de kwaliteit van elk glas, kalibreer je ORP-waarden en plan onderhoud, allemaal vanaf je telefoon.</p>
+            <p className="lead" style={{ marginTop: 18 }}>Met de Blue Companion-app zie je precies wat er uit je kraan komt. Volg de kwaliteit van elk glas, kalibreer je ORP-waarden en plan onderhoud, allemaal vanaf je telefoon.</p>
             <div className="feature-list">
               {feats.map((f, i) => {
                 const I = Ico[f.ico];
@@ -66,7 +66,7 @@ function Dashboard() {
             <span className="notch" />
             <div className="screen">
               <div className="ph-top">
-                <span className="h">Blue Compagnion</span>
+                <span className="h">Blue Companion</span>
                 <span className="live"><span className="d" /> LIVE</span>
               </div>
               <div className="ph-ring">
