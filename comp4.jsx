@@ -46,9 +46,10 @@ function LiterSim() {
   const litersPerMonth = litersPerDay * 30;
   const maxCost = Math.max(VT_MONTH_INCL, ...WATER_BRANDS.map(b => b.priceL * litersPerMonth));
   const bottlesPerYear = Math.round(litersPerDay * 365 / BOTTLE_ML);
-  const bestBottled = Math.min(...WATER_BRANDS.map(b => b.priceL * litersPerMonth));
-  const savings = bestBottled > VT_MONTH_INCL ? null : VT_MONTH_INCL - bestBottled;
-  const vtWins = WATER_BRANDS.filter(b => b.priceL * litersPerMonth > VT_MONTH_INCL).length;
+  // premium referentie = gemiddelde van Spa Reine en Vittel
+  const premiumBrands = WATER_BRANDS.filter(b => b.key === "spa" || b.key === "vit");
+  const premiumMonthly = premiumBrands.reduce((s, b) => s + b.priceL * litersPerMonth, 0) / premiumBrands.length;
+  const yearlySavings = (premiumMonthly - VT_MONTH_INCL) * 12;
 
   return (
     <div className="liter-compare">
@@ -93,10 +94,10 @@ function LiterSim() {
           <span className="lc-insight-val">{bottlesPerYear.toLocaleString("nl-BE")}</span>
           <span className="lc-insight-lab">plastic flessen per jaar vermeden</span>
         </div>
-        {vtWins > 0 ? (
+        {yearlySavings > 0 ? (
           <div className="lc-insight lc-insight-win">
-            <span className="lc-insight-val">€{fmt((WATER_BRANDS.filter(b => b.priceL * litersPerMonth > VT_MONTH_INCL).reduce((s,b) => s + b.priceL * litersPerMonth, 0) / vtWins) - VT_MONTH_INCL)}</span>
-            <span className="lc-insight-lab">goedkoper per maand dan merkenwater</span>
+            <span className="lc-insight-val">€{fmt(yearlySavings)}</span>
+            <span className="lc-insight-lab">bespaard per jaar t.o.v. premium flessenwater (gem. Spa Reine & Vittel)</span>
           </div>
         ) : (
           <div className="lc-insight lc-insight-neutral">
