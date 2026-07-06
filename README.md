@@ -53,3 +53,4 @@ regenerate it with `sharp` after editing the SVG:
 npm install sharp
 node -e "const s=require('sharp'),fs=require('fs');s(fs.readFileSync('assets/og-image.svg')).png().toFile('assets/og-image.png')"
 ```
+
