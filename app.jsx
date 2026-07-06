@@ -1,5 +1,5 @@
 /* global React, ReactDOM, useTweaks, TweaksPanel, TweakSection, TweakColor, TweakSelect, TweakRadio, TweakText,
-   Header, Hero, Trust, Aanpak, Werking, Wetenschap, Certificering, Dashboard, DeKraan, Lifestyle, Waarborgen, Prijzen, Locator, Installer, FAQ, CTA, Advies, StickyCTA, Footer */
+   Header, Hero, Trust, Aanpak, Werking, Wetenschap, Certificering, Dashboard, DeKraan, Lifestyle, Waarborgen, Testimonials, Prijzen, Locator, Installer, FAQ, CTA, Advies, StickyCTA, Footer */
 const { useState: uSA, useEffect: uEA } = React;
 
 /* palette presets - accent hex maps to an oklch hue + chroma multiplier */
@@ -102,6 +102,8 @@ function App() {
         <DeKraan finish={finish} setFinish={setFinish} />
         <Lifestyle />
         <Waarborgen />
+        {/* TODO activeren zodra Brecht & Ania hun quote schriftelijk hebben goedgekeurd:
+        <Testimonials /> */}
         <Prijzen />
         <Locator />
         <Installer />

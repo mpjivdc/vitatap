@@ -38,7 +38,7 @@ function Dashboard() {
     return () => clearInterval(id);
   }, []);
   const feats = [
-    { ico: "bt", h: "Bluetooth-verbinding", p: "Koppel de Blue Compagnion-app en lees TDS, H₂-concentratie en ORP (−400/−600 mV) rechtstreeks van je kraan af." },
+    { ico: "phone", h: "Draadloze app-verbinding", p: "Koppel de Blue Compagnion-app en lees TDS, H₂-concentratie en ORP (−400/−600 mV) rechtstreeks van je kraan af." },
     { ico: "gauge", h: "Live waterkwaliteit", p: "Realtime metingen tonen exact hoe zuiver en hoe waterstofrijk je water op dit moment is." },
     { ico: "recycle", h: "Filter-levenscyclus", p: "Een digitale ID houdt je 12-maandelijkse filterbeurt bij en seint op tijd je installateur in." },
   ];
@@ -194,7 +194,7 @@ function Lifestyle() {
 ----------------------------------------------------------------- */
 const GUARANTEES = [
   { ico: "check", h: "Gratis & vrijblijvend", p: "Advies zonder aankoopverplichting." },
-  { ico: "shield", h: "14 dagen bedenktijd", p: "Wettelijk herroepingsrecht." },
+  { ico: "shield", h: "30 dagen proefperiode", p: "Niet overtuigd? Wij demonteren gratis." },
   { ico: "recycle", h: "Alles inbegrepen", p: "Onderhoud & filters in je abonnement." },
   { ico: "clock", h: "Maandelijks opzegbaar", p: "Met het maandplan, geen verrassingen." },
 ];
@@ -268,4 +268,34 @@ function Certificering() {
   );
 }
 
-Object.assign(window, { Dashboard, DeKraan, Lifestyle, Waarborgen, Certificering });
+
+/* ----------------------------------------------------------------
+   TESTIMONIALS - echte klanten, quotes DRAFT: pas activeren na
+   schriftelijke goedkeuring van de klant (zie REVIEW_NOTES.md)
+----------------------------------------------------------------- */
+const TESTIMONIALS = [
+  { q: "Ik dacht dat water gewoon water was, tot je het verschil proeft en de waarden op de app ziet. We drinken thuis dubbel zoveel water als vroeger.",
+    n: "Brecht S.", w: "" /* TODO woonplaats */ },
+  { q: "Geen flessen meer slepen. De installatie duurde een half uur en sindsdien is het elke dag hetzelfde: zuiver water, rechtstreeks uit de kraan.",
+    n: "Ania S.", w: "" /* TODO woonplaats */ },
+];
+
+function Testimonials() {
+  return (
+    <section className="section tight bg-paper2" id="klanten">
+      <div className="wrap">
+        <div className="sec-head"><p className="eyebrow">Klanten aan het woord</p><h2 className="display">Wat gebruikers zeggen</h2></div>
+        <div className="testi-grid">
+          {TESTIMONIALS.map((t, i) => (
+            <figure className="testi-card" key={i}>
+              <blockquote>{t.q}</blockquote>
+              <figcaption><b>{t.n}</b>{t.w ? " · " + t.w : ""} <span className="testi-tag">VitaTap-klant</span></figcaption>
+            </figure>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+Object.assign(window, { Dashboard, DeKraan, Lifestyle, Waarborgen, Certificering, Testimonials });

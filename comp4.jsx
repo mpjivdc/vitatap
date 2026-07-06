@@ -41,8 +41,8 @@ const BOTTLE_ML = 0.5; // 50cl referentiefles voor plastic teller
 
 function LiterSim() {
   const [people, setPeople] = uS4(2);
-  const [litersPerPerson, setLitersPerPerson] = uS4(4);
-  const litersPerDay = people * litersPerPerson;
+  const LITERS_PER_PERSON = 4; // 2 l drinken + koffie, thee, koken
+  const litersPerDay = people * LITERS_PER_PERSON;
   const litersPerMonth = litersPerDay * 30;
   const maxCost = Math.max(VT_MONTH_INCL, ...WATER_BRANDS.map(b => b.priceL * litersPerMonth));
   const bottlesPerYear = Math.round(litersPerDay * 365 / BOTTLE_ML);
@@ -58,24 +58,15 @@ function LiterSim() {
         <div className="lc-sim-row">
           <span className="lc-sim-label">Personen in huis</span>
           <div className="lc-pills">
-            {[1, 2, 3, 4].map(n => (
+            {[1, 2, 3, 4, 5, 6, 7, 8].map(n => (
               <button key={n} className={"lc-pill" + (people === n ? " active" : "")} onClick={() => setPeople(n)}>
-                {n}{n === 4 ? "+" : ""}
-              </button>
-            ))}
-          </div>
-        </div>
-        <div className="lc-sim-row">
-          <span className="lc-sim-label">Liter / persoon / dag</span>
-          <div className="lc-pills">
-            {[2, 3, 4, 5].map(n => (
-              <button key={n} className={"lc-pill" + (litersPerPerson === n ? " active" : "")} onClick={() => setLitersPerPerson(n)}>
-                {n}L
+                {n}
               </button>
             ))}
           </div>
           <span className="lc-usage">{litersPerDay}L/dag totaal</span>
         </div>
+        <p className="lc-assumption">We rekenen met 4 liter per persoon per dag: ±2 liter drinkwater plus water voor koffie, thee en koken.</p>
       </div>
 
       <div className="lc-rows">
@@ -109,8 +100,8 @@ function LiterSim() {
           </div>
         ) : (
           <div className="lc-insight lc-insight-neutral">
-            <span className="lc-insight-val">{litersPerPerson < 4 ? "↑ verbruik" : "4+ pers."}</span>
-            <span className="lc-insight-lab">meer verbruik, meer voordeel</span>
+            <span className="lc-insight-val">{people}+ pers.</span>
+            <span className="lc-insight-lab">meer personen, meer voordeel</span>
           </div>
         )}
         <div className="lc-insight">
@@ -166,7 +157,7 @@ function Prijzen() {
           ))}
         </div>
         <div className="startup-banner">
-          <span><Ico.wrench className="ic" width="20" height="20" /> <span>Installatie door <b>erkende vakman</b> · opstartkost €500 eenmalig</span></span>
+          <span><Ico.wrench className="ic" width="20" height="20" /> <span>Installatie door <b>erkende vakman</b> · opstartkost €500 eenmalig · betaling via Bancontact, overschrijving of domiciliëring</span></span>
           <span><Ico.recycle className="ic" width="20" height="20" /> Onderhoud &amp; filters inbegrepen</span>
           <span><Ico.shield className="ic" width="20" height="20" /> Prijzen excl. btw · incl. btw telkens vermeld</span>
         </div>
@@ -180,9 +171,19 @@ function Prijzen() {
 /* ----------------------------------------------------------------
    INSTALLATIE IN JOUW REGIO
 ----------------------------------------------------------------- */
+const BE_PATH = "M254.314,47.545L263.578,52.099L271.578,53.074L275.368,51.123L272.842,39.732L279.579,33.868L286.737,30.935L290.106,35.823L296.843,40.709L302.317,41.035L316.634,28L319.582,30.609L322.951,35.172L323.372,38.755L324.214,42.663L327.161,44.29L338.531,43.639L344.005,36.475L348.637,31.913L352.005,35.172L353.69,43.639L356.637,55.025L370.112,67.694L381.481,71.264L395.377,68.668L400.851,66.396L404.641,68.343L408.01,75.157L416.01,82.613L432.854,88.12L438.328,91.034L441.696,96.213L440.854,103.651L432.854,121.734L431.59,127.216L432.854,128.828L431.169,132.373L420.642,144.285L419.8,148.788L423.169,155.539L426.116,161.32L432.433,164.21L438.328,165.173L449.276,165.494L461.066,165.815L462.751,169.344L475.804,178.963L480.015,186.651L489.7,194.331L481.699,203.603L482.963,208.075L485.91,212.226L496.437,214.78L501.912,220.841L502.333,230.403L504.438,245.68L482.542,261.248L476.225,278.056L475.804,281.54L474.962,280.907L472.436,275.521L468.225,275.521L459.382,272.985L446.328,288.505L440.433,301.153L437.065,310.627L432.012,318.2L431.169,326.08L431.59,329.545L429.906,333.954L429.906,338.36L437.065,347.166L439.17,352.193L448.013,367.887L445.065,373.843L442.96,379.795L440.433,384.491L437.486,387.308L428.222,386.995L416.431,388.872L408.431,392L404.22,392L395.798,384.178L386.534,372.589L380.218,366.946L377.692,361.927L370.112,360.044L359.585,354.078L352.005,347.794L345.689,343.707L336.846,341.82L329.688,342.135L327.161,331.435L326.319,319.146L320.424,310.943L328.846,278.689L323.793,275.521L318.319,278.056L310.739,285.973L306.949,295.147L304.844,303.049L291.79,310.627L271.157,313.468L248.84,310.627L245.471,308.733L244.208,306.523L244.208,303.681L245.471,299.257L249.682,293.882L250.524,286.289L246.313,279.956L243.787,277.422L245.05,271.083L247.998,263.153L248.419,258.708L233.26,244.726L222.311,242.181L211.363,241.863L203.363,240.272L198.731,240.909L195.362,244.726L191.572,247.588L189.046,244.09L184.414,219.884L180.624,216.375L166.728,212.226L148.201,210.63L143.148,206.159L140.2,195.291L138.516,182.167L132.199,169.344L129.252,166.136L123.778,160.678L113.672,162.926L101.881,170.307L95.144,172.231L92.196,173.193L82.932,165.815L72.405,154.575L63.984,142.676L61.878,135.916L64.405,127.861L61.457,121.734L56.825,110.436L55.562,101.711L106.513,70.291L137.252,54.05L151.99,49.171L155.359,65.422L158.307,70.615L161.675,73.86L166.307,74.508L171.36,70.615L178.94,66.396L190.73,68.343L199.573,72.238L202.52,76.13L208.416,80.021L216.416,80.993L232.839,73.535L248.419,62.499L252.63,54.7Z";
 const PINS = [
-  { l: 28, t: 34 }, { l: 62, t: 22 }, { l: 74, t: 58 }, { l: 40, t: 66 },
+  { n: "Brussel", l: 48.07, t: 35.1 },
+  { n: "Antwerpen", l: 49.13, t: 18.76 },
+  { n: "Gent", l: 34.82, t: 26.08 },
+  { n: "Brugge", l: 24.53, t: 19.2 },
+  { n: "Hasselt", l: 68.66, t: 31.55 },
+  { n: "Luik", l: 73.72, t: 44.68 },
+  { n: "Namen", l: 58.84, t: 51.92 },
+  { n: "Charleroi", l: 50.01, t: 54.37 },
+  { n: "Leuven", l: 55.35, t: 33.81 },
 ];
+const HQ = { n: "Kortrijk", l: 25.37, t: 36.09 };
 
 function Locator() {
   const [zip, setZip] = uS4("");
@@ -216,10 +217,14 @@ function Locator() {
             <p className="loc-partner">Ben je zelf installateur? <a href="#contact" onClick={() => window.dispatchEvent(new CustomEvent("vt-topic", { detail: "partner" }))}>Word erkende VitaTap-partner →</a></p>
           </div>
           <div className="loc-map" aria-hidden="true">
+            <svg className="loc-be" viewBox="0 0 560 420" preserveAspectRatio="xMidYMid meet" focusable="false">
+              <path d={BE_PATH} fill="rgba(255,255,255,.09)" stroke="rgba(255,255,255,.45)" strokeWidth="1.6" strokeLinejoin="round" />
+            </svg>
             {PINS.map((p, i) => (
-              <span className="loc-pin" key={i} style={{ left: p.l + "%", top: p.t + "%" }}><span className="p" /></span>
+              <span className="loc-pin" key={i} style={{ left: p.l + "%", top: p.t + "%" }} title={p.n}><span className="p" /></span>
             ))}
-            <span className="loc-pin me" style={{ left: "50%", top: "46%" }}><span className="p" /></span>
+            <span className="loc-pin me" style={{ left: HQ.l + "%", top: HQ.t + "%" }} title={HQ.n}><span className="p" /></span>
+            <span className="loc-map-cap">Eigen team + gecertificeerde partners · heel België</span>
           </div>
         </div>
       </div>
@@ -270,8 +275,8 @@ function Installer() {
    FAQ
 ----------------------------------------------------------------- */
 const FAQS = [
-  ["Wat doet waterstofrijk water voor mijn lichaam?", "Moleculaire waterstof (H₂) is een van nature voorkomend, smaakloos gas dat volledig opgelost in het water zit. Als selectieve antioxidant neutraliseert het schadelijke vrije radicalen zonder de nuttige moleculen in je lichaam te beïnvloeden. Dagelijks drinken is volkomen normaal. Je proeft alleen zuiver, fris water."],
-  ["Hoeveel water verbruikt het systeem?", "Onze moleculaire RO is geoptimaliseerd op een gunstige verhouding tussen gezuiverd en afvoerwater. Voor dagelijks drink- en kookwater blijft het verbruik beperkt, en het systeem produceert alleen wanneer je tapt."],
+  ["Wat doet waterstofrijk water voor mijn lichaam?", "Moleculaire waterstof (H₂) is een van nature voorkomend, smaakloos gas dat volledig opgelost in het water zit. Wetenschappelijk onderzoek naar moleculaire waterstof als selectieve antioxidant loopt volop; wij doen geen medische claims. Wat vaststaat, zijn de gemeten waarden aan de uitloop: 1.200–1.600 ppb opgeloste H₂ en een ORP van −400/−600 mV. Dagelijks drinken is volkomen normaal. Je proeft zuiver, fris water."],
+  ["Hoeveel water verbruikt het systeem?", "Zoals elk omgekeerde-osmosesysteem gebruikt VitaTap spoelwater om het membraan schoon te houden. Het systeem produceert alleen wanneer je tapt: voor dagelijks drink- en kookwater gaat het om enkele extra liters per dag, een fractie van wat één wasbeurt verbruikt."],
   ["Hoe vaak moet het filter vervangen worden?", "De meeste filters gaan een jaar mee, maar elk onderdeel heeft zijn eigen levensduur. Vuistregels: sedimentfilter 3–12 maanden (afhankelijk van waterkwaliteit), koolfilter en remineralisatiefilter elk jaar, UV-lamp elk jaar, RO-membraan elke 3 jaar. Al dit onderhoud zit in het abonnement inbegrepen. De Blue Compagnion-app houdt automatisch bij wanneer vervanging nodig is."],
   ["Past de kraan op mijn bestaande keuken?", "In de meeste keukens wel. De kraan gebruikt een standaard 21 mm doorvoer en 3/8\"-aansluiting, en het systeem verdwijnt compact in je onderkast. Een erkende installateur controleert dit vooraf."],
   ["Wat is het verschil met een gewone waterfilter?", "Een gewone filter haalt alleen smaak en chloor weg. VitaTap zuivert moleculair en houdt verontreinigingen zoals PFAS, microplastics en bacteriën tot 99,9% tegen, remineraliseert daarna bewust en voegt moleculaire waterstof toe. Zuiver én vitaal, niet zomaar gefilterd."],
