@@ -12,6 +12,9 @@ const PLAN_OPTS = [
 ];
 
 const W3F_KEY = "2ad121b7-621a-4eb7-864f-3b7e6e63945e";
+// BCP lead intake (Apps Script -> BCP_INVENTORY_DB Clients+Leads; token = bot-deterrence, public by design)
+const INTAKE_URL = "https://script.google.com/macros/s/AKfycbxNwJwl8Y7vFmuxxyzU5QS3qq-0ZlW1yoResnrIs0i5iQHRhioNgZ6YdUhUJfZtAMNGjw/exec";
+const INTAKE_TOKEN = "92080ba26ec171538493362054ae65655c851a79482a82cf";
 
 function Advies() {
   const [plan, setPlan] = uS5("");
@@ -56,6 +59,24 @@ function Advies() {
       interesse: fd.get("plan") || "Geen voorkeur",
       bericht: fd.get("bericht") || "",
     };
+    // Best-effort parallel: lead straight into BCP_INVENTORY_DB (Clients + Leads).
+    // text/plain avoids the CORS preflight Apps Script cannot answer.
+    try {
+      fetch(INTAKE_URL, {
+        method: "POST",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify({
+          token: INTAKE_TOKEN,
+          name: fd.get("naam"),
+          email: fd.get("email"),
+          phone: fd.get("telefoon"),
+          postcode: fd.get("postcode"),
+          city: "",
+          website: "",
+          gdpr_consent: fd.get("consent") != null,
+        }),
+      }).catch(() => { /* web3forms email remains the fallback */ });
+    } catch (err) { /* never block the visitor on intake */ }
     try {
       const res = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
