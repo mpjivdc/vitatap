@@ -1,459 +1,142 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="nl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Blue Companion">
-<meta name="theme-color" content="#0872bd">
-<link rel="manifest" href="manifest.json">
-<link rel="apple-touch-icon" href="icon-180.png">
-<link rel="icon" href="icon-192.png">
-<title>Blue Companion</title>
-<style>
-  :root{
-    --b1:#0872bd; --b2:#12a5e6; --b-soft:#e9f6fe; --b-ink:#083a5c;
-    --ink:#0f172a; --muted:#64748b; --line:#e6eaf0; --card:#fff;
-    --good:#16a34a; --warn:#f59e0b; --bad:#dc2626;
-  }
-  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-  html,body{height:100%}
-  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:#f4f6fb;color:var(--ink);-webkit-font-smoothing:antialiased}
-  #app{max-width:480px;margin:0 auto;min-height:100vh;display:flex;flex-direction:column;background:#f7f9fc;position:relative}
-  .hidden{display:none!important}
-  .login{flex:1;display:flex;flex-direction:column;justify-content:center;padding:32px 24px;gap:14px}
-  .brand{display:flex;align-items:center;gap:12px;margin-bottom:8px}
-  .brand .logo{width:46px;height:46px;border-radius:13px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--b1),var(--b2))}
-  .brand h1{font-size:22px;letter-spacing:-.5px}
-  .brand p{font-size:12px;color:var(--muted)}
-  input,select{width:100%;padding:13px;border:1px solid var(--line);border-radius:12px;font-size:15px;background:#fff;color:var(--ink)}
-  input:focus,select:focus{outline:2px solid var(--b2);border-color:transparent}
-  .btn{width:100%;padding:14px;border:none;border-radius:13px;font-size:15px;font-weight:700;color:#fff;background:linear-gradient(135deg,var(--b1),var(--b2));cursor:pointer}
-  .btn:active{opacity:.9}
-  .btn.ghost{background:#eef1f6;color:var(--ink)}
-  .btn.sm{width:auto;padding:9px 14px;font-size:13px;border-radius:10px}
-  .msg{font-size:13px;padding:10px 12px;border-radius:10px;text-align:center}
-  .msg.err{background:#fee2e2;color:#b91c1c}.msg.ok{background:#dcfce7;color:#15803d}
-  .hint{font-size:12px;color:var(--muted);text-align:center;line-height:1.6}
-  header{position:sticky;top:0;z-index:10;padding:calc(env(safe-area-inset-top) + 14px) 18px 12px;background:rgba(247,249,252,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-  header .top{display:flex;justify-content:space-between;align-items:center}
-  header .kicker{font-size:10px;text-transform:uppercase;letter-spacing:1.4px;font-weight:700;color:var(--muted)}
-  header h2{font-size:21px;letter-spacing:-.5px;color:var(--b-ink)}
-  .role{font-size:11px;font-weight:700;color:var(--b1);background:var(--b-soft);padding:4px 10px;border-radius:999px}
-  .link{background:none;border:none;color:var(--muted);font-size:12px;cursor:pointer;text-decoration:underline}
-  main{flex:1;overflow-y:auto;padding:14px 16px 96px}
-  .kpis{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-  .kpi{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:13px;box-shadow:0 6px 14px -13px rgba(15,23,42,.4)}
-  .kpi .n{font-size:22px;font-weight:750;letter-spacing:-.5px}
-  .kpi .l{font-size:11px;color:var(--muted);margin-top:2px}
-  .sec{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin:18px 4px 9px;display:flex;justify-content:space-between;align-items:center}
-  .sec .add{color:var(--b1);text-transform:none;letter-spacing:0;font-size:13px;cursor:pointer;background:none;border:none;font-weight:700}
-  .item{background:var(--card);border:1px solid var(--line);border-radius:15px;padding:13px;margin-bottom:9px;box-shadow:0 6px 14px -14px rgba(15,23,42,.4);display:flex;justify-content:space-between;align-items:center;gap:10px;cursor:pointer}
-  .item.flat{cursor:default}
-  .item .title{font-size:14px;font-weight:650}
-  .item .sub{font-size:11.5px;color:var(--muted);margin-top:2px}
-  .pill{font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:999px;white-space:nowrap}
-  .p-green{background:#dcfce7;color:#15803d}.p-amber{background:#fef3d6;color:#b26a00}.p-red{background:#fee2e2;color:#b91c1c}
-  .p-blue{background:#dbeefe;color:#0b6cb5}.p-grey{background:#eef1f6;color:#475569}
-  .row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-  .total{color:#fff;border-radius:16px;padding:15px}
-  .total.pay{background:linear-gradient(135deg,#b45309,#f59e0b)}
-  .total.paid{background:linear-gradient(135deg,var(--b1),var(--b2))}
-  .total .n{font-size:22px;font-weight:750}.total .l{font-size:11px;opacity:.9}
-  .chips{display:flex;gap:8px;overflow-x:auto;padding:2px 0 10px}
-  .chip{padding:6px 12px;border-radius:999px;font-size:12px;font-weight:600;background:#eef1f6;color:#475569;white-space:nowrap;border:none;cursor:pointer}
-  .chip.active{background:var(--b1);color:#fff}
-  .qa{display:flex;gap:10px;margin:14px 0 4px}
-  .qa .btn{display:flex;align-items:center;justify-content:center;gap:7px}
-  .qa svg{width:17px;height:17px}
-  nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;display:flex;justify-content:space-around;padding:8px 6px calc(env(safe-area-inset-bottom) + 10px);background:rgba(255,255,255,.95);backdrop-filter:blur(10px);border-top:1px solid var(--line);z-index:10}
-  .tab{display:flex;flex-direction:column;align-items:center;gap:3px;font-size:10px;color:#9aa5b4;font-weight:600;background:none;border:none;cursor:pointer;padding:4px 8px}
-  .tab.active{color:var(--b1)}
-  .tab svg{width:23px;height:23px}
-  .empty{color:var(--muted);font-size:13px;text-align:center;padding:24px}
-  .spin{width:26px;height:26px;border:3px solid var(--b-soft);border-top-color:var(--b1);border-radius:50%;animation:s .8s linear infinite;margin:40px auto}
-  @keyframes s{to{transform:rotate(360deg)}}
-  /* modal */
-  .modal-bg{position:fixed;inset:0;background:rgba(15,23,42,.45);display:flex;align-items:flex-end;justify-content:center;z-index:50}
-  .sheet{background:#fff;width:100%;max-width:480px;border-radius:22px 22px 0 0;padding:16px 18px calc(env(safe-area-inset-bottom) + 18px);max-height:90vh;overflow-y:auto;animation:up .18s ease}
-  @keyframes up{from{transform:translateY(30px);opacity:.6}to{transform:none;opacity:1}}
-  .sheet h3{font-size:17px;margin-bottom:12px;letter-spacing:-.3px}
-  .field{margin-bottom:10px}
-  .field label{font-size:11px;color:var(--muted);font-weight:600;display:block;margin-bottom:4px}
-  .row-btns{display:flex;gap:10px;margin-top:14px}
-  .kv{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--line);font-size:14px}
-  .kv:last-child{border-bottom:none}.kv .k{color:var(--muted)}
-  #reader{width:100%;border-radius:16px;overflow:hidden;background:#000;min-height:220px}
-</style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>VitaTap · Zuiver, vitaal water. Elke dag.</title>
+<meta name="description" content="VitaTap levert gezuiverd, geremineraliseerd en waterstofrijk water rechtstreeks uit je kraan. 6-staps moleculaire omgekeerde osmose, 99,9% verwijdering van PFAS, microplastics en meer." />
+<meta name="robots" content="index, follow" />
+<meta name="author" content="Blue Care Products BV" />
+<link rel="canonical" href="https://vitatap.be/" />
+
+<!-- Icons -->
+<link rel="icon" type="image/svg+xml" href="favicon.svg" />
+<link rel="icon" type="image/png" sizes="192x192" href="assets/icon-192.png" />
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+<link rel="manifest" href="site.webmanifest" />
+<meta name="theme-color" content="#16868a" />
+
+<!-- Open Graph -->
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="VitaTap" />
+<meta property="og:locale" content="nl_BE" />
+<meta property="og:title" content="VitaTap · Zuiver, vitaal water. Elke dag." />
+<meta property="og:description" content="Gezuiverd, geremineraliseerd en waterstofrijk water rechtstreeks uit je kraan. 6-staps omgekeerde osmose, UV-sterilisatie en moleculaire waterstof. Vanaf EUR 39/mnd, onderhoud en filters inbegrepen." />
+<meta property="og:url" content="https://vitatap.be/" />
+<meta property="og:image" content="https://vitatap.be/assets/og-image.png" />
+<meta property="og:image:type" content="image/png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="VitaTap · zuiver, vitaal water. Elke dag." />
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="VitaTap · Zuiver, vitaal water. Elke dag." />
+<meta name="twitter:description" content="Gezuiverd, geremineraliseerd en waterstofrijk water rechtstreeks uit je kraan. Vanaf EUR 39/mnd, onderhoud en filters inbegrepen." />
+<meta name="twitter:image" content="https://vitatap.be/assets/og-image.png" />
+<meta name="twitter:image:alt" content="VitaTap · zuiver, vitaal water. Elke dag." />
+
+<link rel="dns-prefetch" href="https://api.web3forms.com" />
+<link rel="preload" as="font" type="font/woff2" href="fonts/archivo-800.woff2" crossorigin />
+<link rel="preload" as="font" type="font/woff2" href="fonts/figtree-400.woff2" crossorigin />
+<link rel="stylesheet" href="fonts.css?v=589be052" />
+<link rel="preload" as="image" href="assets/hero-lifestyle.webp" fetchpriority="high" />
+<link rel="stylesheet" href="styles.css?v=fe5a3e2f" />
+
+<template id="__bundler_thumbnail">
+  <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <rect width="100" height="100" rx="20" fill="#16868a" />
+    <g transform="translate(50 52)" stroke="#dff5f4" fill="none" stroke-width="5" stroke-linecap="round">
+      <path d="M-16 -4c5 0 6 -7 11 -7s6 7 11 7" />
+      <path d="M-16 6c5 0 6 -7 11 -7s6 7 11 7" opacity="0.6" />
+    </g>
+  </svg>
+</template>
+
+<!-- Structured data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://vitatap.be/#organization",
+      "name": "VitaTap",
+      "legalName": "Blue Care Products BV",
+      "url": "https://vitatap.be/",
+      "logo": "https://vitatap.be/assets/vitatap-mark.png",
+      "image": "https://vitatap.be/assets/hero-lifestyle.webp",
+      "email": "info@vitatap.be",
+      "telephone": "+32476371722",
+      "vatID": "BE0653897883",
+      "areaServed": "BE",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Minister Liebaertlaan 1",
+        "postalCode": "8500",
+        "addressLocality": "Kortrijk",
+        "addressCountry": "BE"
+      },
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+32476371722",
+        "email": "info@vitatap.be",
+        "contactType": "customer service",
+        "areaServed": "BE",
+        "availableLanguage": [
+          "nl"
+        ]
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://vitatap.be/#website",
+      "name": "VitaTap",
+      "url": "https://vitatap.be/",
+      "inLanguage": "nl-BE",
+      "publisher": {
+        "@id": "https://vitatap.be/#organization"
+      }
+    },
+    {
+      "@type": "Product",
+      "name": "VitaTap waterzuiveringssysteem",
+      "url": "https://vitatap.be/#prijzen",
+      "image": "https://vitatap.be/assets/faucet-clean.webp",
+      "description": "Gezuiverd, geremineraliseerd en waterstofrijk water rechtstreeks uit je kraan. 6-staps omgekeerde osmose met UV-sterilisatie en moleculaire waterstof, inclusief onderhoud, filters en de Blue Companion-app.",
+      "brand": {
+        "@type": "Brand",
+        "name": "VitaTap"
+      },
+      "category": "Waterzuivering",
+      "offers": {
+        "@type": "Offer",
+        "priceCurrency": "EUR",
+        "price": "47.19",
+        "url": "https://vitatap.be/#prijzen",
+        "availability": "https://schema.org/InStock",
+        "priceValidUntil": "2026-12-31",
+        "seller": {
+          "@id": "https://vitatap.be/#organization"
+        }
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json" id="faq-ld">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Wat doet waterstofrijk water voor mijn lichaam?","acceptedAnswer":{"@type":"Answer","text":"Moleculaire waterstof (H₂) is een van nature voorkomend, smaakloos gas dat volledig opgelost in het water zit. Wetenschappelijk onderzoek naar moleculaire waterstof als selectieve antioxidant loopt volop; wij doen geen medische claims. Wat vaststaat, zijn de gemeten waarden aan de uitloop: 1.200–1.600 ppb opgeloste H₂ en een ORP van −400/−600 mV. Dagelijks drinken is volkomen normaal. Je proeft zuiver, fris water."}},{"@type":"Question","name":"Hoeveel water verbruikt het systeem?","acceptedAnswer":{"@type":"Answer","text":"Zoals elk omgekeerde-osmosesysteem gebruikt VitaTap spoelwater om het membraan schoon te houden. Het systeem produceert alleen wanneer je tapt: voor dagelijks drink- en kookwater gaat het om enkele extra liters per dag, een fractie van wat één wasbeurt verbruikt."}},{"@type":"Question","name":"Hoe vaak moet het filter vervangen worden?","acceptedAnswer":{"@type":"Answer","text":"De meeste filters gaan een jaar mee, maar elk onderdeel heeft zijn eigen levensduur. Vuistregels: sedimentfilter 3–12 maanden (afhankelijk van waterkwaliteit), koolfilter en remineralisatiefilter elk jaar, UV-lamp elk jaar, RO-membraan elke 3 jaar. Al dit onderhoud zit in het abonnement inbegrepen. De Blue Companion-app houdt automatisch bij wanneer vervanging nodig is."}},{"@type":"Question","name":"Past de kraan op mijn bestaande keuken?","acceptedAnswer":{"@type":"Answer","text":"In de meeste keukens wel. De kraan gebruikt een standaard 21 mm doorvoer en 3/8\"-aansluiting, en het systeem verdwijnt compact in je onderkast. Een erkende installateur controleert dit vooraf."}},{"@type":"Question","name":"Wat is het verschil met een gewone waterfilter?","acceptedAnswer":{"@type":"Answer","text":"Een gewone filter haalt alleen smaak en chloor weg. VitaTap zuivert moleculair en houdt verontreinigingen zoals PFAS, microplastics en bacteriën tot 99,9% tegen, remineraliseert daarna bewust en voegt moleculaire waterstof toe. Zuiver én vitaal, niet zomaar gefilterd."}},{"@type":"Question","name":"Koop of abonnement?","acceptedAnswer":{"@type":"Answer","text":"VitaTap werkt met een abonnement waarin installatie-ondersteuning, onderhoud en filters zijn inbegrepen. Zo blijft je water altijd op niveau zonder verrassingen. Een eenmalige opstartkost van €500 dekt de installatie."}},{"@type":"Question","name":"Wat als ik verhuis?","acceptedAnswer":{"@type":"Answer","text":"Je abonnement verhuist gewoon mee. Een erkende installateur demonteert het systeem op je oude adres en plaatst het opnieuw op je nieuwe adres. Je betaalt enkel de verplaatsing, geen nieuwe opstartkost. Eén telefoontje volstaat om dit in te plannen."}},{"@type":"Question","name":"Hoe zeg ik mijn abonnement op?","acceptedAnswer":{"@type":"Answer","text":"Het maandplan is per maand opzegbaar; jaar- en 5-jaarplannen lopen tot het einde van de gekozen periode en worden nooit stilzwijgend voor een nieuwe volledige termijn verlengd. Bij stopzetting komt een erkende installateur het systeem netjes demonteren."}},{"@type":"Question","name":"Welke garantie krijg ik?","acceptedAnswer":{"@type":"Answer","text":"Zolang je abonnement loopt, valt de werking van kraan en systeem onder de service: defecte onderdelen worden hersteld of vervangen zonder extra kosten, en het jaarlijkse onderhoud met filtervervanging zit standaard inbegrepen."}}]}</script>
+  <!-- Analytics (privacy-first, geen cookies, geen banner nodig).
+       Activeren: 1) account op plausible.io voor domein vitatap.be
+                  2) onderstaande regel uncommenten en herbouwen (node build.js)
+  <script defer data-domain="vitatap.be" src="https://plausible.io/js/script.tagged-events.js"></script>
+  -->
 </head>
 <body>
-<div id="app">
-  <div id="login" class="login">
-    <div class="brand">
-      <div class="logo"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.7S5 10 5 14.5a7 7 0 0 0 14 0C19 10 12 2.7 12 2.7Z"/></svg></div>
-      <div><h1>Blue Companion</h1><p>Field operations · VitaTap</p></div>
-    </div>
-    <input id="email" type="email" placeholder="Email" autocomplete="username" value="maarten@vandecruys.world">
-    <input id="password" type="password" placeholder="Password" autocomplete="current-password">
-    <button class="btn" id="loginBtn">Sign in</button>
-    <div id="loginMsg" class="msg hidden"></div>
-    <p class="hint" id="diag">Starting…</p>
-  </div>
+<div id="root"><!--PRERENDER_START--><a class="skip-link" href="#main">Naar inhoud</a><header class="site-header"><div class="wrap header-inner"><a class="brand" href="#top" aria-label="VitaTap home"><img class="logo" src="assets/vitatap-mark.png" alt="VitaTap" width="180" height="171" decoding="async"><span class="wordmark">VitaTap</span></a><nav class="nav"><a href="#aanpak">Aanpak</a><a href="#werking">Werking</a><a href="#kraan">De Kraan</a><a href="#wetenschap">Wetenschap</a><a href="#prijzen">Prijzen</a><a href="#contact">Contact</a></nav><a class="btn header-cta" href="#contact">Gratis advies</a><button class="menu-btn" aria-label="Open menu" aria-expanded="false"><svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path></svg></button></div><div class="mobile-menu" style="opacity: 0; visibility: hidden; transform: translateY(-10px); pointer-events: none;"><nav><a href="#aanpak">Aanpak</a><a href="#werking">Werking</a><a href="#kraan">De Kraan</a><a href="#wetenschap">Wetenschap</a><a href="#prijzen">Prijzen</a><a href="#contact">Contact</a></nav><a class="btn btn-primary" href="#contact">Vraag gratis advies <svg viewBox="0 0 24 24" fill="none" class="arr" width="18" height="18"><path d="M4 12h15m0 0-6-6m6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a><div class="mobile-contact"><a href="tel:+32476371722">Bel +32 476 37 17 22</a><a href="https://wa.me/32476371722" target="_blank" rel="noopener">Chat via WhatsApp</a></div></div></header><main id="main"><section class="hero" id="top"><div class="wrap hero-grid"><div class="hero-copy"><p class="hero-eyebrow"><span class="dot"></span> De wellness-utility voor thuis</p><h1 class="display">Zuiver. Vitaal. Onbeperkt.</h1><p class="hero-sub">6-staps omgekeerde osmose met UV-sterilisatie en moleculaire H₂. Houdt PFAS, microplastics en bacteriën tot 99,9% tegen en verwijdert tot 95% van de opgeloste stoffen (TDS). Daarna geremineraliseerd en verrijkt met waterstof. Vanaf €39 per maand, onderhoud en filters inbegrepen.</p><div class="hero-stats"><div class="stat-chip"><div class="val">tot 99,9%</div><div class="cap">PFAS, microplastics &amp; bacteriën</div></div><div class="stat-chip"><div class="val">1200–1600 ppb</div><div class="cap">Moleculaire H₂</div></div><div class="stat-chip"><div class="val">100%</div><div class="cap">UV-sterilisatie</div></div></div><div class="hero-actions"><a class="btn btn-primary solid-white" href="#contact">Vraag gratis advies <svg viewBox="0 0 24 24" fill="none" class="arr" width="18" height="18"><path d="M4 12h15m0 0-6-6m6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a><a class="btn btn-ghost" href="#prijzen">Bekijk prijzen</a></div><p class="hero-fine">Vanaf €39 / mnd excl. btw · onderhoud &amp; filters inbegrepen · specificaties volgens fabrikant</p></div><div class="hero-media"><div class="hero-card"><span class="hero-finish-tag">Geborsteld staal</span><div class="frame"><img src="assets/hero-lifestyle.webp" alt="Vrouw vult een glas met gezuiverd water aan de VitaTap-kraan" width="760" height="1351" loading="eager" fetchpriority="high" decoding="async"></div><div class="hero-badge"><span class="ico"><svg viewBox="0 0 24 24" fill="none" width="20" height="20"><path d="M12 3c3 5 6 7.5 6 11a6 6 0 1 1-12 0c0-3.5 3-6 6-11Z" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"></path></svg></span><div><div class="t">Vers getapt</div><div class="s">Gezuiverd + waterstofrijk</div></div></div></div></div></div></section><div class="trust"><div class="wrap" data-comment-anchor="d1878b9bf1-div-122-7"><span class="label">In één oogopslag</span><div class="items"><span><span class="d"></span><b>PFAS &amp; microplastics</b></span><span><span class="d"></span><b>6-staps omgekeerde osmose</b></span><span><span class="d"></span><b>UV-sterilisatie</b></span><span><span class="d"></span><b>H₂ via SPE</b></span><span><span class="d"></span><b>Lekbeveiliging</b></span><span><span class="d"></span><b>Erkende installateurs</b></span></div></div></div><section class="section bg-paper" id="aanpak"><svg viewBox="0 0 24 24" fill="none" class="watermark" style="width: 420px; height: 420px; top: -60px; right: -80px;"><path d="M12 3c3 5 6 7.5 6 11a6 6 0 1 1-12 0c0-3.5 3-6 6-11Z" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"></path></svg><div class="wrap"><div class="sec-head"><p class="eyebrow">01 · De aanpak</p><h2 class="display">Zes stappen.<br>Eén glas perfectie.</h2><p class="lead">Moleculaire omgekeerde osmose verwijdert vrijwel alles wat niet in je glas thuishoort, en bouwt daarna bewust weer op wat wél bijdraagt. Ontdek elke stap.</p></div><div class="steps-layout"><div class="steps-sticky"><div class="flow-visual"><span class="ring"></span><span class="flow-pill">Stap 01 / 06</span><div class="flow-head"><div class="flow-num">01</div></div><div class="flow-name">Sediment-voorfilter</div><p class="flow-desc">Zand, roestdeeltjes en zwevend vuil worden als eerste afgevangen, zodat de fijnere filters optimaal blijven presteren.</p><div class="flow-meter"><div class="bar"><div class="fill" style="width: 28%;"></div></div><div class="lab"><span>Zuiverheid</span><span>28%</span></div></div></div></div><div class="step-list"><button class="step-item active"><span class="idx">01</span><span><span class="st-name">Sediment-voorfilter</span><span class="st-sub">Grove deeltjes &amp; roest</span></span><span class="st-tag">5 µm</span></button><button class="step-item"><span class="idx">02</span><span><span class="st-name">Actieve-koolblok</span><span class="st-sub">Chloor, smaak &amp; geur</span></span><span class="st-tag">Carbon</span></button><button class="step-item"><span class="idx">03</span><span><span class="st-name">RO-membraan</span><span class="st-sub">PFAS · virussen · microplastics</span></span><span class="st-tag">0,0001 µm</span></button><button class="step-item"><span class="idx">04</span><span><span class="st-name">Remineralisatie</span><span class="st-sub">Calcium &amp; magnesium terug</span></span><span class="st-tag">pH 7,2–7,8</span></button><button class="step-item"><span class="idx">05</span><span><span class="st-name">SPE Waterstof-infusie</span><span class="st-sub">Moleculaire H₂ via SPE</span></span><span class="st-tag">1200–1600 ppb</span></button><button class="step-item"><span class="idx">06</span><span><span class="st-name">UV-sterilisatie</span><span class="st-sub">100% sterilisatie</span></span><span class="st-tag">UV-C lamp</span></button></div></div></div></section><section class="section bg-paper2" id="werking"><div class="wrap"><div class="werking-grid"><div class="werking-visual"><div class="werking-faucet"><img src="assets/finish-steel.webp" alt="VitaTap-designkraan in geborsteld staal met een aparte uitloop voor gezuiverd, vitaal water" width="760" height="1140" loading="lazy" decoding="async"></div><div class="werking-filter"><img src="assets/under-sink-filter.webp" alt="Het 6-staps zuiveringssysteem onder de gootsteen" width="900" height="900" loading="lazy" decoding="async"><span class="cap">Onder de gootsteen</span></div></div><div class="werking-copy"><p class="eyebrow">02 · Werking</p><h2 class="display" style="margin-top: 16px;">Slimme techniek.<br>Strakke kraan.</h2><p class="lead" style="margin-top: 18px;">Alle techniek verdwijnt in je onderkast. Boven blijft alleen een strakke designkraan die twee soorten water levert: gewoon en gezuiverd-vitaal.</p><div class="werk-steps"><div class="werk-step"><span class="n"><svg viewBox="0 0 24 24" fill="none" width="20" height="20"><path d="M4 5h16l-6 7v6l-4 2v-8L4 5Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"></path></svg></span><div><h4>Onzichtbaar onder de gootsteen</h4><p>Het complete 6-staps systeem zit compact weggewerkt in je onderkast. Geen werkbladtoestellen, geen flessen. Alleen je kraan.</p></div></div><div class="werk-step"><span class="n"><svg viewBox="0 0 24 24" fill="none" width="20" height="20"><path d="M3 8c2 0 2.5-2 4.5-2S10 8 12 8s2.5-2 4.5-2S19 8 21 8M3 14c2 0 2.5-2 4.5-2S10 14 12 14s2.5-2 4.5-2S19 14 21 14M3 20c2 0 2.5-2 4.5-2S10 20 12 20" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path></svg></span><div><h4>Eén kraan, twee stromen</h4><p>Een aparte uitloop levert gezuiverd én vitaal water, naast je gewone leidingwater. Kies bewust wat er in je glas komt.</p></div></div><div class="werk-step"><span class="n"><svg viewBox="0 0 24 24" fill="none" width="20" height="20"><path d="M12 3c3 5 6 7.5 6 11a6 6 0 1 1-12 0c0-3.5 3-6 6-11Z" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"></path></svg></span><div><h4>Sensorbediening, touchless</h4><p>Een geïntegreerde sensor activeert de stroom. Zo bedien je de kraan hygiënisch met de rug van je hand, ook met volle handen.</p></div></div><div class="werk-step"><span class="n"><svg viewBox="0 0 24 24" fill="none" width="20" height="20"><path d="M15 7a4 4 0 0 0-5 5L4 18l2 2 6-6a4 4 0 0 0 5-5l-2.5 2.5L13 9.5 15 7Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"></path></svg></span><div><h4>Past op je bestaande kraan</h4><p>De kraan past in de bestaande kraanopening (21 mm) met standaard 3/8"-aansluiting. Een erkende installateur plaatst alles in ongeveer 30 minuten.</p></div></div></div></div></div></div></section><section class="section bg-paper" id="wetenschap"><div class="wrap"><div class="sci-feature"><div class="sci-shot"><img src="assets/dark-teal-pour.webp" alt="Waterstofrijk water met micro-bubbels stroomt uit de VitaTap-kraan" width="1000" height="1501" loading="lazy" decoding="async"><span class="tag">Microbubbels · moleculaire H₂</span></div><div class="sec-head"><p class="eyebrow">03 · Wetenschap</p><h2 class="display" style="margin-top: 16px;">Niet zomaar zuiver. Vitaal.</h2><p class="lead" style="margin-top: 18px;">Zuiveren is stap één. Het verschil zit in wat we daarna toevoegen: mineralen die je lichaam herkent en moleculaire waterstof die als antioxidant werkt. Meetbaar in elke druppel.</p></div></div><div class="sci-grid"><div class="sci-card"><span class="ico"><svg viewBox="0 0 24 24" fill="none" width="26" height="26"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6l7-3Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"></path><path d="M9 12l2 2 4-4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg></span><h3>PFAS &amp; microplastics eruit</h3><p>Het RO-membraan houdt 'forever chemicals', microplastics, lood en nitraten tot 99,9% tegen; bacteriën en virussen worden nagenoeg volledig gestopt. De TDS-reductie (totaal opgeloste stoffen) bedraagt gemiddeld 95%.</p><div class="sci-metric"><span>Verwijdering verontreinigingen</span><span class="big">tot 99,9%</span></div></div><div class="sci-card"><span class="ico"><svg viewBox="0 0 24 24" fill="none" width="26" height="26"><path d="M13 3 5 13h5l-1 8 8-10h-5l1-8Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"></path></svg></span><h3>Moleculaire waterstof erin</h3><p>De SPE-cel (Solid Polymer Electrolysis) genereert opgeloste H₂, een kleine en selectieve antioxidant die neutrale watermoleculen en mineralen ongemoeid laat.</p><div class="sci-metric"><span>Concentratie H₂</span><span class="big">1200–1600 ppb</span></div></div><div class="sci-card"><span class="ico"><svg viewBox="0 0 24 24" fill="none" width="26" height="26"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M18 6l-2.5 2.5M8.5 15.5 6 18" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"></path></svg></span><h3>UV-sterilisatie: 100% zuiver</h3><p>Een ingebouwde UV-C-lamp doodt in de laatste stap alle resterende bacteriën en virussen. Zonder chemicaliën, zonder bijsmaak.</p><div class="sci-metric"><span>UV-sterilisatie</span><span class="big">100%</span></div></div></div><div class="callout"><div class="qi">“</div><p class="qt">Wat je lichaam terugvraagt: schoon water, herkenbare mineralen en een antioxidante lading. VitaTap houdt PFAS, microplastics en bacteriën tot 99,9% tegen, reduceert de opgeloste stoffen met 95% en steriliseert daarna met UV-C. Vers en vitaal aan de uitloop.</p><a class="btn btn-ghost" href="#kraan" style="color: rgb(255, 255, 255); border-color: rgba(255, 255, 255, 0.5);">Bekijk de kraan</a></div><p class="claims-note">Verwijdering tot 99,9% verwijst naar specifieke verontreinigingen (PFAS, microplastics, lood, bacteriën en virussen) volgens fabrikantsmetingen van het RO-membraan. De 95%-reductie van totaal opgeloste stoffen (TDS) is een gemiddelde fabrikantsmeting van datzelfde membraan. UV-sterilisatie elimineert bacteriën en virussen in het opslagtank-stadium. H₂-concentratie (1,2–1,6 ppm) en ORP-waarden (−400/−600&nbsp;mV) zijn fabrikantspecificaties gemeten aan de uitloop. Verwijzingen naar antioxidante eigenschappen beschrijven algemene kenmerken van moleculaire waterstof, geen medische of gezondheidsclaims.</p></div></section><section class="section bg-paper3 certs"><div class="wrap"><div class="sec-head" style="max-width: 760px;"><p class="eyebrow">Getest &amp; gemeten</p><h2 class="display">Zwart op wit.</h2><p class="lead">Geen loze beloftes. Dit zijn de keuringen en gemeten waarden waarmee VitaTap is gebouwd.</p></div><div class="certs-badges"><div class="cert-badge"><span class="cb-ico"><svg viewBox="0 0 24 24" fill="none" width="22" height="22"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6l7-3Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"></path><path d="M9 12l2 2 4-4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg></span><div><div class="cb-t">BPA-vrij</div><div class="cb-s">Onafhankelijk laboratorium getest</div></div></div><div class="cert-badge"><span class="cb-ico"><svg viewBox="0 0 24 24" fill="none" width="22" height="22"><path d="M5 12.5l4.5 4.5L19 6.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg></span><div><div class="cb-t">CE-gekeurd</div><div class="cb-s">Voldoet aan Europese normen</div></div></div><div class="cert-badge"><span class="cb-ico"><svg viewBox="0 0 24 24" fill="none" width="22" height="22"><path d="M12 3c3 5 6 7.5 6 11a6 6 0 1 1-12 0c0-3.5 3-6 6-11Z" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"></path></svg></span><div><div class="cb-t">NSF-materialen</div><div class="cb-s">Veilig in contact met drinkwater</div></div></div><div class="cert-badge"><span class="cb-ico"><svg viewBox="0 0 24 24" fill="none" width="22" height="22"><path d="M15 7a4 4 0 0 0-5 5L4 18l2 2 6-6a4 4 0 0 0 5-5l-2.5 2.5L13 9.5 15 7Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"></path></svg></span><div><div class="cb-t">RVS 304</div><div class="cb-s">Roestvrijstalen designkraan</div></div></div></div><div class="certs-specs"><div class="cert-spec"><div class="cs-v">1,2–1,6<span class="cs-u"> ppm</span></div><div class="cs-l">Opgeloste waterstof (H₂)</div></div><div class="cert-spec"><div class="cs-v">−400/−600<span class="cs-u"> mV</span></div><div class="cs-l">ORP antioxidant-potentiaal</div></div><div class="cert-spec"><div class="cs-v">6<span class="cs-u"> stappen</span></div><div class="cs-l">RO · remineralisatie · UV · SPE</div></div><div class="cert-spec"><div class="cs-v">UV-C</div><div class="cs-l">Sterilisatie in de tank</div></div></div></div></section><section class="section bg-paper2" id="dashboard"><div class="wrap"><div class="dash-grid"><div><p class="eyebrow">04 · Wellness-dashboard</p><h2 class="display" style="margin-top: 16px;">Je water,<br>in cijfers.</h2><p class="lead" style="margin-top: 18px;">Met de Blue Companion-app zie je precies wat er uit je kraan komt. Volg de kwaliteit van elk glas, kalibreer je ORP-waarden en plan onderhoud, allemaal vanaf je telefoon.</p><div class="feature-list"><div class="feature-row"><span class="fi"><svg viewBox="0 0 24 24" fill="none" width="22" height="22"><rect x="7" y="3" width="10" height="18" rx="2.5" stroke="currentColor" stroke-width="1.8"></rect><path d="M11 18h2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path></svg></span><div><h4>Draadloze app-verbinding</h4><p>Koppel de Blue Companion-app en lees TDS, H₂-concentratie en ORP (−400/−600&nbsp;mV) rechtstreeks van je kraan af.</p></div></div><div class="feature-row"><span class="fi"><svg viewBox="0 0 24 24" fill="none" width="22" height="22"><path d="M4 18a8 8 0 1 1 16 0" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path><path d="M12 18l4-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path></svg></span><div><h4>Live waterkwaliteit</h4><p>Realtime metingen tonen exact hoe zuiver en hoe waterstofrijk je water op dit moment is.</p></div></div><div class="feature-row"><span class="fi"><svg viewBox="0 0 24 24" fill="none" width="22" height="22"><path d="M7 7l2-3 3 5M17 9l2 3-5 1M9 19l-3-1 1-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg></span><div><h4>Filter-levenscyclus</h4><p>Een digitale ID houdt je 12-maandelijkse filterbeurt bij en seint op tijd je installateur in.</p></div></div></div></div><div class="phone"><span class="notch"></span><div class="screen"><div class="ph-top"><span class="h">Blue Companion</span><span class="live"><span class="d"></span> LIVE</span></div><div class="ph-ring"><div style="position: relative;"><svg class="ph-gauge" viewBox="0 0 168 168"><circle cx="84" cy="84" r="70" fill="none" stroke="rgba(20,120,120,.12)" stroke-width="13"></circle><circle cx="84" cy="84" r="70" fill="none" stroke="url(#gg)" stroke-width="13" stroke-linecap="round" stroke-dasharray="439.822971502571" stroke-dashoffset="48.3805268652828" transform="rotate(-90 84 84)" style="transition: stroke-dashoffset 1s cubic-bezier(.4,0,.2,1);"></circle><defs><linearGradient id="gg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="var(--teal-500)"></stop><stop offset="1" stop-color="var(--teal-700)"></stop></linearGradient></defs></svg><div class="num"><b>011</b><small>TDS · ppm</small></div></div></div><div class="ph-cards"><div class="ph-card"><div class="k">Waterstof H₂</div><div class="v">1480 <span>ppb</span></div><svg class="ph-card-spark spark" viewBox="0 0 72 22" preserveAspectRatio="none" style="width: 100%;"><polyline points="0,18 12,14 24,16 36,9 48,11 60,4 72,6" fill="none" stroke="var(--teal-600)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></polyline></svg></div><div class="ph-card"><div class="k">ORP</div><div class="v">−512 <span>mV</span></div><svg class="ph-card-spark spark" viewBox="0 0 72 22" preserveAspectRatio="none" style="width: 100%;"><polyline points="0,6 12,9 24,5 36,12 48,10 60,16 72,14" fill="none" stroke="var(--teal-600)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></polyline></svg></div><div class="ph-card"><div class="k">pH-waarde</div><div class="v">7,4</div></div><div class="ph-card"><div class="k">Filter</div><div class="v">214 <span>dagen</span></div></div></div><button class="ph-btn">Kalibreer ORP</button></div></div></div></div></section><section class="section kraan" id="kraan"><div class="wrap"><div class="sec-head"><p class="eyebrow">05 · De kraan</p><h2 class="display">Vier finishes.<br>Eén statement.</h2><p class="lead">Dezelfde strakke designkraan met sensorbediening, afgewerkt in de toon van jouw keuken. Kies je finish en zie het direct.</p></div><div class="kraan-grid"><div class="kraan-stage"><div class="frame"><img src="assets/finish-steel.webp" alt="VitaTap-kraan in Geborsteld staal" class="" width="760" height="1140" loading="lazy" decoding="async"></div><span class="finish-name">Geborsteld staal</span></div><div class="kraan-cfg"><div class="swatches"><button class="swatch active" aria-label="Geborsteld staal"><span class="dot" style="background: linear-gradient(135deg, rgb(207, 211, 214), rgb(154, 160, 164));"></span><span class="nm">staal</span><span class="swatch-default">Standaard</span></button><button class="swatch" aria-label="Chroom"><span class="dot" style="background: linear-gradient(135deg, rgb(241, 244, 246), rgb(174, 182, 189) 60%, rgb(125, 133, 140));"></span><span class="nm">Chroom</span></button><button class="swatch" aria-label="Mat zwart"><span class="dot" style="background: linear-gradient(135deg, rgb(58, 58, 60), rgb(16, 16, 18));"></span><span class="nm">zwart</span></button><button class="swatch" aria-label="Geborsteld goud"><span class="dot" style="background: linear-gradient(135deg, rgb(226, 197, 120), rgb(180, 138, 60));"></span><span class="nm">goud</span></button></div><div class="kraan-specs"><div class="kspec"><div class="k">Bediening</div><div class="v">Hendel opzij</div></div><div class="kspec"><div class="k">Activatie</div><div class="v">Sensor touchless</div></div><div class="kspec"><div class="k">Aansluiting</div><div class="v">3/8"</div></div><div class="kspec"><div class="k">Doorvoer</div><div class="v">21 mm</div></div></div><div class="hero-actions" style="margin-top: 22px;"><a class="btn btn-primary" href="#prijzen">Bestel in geborsteld staal <svg viewBox="0 0 24 24" fill="none" class="arr" width="18" height="18"><path d="M4 12h15m0 0-6-6m6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></div></div></div></div></section><section class="section tight bg-paper"><div class="wrap"><div class="lifestyle"><div class="life-card"><img src="assets/kitchen-light.webp" alt="Familie in een lichte loft-keuken" width="820" height="1230" loading="lazy" decoding="async"><span class="ov"></span><div class="txt"><div class="k">Voor het hele gezin</div><h3>Elke dag</h3></div></div><div class="life-card"><img src="assets/kitchen-dark.webp" alt="Koppel in een moderne donkere keuken" width="820" height="1230" loading="lazy" decoding="async"><span class="ov"></span><div class="txt"><div class="k">Design dat past</div><h3>In elke keuken</h3></div></div></div></div></section><section class="section tight waarborgen"><div class="wrap"><div class="waarborg-grid"><div class="waarborg"><span class="wi"><svg viewBox="0 0 24 24" fill="none" width="24" height="24"><path d="M5 12.5l4.5 4.5L19 6.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg></span><div><h4>Gratis &amp; vrijblijvend</h4><p>Advies zonder aankoopverplichting.</p></div></div><div class="waarborg"><span class="wi"><svg viewBox="0 0 24 24" fill="none" width="24" height="24"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6l7-3Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"></path><path d="M9 12l2 2 4-4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg></span><div><h4>30 dagen proefperiode</h4><p>Niet overtuigd? Wij demonteren gratis.</p></div></div><div class="waarborg"><span class="wi"><svg viewBox="0 0 24 24" fill="none" width="24" height="24"><path d="M7 7l2-3 3 5M17 9l2 3-5 1M9 19l-3-1 1-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg></span><div><h4>Alles inbegrepen</h4><p>Onderhoud &amp; filters in je abonnement.</p></div></div><div class="waarborg"><span class="wi"><svg viewBox="0 0 24 24" fill="none" width="24" height="24"><circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="1.8"></circle><path d="M12 7.5V12l3 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg></span><div><h4>Maandelijks opzegbaar</h4><p>Met het maandplan, geen verrassingen.</p></div></div></div></div></section><section class="section bg-paper" id="prijzen"><div class="wrap"><div class="sec-head" style="max-width: 820px;"><p class="eyebrow">06 · Prijzen</p><h2 class="display">Alles inbegrepen.<br>Altijd zuiver, altijd vitaal.</h2><p class="lead">Onderhoud, filtervervanging en support zitten er standaard in. Kies de looptijd die bij je past. Hoe langer, hoe voordeliger.</p></div><div class="price-grid"><div class="price-card"><div class="price-name">Maandelijks</div><div class="price-sub">Maximale flexibiliteit</div><div class="price-amount"><span class="cur">€</span><span class="num">65</span><span class="per">/ mnd</span></div><div class="price-incl">€78,65 / mnd incl. 21% btw</div><div class="price-billing">Maandelijks betaald · opzegbaar per maand</div><ul class="price-feats"><li><svg viewBox="0 0 24 24" fill="none" class="ck"><path d="M5 12.5l4.5 4.5L19 6.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg><span><strong>Maandelijks opzegbaar</strong></span></li><li><svg viewBox="0 0 24 24" fill="none" class="ck"><path d="M5 12.5l4.5 4.5L19 6.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>VitaTap-designkraan in jouw finish</span></li><li><svg viewBox="0 0 24 24" fill="none" class="ck"><path d="M5 12.5l4.5 4.5L19 6.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>6-staps zuiveringssysteem onder de gootsteen</span></li><li><svg viewBox="0 0 24 24" fill="none" class="ck"><path d="M5 12.5l4.5 4.5L19 6.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>Jaarlijks onderhoud inbegrepen</span></li><li><svg viewBox="0 0 24 24" fill="none" class="ck"><path d="M5 12.5l4.5 4.5L19 6.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>12-maandelijkse filtervervanging inbegrepen</span></li><li><svg viewBox="0 0 24 24" fill="none" class="ck"><path d="M5 12.5l4.5 4.5L19 6.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>Blue Companion-app &amp; support</span></li></ul><div class="price-setup">+ <b>€500</b> opstartkost eenmalig<span class="ps-incl">€605 incl. btw</span></div><a class="btn btn-primary" href="#contact">Kies maandelijks <svg viewBox="0 0 24 24" fill="none" class="arr" width="18" height="18"><path d="M4 12h15m0 0-6-6m6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></div><div class="price-card featured"><span class="price-tag">Populair</span><div class="price-name">Jaarlijks</div><div class="price-sub">Meest gekozen</div><div class="price-amount"><span class="cur">€</span><span class="num">45</span><span class="per">/ mnd</span></div><div class="price-incl">€54,45 / mnd incl. 21% btw</div><div class="price-billing">Eén betaling van €540 per jaar</div><ul class="price-feats"><li><svg viewBox="0 0 24 24" fill="none" class="ck"><path d="M5 12.5l4.5 4.5L19 6.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg><span><strong>−31% t.o.v. maandelijks</strong></span></li><li><svg viewBox="0 0 24 24" fill="none" class="ck"><path d="M5 12.5l4.5 4.5L19 6.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>VitaTap-designkraan in jouw finish</span></li><li><svg viewBox="0 0 24 24" fill="none" class="ck"><path d="M5 12.5l4.5 4.5L19 6.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>6-staps zuiveringssysteem onder de gootsteen</span></li><li><svg viewBox="0 0 24 24" fill="none" class="ck"><path d="M5 12.5l4.5 4.5L19 6.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>Jaarlijks onderhoud inbegrepen</span></li><li><svg viewBox="0 0 24 24" fill="none" class="ck"><path d="M5 12.5l4.5 4.5L19 6.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>12-maandelijkse filtervervanging inbegrepen</span></li><li><svg viewBox="0 0 24 24" fill="none" class="ck"><path d="M5 12.5l4.5 4.5L19 6.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>Blue Companion-app &amp; support</span></li></ul><div class="price-setup">+ <b>€500</b> opstartkost eenmalig<span class="ps-incl">€605 incl. btw</span></div><a class="btn btn-primary solid-white" href="#contact">Kies jaarlijks <svg viewBox="0 0 24 24" fill="none" class="arr" width="18" height="18"><path d="M4 12h15m0 0-6-6m6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></div><div class="price-card"><span class="price-tag">Beste waarde</span><div class="price-name">5-jaarlijks</div><div class="price-sub">Beste waarde</div><div class="price-amount"><span class="cur">€</span><span class="num">39</span><span class="per">/ mnd</span></div><div class="price-incl">€47,19 / mnd incl. 21% btw</div><div class="price-billing">Eén betaling van €2.340 per 5 jaar</div><ul class="price-feats"><li><svg viewBox="0 0 24 24" fill="none" class="ck"><path d="M5 12.5l4.5 4.5L19 6.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg><span><strong>−40% · prijsgarantie 5 jaar</strong></span></li><li><svg viewBox="0 0 24 24" fill="none" class="ck"><path d="M5 12.5l4.5 4.5L19 6.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>VitaTap-designkraan in jouw finish</span></li><li><svg viewBox="0 0 24 24" fill="none" class="ck"><path d="M5 12.5l4.5 4.5L19 6.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>6-staps zuiveringssysteem onder de gootsteen</span></li><li><svg viewBox="0 0 24 24" fill="none" class="ck"><path d="M5 12.5l4.5 4.5L19 6.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>Jaarlijks onderhoud inbegrepen</span></li><li><svg viewBox="0 0 24 24" fill="none" class="ck"><path d="M5 12.5l4.5 4.5L19 6.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>12-maandelijkse filtervervanging inbegrepen</span></li><li><svg viewBox="0 0 24 24" fill="none" class="ck"><path d="M5 12.5l4.5 4.5L19 6.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>Blue Companion-app &amp; support</span></li></ul><div class="price-setup">+ <b>€500</b> opstartkost eenmalig<span class="ps-incl">€605 incl. btw</span></div><a class="btn btn-primary" href="#contact">Kies 5-jaarlijks <svg viewBox="0 0 24 24" fill="none" class="arr" width="18" height="18"><path d="M4 12h15m0 0-6-6m6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></div></div><div class="startup-banner"><span><svg viewBox="0 0 24 24" fill="none" class="ic" width="20" height="20"><path d="M15 7a4 4 0 0 0-5 5L4 18l2 2 6-6a4 4 0 0 0 5-5l-2.5 2.5L13 9.5 15 7Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"></path></svg> <span>Installatie door <b>erkende vakman</b> · opstartkost €500 eenmalig · betaling via Bancontact, overschrijving of domiciliëring</span></span><span><svg viewBox="0 0 24 24" fill="none" class="ic" width="20" height="20"><path d="M7 7l2-3 3 5M17 9l2 3-5 1M9 19l-3-1 1-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg> Onderhoud &amp; filters inbegrepen</span><span><svg viewBox="0 0 24 24" fill="none" class="ic" width="20" height="20"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6l7-3Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"></path><path d="M9 12l2 2 4-4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg> Prijzen excl. btw · incl. btw telkens vermeld</span></div><div class="liter-compare"><div class="lc-head">Bereken jouw besparing</div><div class="lc-controls"><div class="lc-sim-row"><span class="lc-sim-label">Personen in huis</span><div class="lc-pills"><button class="lc-pill">1</button><button class="lc-pill active">2</button><button class="lc-pill">3</button><button class="lc-pill">4</button><button class="lc-pill">5</button><button class="lc-pill">6</button><button class="lc-pill">7</button><button class="lc-pill">8</button></div><span class="lc-usage">8L/dag totaal</span></div><p class="lc-assumption">We rekenen met 4 liter per persoon per dag: ±2 liter drinkwater plus water voor koffie, thee en koken.</p></div><div class="lc-rows"><div class="lc-row vt"><span class="lc-name">VitaTap</span><div class="lc-bar"><span style="width: 34%;"></span></div><span class="lc-val">€47,19 / mnd†</span></div><div class="lc-row"><span class="lc-name">Delhaize huismerk</span><div class="lc-bar"><span style="width: 47%;"></span></div><span class="lc-val">€64,80 / mnd</span></div><div class="lc-row"><span class="lc-name">Spa Reine</span><div class="lc-bar"><span style="width: 100%;"></span></div><span class="lc-val">€136,80 / mnd</span></div><div class="lc-row"><span class="lc-name">Vittel</span><div class="lc-bar"><span style="width: 100%;"></span></div><span class="lc-val">€136,80 / mnd</span></div></div><div class="lc-insights"><div class="lc-insight"><span class="lc-insight-val">5.840</span><span class="lc-insight-lab">plastic flessen per jaar vermeden</span></div><div class="lc-insight lc-insight-win"><span class="lc-insight-val">€1075,32</span><span class="lc-insight-lab">bespaard per jaar t.o.v. premium flessenwater (gem. Spa Reine &amp; Vittel)</span></div><div class="lc-insight"><span class="lc-insight-val">6-staps</span><span class="lc-insight-lab">zuivering incl. PFAS, UV &amp; H₂</span></div></div><div class="lc-quality"><span class="lc-qtag"><svg viewBox="0 0 24 24" fill="none" width="12" height="12"><path d="M5 12.5l4.5 4.5L19 6.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg> PFAS &amp; microplastics verwijderd</span><span class="lc-qtag"><svg viewBox="0 0 24 24" fill="none" width="12" height="12"><path d="M5 12.5l4.5 4.5L19 6.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg> Geremineraliseerd (Ca, Mg)</span><span class="lc-qtag"><svg viewBox="0 0 24 24" fill="none" width="12" height="12"><path d="M5 12.5l4.5 4.5L19 6.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg> Moleculaire H₂, antioxidant</span><span class="lc-qtag"><svg viewBox="0 0 24 24" fill="none" width="12" height="12"><path d="M5 12.5l4.5 4.5L19 6.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg> UV-gesteriliseerd</span><span class="lc-qtag"><svg viewBox="0 0 24 24" fill="none" width="12" height="12"><path d="M5 12.5l4.5 4.5L19 6.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg> Geen plastic flessen</span><span class="lc-qtag"><svg viewBox="0 0 24 24" fill="none" width="12" height="12"><path d="M5 12.5l4.5 4.5L19 6.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg> Onbeperkt beschikbaar</span></div><p class="lc-note">†VitaTap 5-jarenplan · €39/mnd excl. 21% btw (€47,19 incl. btw) · vaste kost ongeacht verbruik · excl. eenmalige opstartkost €605 incl. btw.<br>Flessenwater: winkelprijs Delhaize.be juni 2026 (6×1,5 l), incl. 6% btw. Plastic: 1 fles = 50 cl. Prijzen kunnen variëren.</p></div><p class="price-foot">Liever eerst advies? <a href="#contact" style="color: var(--teal-700); text-decoration: underline;">Plan een gratis en vrijblijvend adviesgesprek →</a></p></div></section><section class="section locator" id="installateurs"><div class="wrap"><div class="loc-grid"><div><p class="eyebrow on-dark">07 · Installatie in jouw regio</p><h2 class="display" style="color: rgb(255, 255, 255); margin-top: 16px;">Installatie bij jou thuis</h2><p class="lead" style="color: rgba(255, 255, 255, 0.88); margin-top: 18px;">Geef je postcode in en we bevestigen de plaatsing in jouw regio. Een erkende vakman, uit ons eigen team of een gecertificeerde partner, plaatst alles volgens het 30-minuten protocol en kalibreert via de Blue Companion-app.</p><form class="loc-form"><input inputmode="numeric" placeholder="Bv. 9000" aria-label="Postcode" maxlength="4" value=""><button class="btn btn-primary solid-white" type="submit">Check beschikbaarheid <svg viewBox="0 0 24 24" fill="none" class="arr" width="18" height="18"><path d="M4 12h15m0 0-6-6m6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></button></form><p class="loc-note">Actief in heel België · plaatsing in ongeveer 30 minuten.</p><div class="loc-results"></div><p class="loc-partner">Ben je zelf installateur? <a href="#contact">Word erkende VitaTap-partner →</a></p></div><div class="loc-map" aria-hidden="true"><svg class="loc-be" viewBox="0 0 560 420" preserveAspectRatio="xMidYMid meet" focusable="false"><path d="M254.314,47.545L263.578,52.099L271.578,53.074L275.368,51.123L272.842,39.732L279.579,33.868L286.737,30.935L290.106,35.823L296.843,40.709L302.317,41.035L316.634,28L319.582,30.609L322.951,35.172L323.372,38.755L324.214,42.663L327.161,44.29L338.531,43.639L344.005,36.475L348.637,31.913L352.005,35.172L353.69,43.639L356.637,55.025L370.112,67.694L381.481,71.264L395.377,68.668L400.851,66.396L404.641,68.343L408.01,75.157L416.01,82.613L432.854,88.12L438.328,91.034L441.696,96.213L440.854,103.651L432.854,121.734L431.59,127.216L432.854,128.828L431.169,132.373L420.642,144.285L419.8,148.788L423.169,155.539L426.116,161.32L432.433,164.21L438.328,165.173L449.276,165.494L461.066,165.815L462.751,169.344L475.804,178.963L480.015,186.651L489.7,194.331L481.699,203.603L482.963,208.075L485.91,212.226L496.437,214.78L501.912,220.841L502.333,230.403L504.438,245.68L482.542,261.248L476.225,278.056L475.804,281.54L474.962,280.907L472.436,275.521L468.225,275.521L459.382,272.985L446.328,288.505L440.433,301.153L437.065,310.627L432.012,318.2L431.169,326.08L431.59,329.545L429.906,333.954L429.906,338.36L437.065,347.166L439.17,352.193L448.013,367.887L445.065,373.843L442.96,379.795L440.433,384.491L437.486,387.308L428.222,386.995L416.431,388.872L408.431,392L404.22,392L395.798,384.178L386.534,372.589L380.218,366.946L377.692,361.927L370.112,360.044L359.585,354.078L352.005,347.794L345.689,343.707L336.846,341.82L329.688,342.135L327.161,331.435L326.319,319.146L320.424,310.943L328.846,278.689L323.793,275.521L318.319,278.056L310.739,285.973L306.949,295.147L304.844,303.049L291.79,310.627L271.157,313.468L248.84,310.627L245.471,308.733L244.208,306.523L244.208,303.681L245.471,299.257L249.682,293.882L250.524,286.289L246.313,279.956L243.787,277.422L245.05,271.083L247.998,263.153L248.419,258.708L233.26,244.726L222.311,242.181L211.363,241.863L203.363,240.272L198.731,240.909L195.362,244.726L191.572,247.588L189.046,244.09L184.414,219.884L180.624,216.375L166.728,212.226L148.201,210.63L143.148,206.159L140.2,195.291L138.516,182.167L132.199,169.344L129.252,166.136L123.778,160.678L113.672,162.926L101.881,170.307L95.144,172.231L92.196,173.193L82.932,165.815L72.405,154.575L63.984,142.676L61.878,135.916L64.405,127.861L61.457,121.734L56.825,110.436L55.562,101.711L106.513,70.291L137.252,54.05L151.99,49.171L155.359,65.422L158.307,70.615L161.675,73.86L166.307,74.508L171.36,70.615L178.94,66.396L190.73,68.343L199.573,72.238L202.52,76.13L208.416,80.021L216.416,80.993L232.839,73.535L248.419,62.499L252.63,54.7Z" fill="rgba(255,255,255,.09)" stroke="rgba(255,255,255,.45)" stroke-width="1.6" stroke-linejoin="round"></path></svg><span class="loc-pin" style="left: 48.07%; top: 35.1%;" title="Brussel"><span class="p"></span></span><span class="loc-pin" style="left: 49.13%; top: 18.76%;" title="Antwerpen"><span class="p"></span></span><span class="loc-pin" style="left: 34.82%; top: 26.08%;" title="Gent"><span class="p"></span></span><span class="loc-pin" style="left: 24.53%; top: 19.2%;" title="Brugge"><span class="p"></span></span><span class="loc-pin" style="left: 68.66%; top: 31.55%;" title="Hasselt"><span class="p"></span></span><span class="loc-pin" style="left: 73.72%; top: 44.68%;" title="Luik"><span class="p"></span></span><span class="loc-pin" style="left: 58.84%; top: 51.92%;" title="Namen"><span class="p"></span></span><span class="loc-pin" style="left: 50.01%; top: 54.37%;" title="Charleroi"><span class="p"></span></span><span class="loc-pin" style="left: 55.35%; top: 33.81%;" title="Leuven"><span class="p"></span></span><span class="loc-pin me" style="left: 25.37%; top: 36.09%;" title="Kortrijk"><span class="p"></span></span><span class="loc-map-cap">Eigen team + gecertificeerde partners · heel België</span></div></div></div></section><section class="section bg-paper2" id="installatie"><div class="wrap"><div class="sec-head" style="max-width: 820px;"><p class="eyebrow">08 · Installatie &amp; service</p><h2 class="display">In 30 minuten<br>geïnstalleerd.</h2><p class="lead">Onze erkende installateurs volgen een strak protocol, van voorbereiding tot kalibratie, zodat je dezelfde dag nog vitaal water tapt.</p></div><div class="install-grid"><div class="install-card"><div class="ph">STAP 01</div><div class="ti">Voorbereiding</div><p>De bestaande kraanopening (21 mm) en de 3/8"-aansluiting vrijmaken. Geen extra boorwerk nodig.</p><span class="chip">21 mm · 3/8"</span></div><div class="install-card"><div class="ph">STAP 02</div><div class="ti">Plaatsing</div><p>Systeem in de onderkast, kraan monteren en leidingen koppelen, in zo'n 30 minuten.</p><span class="chip">± 30 min</span></div><div class="install-card"><div class="ph">STAP 03</div><div class="ti">Kalibratie</div><p>Met de Blue Companion-app de ORP-waarden bevestigen tussen −400 en −600&nbsp;mV.</p><span class="chip">−400 / −600 mV</span></div><div class="install-card"><div class="ph">STAP 04</div><div class="ti">Service-ID</div><p>Digitale ID aanmaken voor tracking van de verplichte 12-maandelijkse filterbeurt.</p><span class="chip">12 mnd cyclus</span></div></div><div class="install-meta"><div class="m"><svg viewBox="0 0 24 24" fill="none" width="26" height="26" style="color: var(--teal-700);"><circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="1.8"></circle><path d="M12 7.5V12l3 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg><div><div class="big">± 30 min</div><div class="sm">Plaatsingstijd</div></div></div><div class="m"><svg viewBox="0 0 24 24" fill="none" width="26" height="26" style="color: var(--teal-700);"><path d="M15 7a4 4 0 0 0-5 5L4 18l2 2 6-6a4 4 0 0 0 5-5l-2.5 2.5L13 9.5 15 7Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"></path></svg><div><div class="big">21 mm</div><div class="sm">Kraanopening</div></div></div><div class="m"><svg viewBox="0 0 24 24" fill="none" width="26" height="26" style="color: var(--teal-700);"><path d="M7 7l2-3 3 5M17 9l2 3-5 1M9 19l-3-1 1-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg><div><div class="big">12 mnd</div><div class="sm">Filteronderhoud</div></div></div></div></div></section><section class="section bg-paper" id="faq"><div class="wrap"><div class="sec-head"><p class="eyebrow">09 · FAQ</p><h2 class="display">Veelgestelde vragen</h2></div><div class="faq-list"><div class="faq-item open"><button class="faq-q">Wat doet waterstofrijk water voor mijn lichaam?<svg viewBox="0 0 24 24" fill="none" class="pm"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"></path></svg></button><div class="faq-a"><div class="inner">Moleculaire waterstof (H₂) is een van nature voorkomend, smaakloos gas dat volledig opgelost in het water zit. Wetenschappelijk onderzoek naar moleculaire waterstof als selectieve antioxidant loopt volop; wij doen geen medische claims. Wat vaststaat, zijn de gemeten waarden aan de uitloop: 1.200–1.600 ppb opgeloste H₂ en een ORP van −400/−600 mV. Dagelijks drinken is volkomen normaal. Je proeft zuiver, fris water.</div></div></div><div class="faq-item"><button class="faq-q">Hoeveel water verbruikt het systeem?<svg viewBox="0 0 24 24" fill="none" class="pm"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"></path></svg></button><div class="faq-a"><div class="inner">Zoals elk omgekeerde-osmosesysteem gebruikt VitaTap spoelwater om het membraan schoon te houden. Het systeem produceert alleen wanneer je tapt: voor dagelijks drink- en kookwater gaat het om enkele extra liters per dag, een fractie van wat één wasbeurt verbruikt.</div></div></div><div class="faq-item"><button class="faq-q">Hoe vaak moet het filter vervangen worden?<svg viewBox="0 0 24 24" fill="none" class="pm"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"></path></svg></button><div class="faq-a"><div class="inner">De meeste filters gaan een jaar mee, maar elk onderdeel heeft zijn eigen levensduur. Vuistregels: sedimentfilter 3–12 maanden (afhankelijk van waterkwaliteit), koolfilter en remineralisatiefilter elk jaar, UV-lamp elk jaar, RO-membraan elke 3 jaar. Al dit onderhoud zit in het abonnement inbegrepen. De Blue Companion-app houdt automatisch bij wanneer vervanging nodig is.</div></div></div><div class="faq-item"><button class="faq-q">Past de kraan op mijn bestaande keuken?<svg viewBox="0 0 24 24" fill="none" class="pm"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"></path></svg></button><div class="faq-a"><div class="inner">In de meeste keukens wel. De kraan gebruikt een standaard 21 mm doorvoer en 3/8"-aansluiting, en het systeem verdwijnt compact in je onderkast. Een erkende installateur controleert dit vooraf.</div></div></div><div class="faq-item"><button class="faq-q">Wat is het verschil met een gewone waterfilter?<svg viewBox="0 0 24 24" fill="none" class="pm"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"></path></svg></button><div class="faq-a"><div class="inner">Een gewone filter haalt alleen smaak en chloor weg. VitaTap zuivert moleculair en houdt verontreinigingen zoals PFAS, microplastics en bacteriën tot 99,9% tegen, remineraliseert daarna bewust en voegt moleculaire waterstof toe. Zuiver én vitaal, niet zomaar gefilterd.</div></div></div><div class="faq-item"><button class="faq-q">Koop of abonnement?<svg viewBox="0 0 24 24" fill="none" class="pm"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"></path></svg></button><div class="faq-a"><div class="inner">VitaTap werkt met een abonnement waarin installatie-ondersteuning, onderhoud en filters zijn inbegrepen. Zo blijft je water altijd op niveau zonder verrassingen. Een eenmalige opstartkost van €500 dekt de installatie.</div></div></div><div class="faq-item"><button class="faq-q">Wat als ik verhuis?<svg viewBox="0 0 24 24" fill="none" class="pm"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"></path></svg></button><div class="faq-a"><div class="inner">Je abonnement verhuist gewoon mee. Een erkende installateur demonteert het systeem op je oude adres en plaatst het opnieuw op je nieuwe adres. Je betaalt enkel de verplaatsing, geen nieuwe opstartkost. Eén telefoontje volstaat om dit in te plannen.</div></div></div><div class="faq-item"><button class="faq-q">Hoe zeg ik mijn abonnement op?<svg viewBox="0 0 24 24" fill="none" class="pm"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"></path></svg></button><div class="faq-a"><div class="inner">Het maandplan is per maand opzegbaar; jaar- en 5-jaarplannen lopen tot het einde van de gekozen periode en worden nooit stilzwijgend voor een nieuwe volledige termijn verlengd. Bij stopzetting komt een erkende installateur het systeem netjes demonteren.</div></div></div><div class="faq-item"><button class="faq-q">Welke garantie krijg ik?<svg viewBox="0 0 24 24" fill="none" class="pm"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"></path></svg></button><div class="faq-a"><div class="inner">Zolang je abonnement loopt, valt de werking van kraan en systeem onder de service: defecte onderdelen worden hersteld of vervangen zonder extra kosten, en het jaarlijkse onderhoud met filtervervanging zit standaard inbegrepen.</div></div></div></div></div></section><section class="section cta-band photo"><div class="cta-bg"><img src="assets/kitchen-dark.webp" alt="" width="820" height="1230" loading="lazy" decoding="async"></div><div class="wrap"><p class="eyebrow on-dark" style="justify-content: center; display: flex;">Klaar voor de overstap?</p><h2 class="display">Zuiver water. Elke dag.</h2><p class="lead">Vraag vandaag je gratis en vrijblijvend adviesgesprek aan. Een erkende installateur bekijkt je situatie en plaatst alles nadien in zo'n 30 minuten.</p><div class="hero-actions"><a class="btn btn-primary solid-white" href="#contact">Vraag gratis advies <svg viewBox="0 0 24 24" fill="none" class="arr" width="18" height="18"><path d="M4 12h15m0 0-6-6m6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a><a class="btn btn-ghost" href="#prijzen">Bekijk prijzen</a></div></div></section><section class="section advies bg-paper2" id="contact" data-screen-label="Gratis advies"><div class="wrap advies-grid"><div class="advies-copy"><p class="eyebrow">10 · Gratis advies</p><h2 class="display" style="margin-top: 16px;">Eerst advies,<br>dan beslissen.</h2><p class="lead" style="margin-top: 18px;">Laat je gegevens achter en we contacteren je binnen 2 werkdagen voor een gratis en vrijblijvend adviesgesprek, op een moment dat jou past.</p><ul class="advies-points"><li><svg viewBox="0 0 24 24" fill="none" class="ck"><path d="M5 12.5l4.5 4.5L19 6.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>Een <b>erkende installateur uit jouw regio</b> bekijkt je keuken en aansluiting</span></li><li><svg viewBox="0 0 24 24" fill="none" class="ck"><path d="M5 12.5l4.5 4.5L19 6.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>Op afspraak: <b>bij jou thuis of telefonisch</b>, zoals je zelf wil</span></li><li><svg viewBox="0 0 24 24" fill="none" class="ck"><path d="M5 12.5l4.5 4.5L19 6.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg><span><b>Volledig vrijblijvend.</b> Geen aankoopverplichting, geen opdringerige opvolging</span></li></ul></div><form class="advies-form"><div class="f-row"><label>Naam<input name="naam" type="text" autocomplete="name" placeholder="Voor- en achternaam" required=""></label><label>Telefoon<input name="telefoon" type="tel" autocomplete="tel" placeholder="+32 ..." required=""></label></div><label>E-mail<input name="email" type="email" autocomplete="email" placeholder="jij@voorbeeld.be" required=""></label><div class="f-row"><label>Postcode<input name="postcode" inputmode="numeric" maxlength="4" pattern="[0-9]{4}" title="Een Belgische postcode bestaat uit 4 cijfers" placeholder="Bv. 9000" required=""></label><label>Interesse<select name="plan"><option value="">Nog geen voorkeur</option><option value="m">Maandelijks · €65 / mnd</option><option value="y">Jaarlijks · €45 / mnd</option><option value="5">5-jaarlijks · €39 / mnd</option></select></label></div><label>Vraag of opmerking <span class="opt">(optioneel)</span><textarea name="bericht" placeholder="Bv. type keukenblad, huidige kraan, beste belmoment..."></textarea></label><label class="consent"><input name="consent" type="checkbox" required=""><span>Ik ga akkoord dat VitaTap mijn gegevens gebruikt om mijn adviesaanvraag te behandelen, zoals beschreven in het <a href="privacy.html" target="_blank" rel="noopener">privacybeleid</a>.</span></label><button class="btn btn-primary" type="submit"><span>Plan mijn gratis adviesgesprek <svg viewBox="0 0 24 24" fill="none" class="arr" width="18" height="18"><path d="M4 12h15m0 0-6-6m6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></span></button><p class="form-note">Binnen 2 werkdagen contact · gratis &amp; vrijblijvend</p></form></div></section></main><footer class="footer"><div class="wrap"><div class="foot-grid"><div class="foot-brand"><img class="logo" src="assets/vitatap-mark.png" alt="VitaTap" width="180" height="171" decoding="async"><div class="wordmark">VitaTap</div><p>Gezuiverd, geremineraliseerd en waterstofrijk water, rechtstreeks uit je kraan. De wellness-utility voor elke keuken.</p><div class="foot-endorse"><span class="bc-chip"><img src="assets/bluecare-shield.webp" alt="Blue Care Products" width="220" height="234" loading="lazy" decoding="async"></span><div class="et"><b>Een merk van Blue Care Products</b>Veilig &amp; professioneel waterbeheer</div></div><address class="foot-legal">Blue Care Products BV · Minister Liebaertlaan 1, 8500 Kortrijk<br>BTW BE 0653.897.883</address></div><div class="foot-col"><h5>Product</h5><a href="#aanpak">De aanpak</a><a href="#werking">Werking</a><a href="#kraan">De kraan</a><a href="#wetenschap">Wetenschap</a></div><div class="foot-col"><h5>Service</h5><a href="#prijzen">Prijzen</a><a href="#installateurs">Installateurs</a><a href="#installatie">Installatie</a><a href="#faq">FAQ</a></div><div class="foot-col"><h5>Juridisch</h5><a href="#installateurs">Erkend partner worden</a><a href="privacy.html">Privacybeleid</a><a href="voorwaarden.html">Algemene voorwaarden</a><a href="cookiebeleid.html">Cookiebeleid</a></div></div><div class="foot-bottom"><span>© 2026 VitaTap · Prijzen excl. btw tenzij anders vermeld</span><span><a href="mailto:info@vitatap.be">info@vitatap.be</a> · <a href="tel:+32476371722">+32 476 37 17 22</a></span></div></div></footer><div class="sticky-cta" aria-hidden="true"><div class="sc-price"><b>Vanaf €39 / mnd</b><span>Alles inbegrepen</span></div><a class="btn btn-primary" href="#contact" tabindex="-1">Gratis advies <svg viewBox="0 0 24 24" fill="none" class="arr" width="16" height="16"><path d="M4 12h15m0 0-6-6m6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></div><!--PRERENDER_END--></div>
 
-  <div id="main-app" class="hidden" style="flex:1;display:flex;flex-direction:column">
-    <header>
-      <div class="top">
-        <div><div class="kicker">Field operations</div><h2 id="viewTitle">Home</h2></div>
-        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
-          <span class="role" id="roleTag">…</span>
-          <button class="link" id="logoutBtn">Sign out</button>
-        </div>
-      </div>
-    </header>
-    <main id="content"><div class="spin"></div></main>
-    <nav id="nav">
-      <button class="tab active" data-view="home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>Home</button>
-      <button class="tab" data-view="leads"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>Leads</button>
-      <button class="tab" data-view="stock"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7l9-4 9 4-9 4-9-4Z"/><path d="M3 7v10l9 4 9-4V7"/></svg>Stock</button>
-      <button class="tab" data-view="clients"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/><circle cx="10" cy="7" r="4"/><path d="M21 21v-2a4 4 0 0 0-3-3.87"/></svg>Clients</button>
-      <button class="tab" data-view="comm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1v22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>Comm.</button>
-    </nav>
-  </div>
-</div>
-
-<script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
-<script>
-  const SUPABASE_URL = "https://hblhalopooblmzrdwokt.supabase.co";
-  const SUPABASE_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhibGhhbG9wb29ibG16cmR3b2t0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODMzNDA1MDAsImV4cCI6MjA5ODkxNjUwMH0.Io_jHOyx0fuHCmQ_1W7lMrWrkIMrcUoTz06XJL7YARo";
-  let sb=null;
-
-  const $=s=>document.querySelector(s);
-  const el=h=>{const t=document.createElement('template');t.innerHTML=h.trim();return t.content.firstChild};
-  const eur=n=>"€"+Number(n||0).toLocaleString('nl-BE',{minimumFractionDigits:0,maximumFractionDigits:0});
-  const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-  const dfmt=d=>d?new Date(d).toLocaleDateString('nl-BE'):'—';
-
-  // ---- CDN-independent loader (own origin first, then public CDNs) ----
-  const SB_CDNS=[
-    "./vendor/supabase.js",
-    "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2",
-    "https://unpkg.com/@supabase/supabase-js@2",
-    "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"
-  ];
-  function loadScript(src){return new Promise((res,rej)=>{const s=document.createElement('script');s.src=src;s.async=false;s.onload=()=>res(1);s.onerror=()=>rej(0);document.head.appendChild(s);});}
-  async function ensureSupabase(){
-    if(window.supabase&&window.supabase.createClient) return true;
-    for(const u of SB_CDNS){ try{await loadScript(u);}catch(e){continue;} if(window.supabase&&window.supabase.createClient) return true; }
-    return !!(window.supabase&&window.supabase.createClient);
-  }
-  function initSb(){ if(sb) return true; if(!window.supabase||!window.supabase.createClient) return false; sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON); return true; }
-  function setDiag(t,bad){const d=$('#diag');if(d){d.textContent=t;d.style.color=bad?'#b91c1c':'var(--muted)';}}
-
-  // ---- App state ----
-  const S={ me:null, role:'installer', products:[], plans:[], clients:[], units:[], leads:[], commissions:[], staff:[] };
-  const byId=(arr,id)=>arr.find(x=>x.id===id);
-  const staffName=id=>{const s=byId(S.staff,id);return s?(s.full_name||s.email):'—';};
-  const clientName=id=>{const c=byId(S.clients,id);return c?c.full_name:'—';};
-  const productName=id=>{const p=byId(S.products,id);return p?p.name:'—';};
-  const planName=id=>{const p=byId(S.plans,id);return p?p.name:'—';};
-
-  async function loadAll(){
-    const q=[
-      sb.from('products').select('*').order('name'),
-      sb.from('plans').select('*').order('monthly_price'),
-      sb.from('clients').select('*').order('full_name'),
-      sb.from('serialized_units').select('*').order('serial'),
-      sb.from('leads').select('*').order('created_at',{ascending:false}),
-      sb.from('commissions').select('*').order('created_at',{ascending:false}),
-      sb.from('profiles').select('id,email,full_name,role')
-    ];
-    const [pr,pl,cl,un,le,co,st]=await Promise.all(q);
-    S.products=pr.data||[]; S.plans=pl.data||[]; S.clients=cl.data||[];
-    S.units=un.data||[]; S.leads=le.data||[]; S.commissions=co.data||[]; S.staff=st.data||[];
-  }
-
-  // ---- Auth ----
-  async function refresh(){
-    setDiag('Loading login library…'); await ensureSupabase();
-    if(!initSb()){ setDiag('Library blocked here — open index.html in Safari/Chrome (not a preview), or use the hosted URL.',true); showLogin(); return; }
-    setDiag('Ready — you can sign in.');
-    try{ const {data:{session}}=await sb.auth.getSession(); session?showApp():showLogin(); }catch(e){ showLogin(); }
-  }
-  function showLogin(){ $('#login').classList.remove('hidden'); $('#main-app').classList.add('hidden'); }
-  async function showApp(){
-    $('#login').classList.add('hidden'); $('#main-app').classList.remove('hidden');
-    const {data:prof}=await sb.from('profiles').select('id,email,full_name,role').maybeSingle();
-    S.me=prof||null; S.role=prof?prof.role:'installer'; $('#roleTag').textContent=S.role;
-    // admin-only tabs
-    $('#nav').querySelector('[data-view="clients"]').style.display = S.role==='admin'?'':'none';
-    render('home');
-  }
-  async function doLogin(){
-    const m=$('#loginMsg'); m.classList.remove('hidden'); m.className='msg'; m.textContent='Loading…';
-    await ensureSupabase();
-    if(!initSb()){ m.className='msg err'; m.textContent='Login library not loaded — open in a real browser or the hosted URL.'; return; }
-    const email=$('#email').value.trim(), password=$('#password').value;
-    if(!password){ m.className='msg err'; m.textContent='Enter your password.'; return; }
-    m.textContent='Signing in…';
-    try{ const {error}=await sb.auth.signInWithPassword({email,password});
-      if(error){ m.className='msg err'; m.textContent=(error.status?('['+error.status+'] '):'')+error.message; return; }
-      m.classList.add('hidden'); showApp();
-    }catch(e){ m.className='msg err'; m.textContent='Network error: '+(e&&e.message?e.message:e); }
-  }
-
-  // ---- Navigation ----
-  const titles={home:'Home',leads:'Leads',stock:'Stock',clients:'Clients',comm:'Commissions'};
-  let scanner=null;
-  document.addEventListener('click',e=>{
-    const tab=e.target.closest('.tab'); if(tab){ render(tab.dataset.view); return; }
-  });
-  $('#loginBtn').onclick=doLogin;
-  $('#password').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin();});
-  $('#logoutBtn').onclick=async()=>{ if(scanner){try{await scanner.stop()}catch(e){}} await sb.auth.signOut(); location.reload(); };
-
-  async function render(view){
-    [...document.querySelectorAll('.tab')].forEach(t=>t.classList.toggle('active',t.dataset.view===view));
-    $('#viewTitle').textContent=titles[view]||'Home';
-    const c=$('#content'); c.innerHTML='<div class="spin"></div>';
-    if(scanner){try{await scanner.stop()}catch(e){} scanner=null;}
-    try{ await loadAll();
-      if(view==='home') return renderHome(c);
-      if(view==='leads') return renderLeads(c);
-      if(view==='stock') return renderStock(c);
-      if(view==='clients') return renderClients(c);
-      if(view==='comm') return renderComm(c);
-    }catch(e){ c.innerHTML='<div class="empty">Could not load: '+esc(e.message)+'</div>'; }
-  }
-  async function reload(view){ await loadAll(); const v=view||[...document.querySelectorAll('.tab.active')][0].dataset.view; render(v); }
-
-  // ---- HOME ----
-  function renderHome(c){
-    const stock=S.products.reduce((s,p)=>s+(p.stock_on_hand||0),0);
-    const installed=S.units.filter(u=>u.status==='installed').length;
-    const openLeads=S.leads.filter(l=>!['won','lost'].includes(l.status)).length;
-    const toPay=S.commissions.filter(x=>!x.paid).reduce((s,x)=>s+Number(x.amount||0),0);
-    const low=S.products.filter(p=>p.stock_on_hand<=p.reorder_point);
-    c.innerHTML='';
-    c.appendChild(el(`<div style="font-size:14px;color:var(--muted);margin:2px 2px 12px">Welcome back${S.me&&S.me.email?', '+esc(S.me.email.split('@')[0]):''} · <b style="color:var(--b1)">${S.role}</b></div>`));
-    const grid=el('<div class="kpis"></div>');
-    [['Units in stock',stock],['Installed units',installed],['To pay',eur(toPay)],['Open leads',openLeads]]
-      .forEach(([l,n])=>grid.appendChild(el(`<div class="kpi"><div class="n">${n}</div><div class="l">${l}</div></div>`)));
-    c.appendChild(grid);
-    const qa=el('<div class="qa"></div>');
-    qa.appendChild(el(`<button class="btn" data-act="scan"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M4 7V5a1 1 0 0 1 1-1h2M17 4h2a1 1 0 0 1 1 1v2M20 17v2a1 1 0 0 1-1 1h-2M7 20H5a1 1 0 0 1-1-1v-2M7 8v8M11 8v8M15 8v8"/></svg>Scan unit</button>`));
-    qa.appendChild(el(`<button class="btn ghost" data-act="addLead">＋ Add lead</button>`));
-    c.appendChild(qa);
-    c.appendChild(el(`<div class="sec">Inventory alerts</div>`));
-    if(!low.length) c.appendChild(el('<div class="empty">All products above reorder point.</div>'));
-    low.forEach(p=>c.appendChild(el(`<div class="item flat"><div><div class="title">${esc(p.name)}</div><div class="sub">${p.stock_on_hand} left · reorder ${p.reorder_point}</div></div><span class="pill p-red">Low stock</span></div>`)));
-  }
-
-  // ---- LEADS ----
-  const LEAD_ST={new:'p-blue',contacted:'p-amber',quoted:'p-amber',won:'p-green',lost:'p-red'};
-  function renderLeads(c){
-    c.innerHTML='';
-    c.appendChild(el(`<div class="sec">Leads<button class="add" data-act="addLead">＋ Add</button></div>`));
-    if(!S.leads.length) c.appendChild(el('<div class="empty">No leads yet. Tap ＋ Add.</div>'));
-    S.leads.forEach(l=>{
-      const it=el(`<div class="item" data-act="lead" data-id="${l.id}"><div><div class="title">${esc(l.full_name)}</div><div class="sub">${esc(l.city||'')} · ${esc(l.source||'')}</div></div><span class="pill ${LEAD_ST[l.status]||'p-grey'}">${l.status}</span></div>`);
-      c.appendChild(it);
-    });
-  }
-  function leadForm(lead){
-    const st=['new','contacted','quoted','won','lost'];
-    const isAdmin=S.role==='admin';
-    const owners=S.staff.map(s=>`<option value="${s.id}" ${lead&&lead.owner_installer===s.id?'selected':''}>${esc(s.full_name||s.email)}</option>`).join('');
-    return `
-      <div class="field"><label>Name</label><input id="f_name" value="${esc(lead?lead.full_name:'')}"></div>
-      <div class="field"><label>City</label><input id="f_city" value="${esc(lead?lead.city:'')}"></div>
-      <div class="field"><label>Source</label><input id="f_source" value="${esc(lead?lead.source:'')}"></div>
-      <div class="field"><label>Status</label><select id="f_status">${st.map(s=>`<option ${lead&&lead.status===s?'selected':''}>${s}</option>`).join('')}</select></div>
-      ${isAdmin?`<div class="field"><label>Owner (installer)</label><select id="f_owner"><option value="">— unassigned —</option>${owners}</select></div>`:''}`;
-  }
-  function openAddLead(){
-    openModal('New lead', leadForm(null), async()=>{
-      const rec={ full_name:$('#f_name').value.trim(), city:$('#f_city').value.trim(), source:$('#f_source').value.trim(), status:$('#f_status').value };
-      if(!rec.full_name){ alert('Name required'); return false; }
-      rec.owner_installer = S.role==='admin' ? ($('#f_owner').value||null) : S.me.id;
-      const {error}=await sb.from('leads').insert(rec);
-      if(error){ alert(error.message); return false; }
-      await reload('leads'); return true;
-    });
-  }
-  function openLead(id){
-    const l=byId(S.leads,id); if(!l) return;
-    openModal('Edit lead', leadForm(l), async()=>{
-      const rec={ full_name:$('#f_name').value.trim(), city:$('#f_city').value.trim(), source:$('#f_source').value.trim(), status:$('#f_status').value };
-      if(S.role==='admin') rec.owner_installer=$('#f_owner').value||null;
-      const {error}=await sb.from('leads').update(rec).eq('id',id);
-      if(error){ alert(error.message); return false; }
-      await reload('leads'); return true;
-    });
-  }
-
-  // ---- STOCK ----
-  let unitFilter='all';
-  const UNIT_ST={in_stock:'p-grey',installed:'p-green',swap:'p-amber',returned:'p-red'};
-  function renderStock(c){
-    c.innerHTML='';
-    c.appendChild(el('<div class="sec">Products</div>'));
-    S.products.forEach(p=>{
-      const pill=p.stock_on_hand<=p.reorder_point?'p-red':'p-green';
-      c.appendChild(el(`<div class="item flat"><div><div class="title">${esc(p.name)}</div><div class="sub">${esc(p.sku||'')} · ${eur(p.unit_price)}</div></div><span class="pill ${pill}">${p.stock_on_hand} in stock</span></div>`));
-    });
-    c.appendChild(el('<div class="sec">Serialised units</div>'));
-    const chips=el('<div class="chips"></div>');
-    [['all','All'],['in_stock','In stock'],['installed','Installed'],['swap','Swap'],['returned','Returned']].forEach(([v,lbl])=>{
-      const ch=el(`<button class="chip ${unitFilter===v?'active':''}">${lbl}</button>`);
-      ch.onclick=()=>{unitFilter=v; renderStock(c);}; chips.appendChild(ch);
-    });
-    c.appendChild(chips);
-    const list=S.units.filter(u=>unitFilter==='all'||u.status===unitFilter);
-    if(!list.length) c.appendChild(el('<div class="empty">No units in this view.</div>'));
-    list.forEach(u=>c.appendChild(el(`<div class="item" data-act="unit" data-id="${u.id}"><div><div class="title">${esc(u.serial)}</div><div class="sub">${esc(productName(u.product_id))}${u.client_id?' · '+esc(clientName(u.client_id)):''}</div></div><span class="pill ${UNIT_ST[u.status]||'p-grey'}">${(u.status||'').replace('_',' ')}</span></div>`)));
-  }
-  function openUnit(id){
-    const u=byId(S.units,id); if(!u) return;
-    const body=`
-      <div class="kv"><span class="k">Serial</span><span>${esc(u.serial)}</span></div>
-      <div class="kv"><span class="k">Product</span><span>${esc(productName(u.product_id))}</span></div>
-      <div class="kv"><span class="k">Status</span><span>${(u.status||'').replace('_',' ')}</span></div>
-      <div class="kv"><span class="k">Client</span><span>${u.client_id?esc(clientName(u.client_id)):'—'}</span></div>
-      <div class="kv"><span class="k">Installer</span><span>${u.assigned_installer?esc(staffName(u.assigned_installer)):'—'}</span></div>
-      <div class="kv"><span class="k">Installed on</span><span>${dfmt(u.installed_at)}</span></div>
-      <div class="sec" style="margin:16px 2px 8px">Actions</div>
-      <div id="unitActions"></div>`;
-    openModal('Unit '+esc(u.serial), body, null);
-    const wrap=$('#unitActions');
-    const clientOpts=S.clients.map(cl=>`<option value="${cl.id}">${esc(cl.full_name)}</option>`).join('');
-    wrap.innerHTML=`
-      <div class="field"><label>Client (for install)</label><select id="u_client"><option value="">—</option>${clientOpts}</select></div>
-      <div class="field"><label>Install date</label><input id="u_date" type="date" value="${new Date().toISOString().slice(0,10)}"></div>
-      <div class="row-btns"><button class="btn sm" id="u_install">Mark installed</button><button class="btn sm ghost" id="u_swap">Swap</button><button class="btn sm ghost" id="u_return">Return</button><button class="btn sm ghost" id="u_stock">In stock</button></div>`;
-    const setStatus=async(status,extra)=>{ const {error}=await sb.from('serialized_units').update(Object.assign({status},extra||{})).eq('id',id); if(error){alert(error.message);return;} closeModal(); await reload('stock'); };
-    $('#u_install').onclick=()=>{ const cid=$('#u_client').value||null; setStatus('installed',{client_id:cid,installed_at:$('#u_date').value}); };
-    $('#u_swap').onclick=()=>setStatus('swap',{});
-    $('#u_return').onclick=()=>setStatus('returned',{});
-    $('#u_stock').onclick=()=>setStatus('in_stock',{client_id:null,installed_at:null});
-  }
-
-  // ---- CLIENTS ----
-  function renderClients(c){
-    c.innerHTML='';
-    c.appendChild(el(`<div class="sec">Clients<button class="add" data-act="addClient">＋ Add</button></div>`));
-    if(!S.clients.length) c.appendChild(el('<div class="empty">No clients yet.</div>'));
-    S.clients.forEach(cl=>c.appendChild(el(`<div class="item" data-act="client" data-id="${cl.id}"><div><div class="title">${esc(cl.full_name)}</div><div class="sub">${esc(cl.city||'')}${cl.plan_id?' · '+esc(planName(cl.plan_id)):''}</div></div><span class="pill p-blue">${S.units.filter(u=>u.client_id===cl.id).length} unit(s)</span></div>`)));
-  }
-  function clientForm(cl){
-    const plans=S.plans.map(p=>`<option value="${p.id}" ${cl&&cl.plan_id===p.id?'selected':''}>${esc(p.name)}</option>`).join('');
-    return `
-      <div class="field"><label>Name</label><input id="c_name" value="${esc(cl?cl.full_name:'')}"></div>
-      <div class="field"><label>City</label><input id="c_city" value="${esc(cl?cl.city:'')}"></div>
-      <div class="field"><label>Email</label><input id="c_email" value="${esc(cl?cl.email:'')}"></div>
-      <div class="field"><label>Phone</label><input id="c_phone" value="${esc(cl?cl.phone:'')}"></div>
-      <div class="field"><label>Plan</label><select id="c_plan"><option value="">—</option>${plans}</select></div>`;
-  }
-  function openAddClient(){
-    openModal('New client', clientForm(null), async()=>{
-      const rec={ full_name:$('#c_name').value.trim(), city:$('#c_city').value.trim(), email:$('#c_email').value.trim(), phone:$('#c_phone').value.trim(), plan_id:$('#c_plan').value||null };
-      if(!rec.full_name){ alert('Name required'); return false; }
-      const {error}=await sb.from('clients').insert(rec);
-      if(error){ alert(error.message); return false; }
-      await reload('clients'); return true;
-    });
-  }
-  function openClient(id){
-    const cl=byId(S.clients,id); if(!cl) return;
-    const units=S.units.filter(u=>u.client_id===id);
-    const extra=`
-      <div class="sec" style="margin:16px 2px 8px">Units</div>
-      ${units.length?units.map(u=>`<div class="item flat"><div><div class="title">${esc(u.serial)}</div><div class="sub">${esc(productName(u.product_id))}</div></div><span class="pill ${UNIT_ST[u.status]||'p-grey'}">${(u.status||'').replace('_',' ')}</span></div>`).join(''):'<div class="empty">No units.</div>'}`;
-    openModal('Edit client', clientForm(cl)+extra, async()=>{
-      const rec={ full_name:$('#c_name').value.trim(), city:$('#c_city').value.trim(), email:$('#c_email').value.trim(), phone:$('#c_phone').value.trim(), plan_id:$('#c_plan').value||null };
-      const {error}=await sb.from('clients').update(rec).eq('id',id);
-      if(error){ alert(error.message); return false; }
-      await reload('clients'); return true;
-    });
-  }
-
-  // ---- COMMISSIONS ----
-  const COMM_LBL={company_lead_install:'Company-lead install',own_lead_sale_install:'Own-lead sale + install'};
-  function renderComm(c){
-    c.innerHTML='';
-    const toPay=S.commissions.filter(x=>!x.paid).reduce((s,x)=>s+Number(x.amount||0),0);
-    const paid=S.commissions.filter(x=>x.paid).reduce((s,x)=>s+Number(x.amount||0),0);
-    const tot=el('<div class="row2"></div>');
-    tot.appendChild(el(`<div class="total pay"><div class="n">${eur(toPay)}</div><div class="l">To pay</div></div>`));
-    tot.appendChild(el(`<div class="total paid"><div class="n">${eur(paid)}</div><div class="l">Paid</div></div>`));
-    c.appendChild(tot);
-    c.appendChild(el('<div class="sec">Commissions</div>'));
-    const isAdmin=S.role==='admin';
-    if(!S.commissions.length) c.appendChild(el('<div class="empty">No commissions.</div>'));
-    S.commissions.forEach(x=>{
-      const who=isAdmin?(' · '+esc(staffName(x.staff_id))):'';
-      const it=el(`<div class="item ${isAdmin?'':'flat'}" ${isAdmin?`data-act="paid" data-id="${x.id}"`:''}><div><div class="title">${COMM_LBL[x.type]||esc(x.type)} · ${eur(x.amount)}</div><div class="sub">${dfmt(x.created_at)}${who}${x.paid&&x.paid_at?' · paid '+dfmt(x.paid_at):''}</div></div><span class="pill ${x.paid?'p-green':'p-amber'}">${x.paid?'paid':'to pay'}</span></div>`);
-      c.appendChild(it);
-    });
-    if(isAdmin) c.appendChild(el('<div class="hint" style="margin-top:8px">Tap a commission to toggle paid / to-pay.</div>'));
-  }
-  async function togglePaid(id){
-    const x=byId(S.commissions,id); if(!x) return;
-    const np=!x.paid;
-    const {error}=await sb.from('commissions').update({paid:np, paid_at: np?new Date().toISOString().slice(0,10):null}).eq('id',id);
-    if(error){ alert(error.message); return; }
-    await reload('comm');
-  }
-
-  // ---- SCAN (overlay) ----
-  async function openScan(){
-    const body=`<div id="reader"></div><p class="hint" style="margin-top:10px">Point the camera at a unit barcode.</p><div id="scanResult"></div>`;
-    openModal('Scan a unit', body, null);
-    try{
-      scanner=new Html5Qrcode("reader");
-      await scanner.start({facingMode:"environment"},{fps:10,qrbox:{width:240,height:150}},async(text)=>{
-        try{await scanner.stop()}catch(e){} scanner=null;
-        const u=S.units.find(x=>x.serial===text);
-        const r=$('#scanResult');
-        if(u){ r.innerHTML=`<div class="item flat"><div><div class="title">${esc(u.serial)}</div><div class="sub">${esc(productName(u.product_id))}</div></div><span class="pill ${UNIT_ST[u.status]||'p-grey'}">${(u.status||'').replace('_',' ')}</span></div>`;
-          const open=el('<button class="btn" style="margin-top:10px">Open unit</button>'); open.onclick=()=>{closeModal();openUnit(u.id);}; r.appendChild(open);
-        } else { r.innerHTML=`<div class="item flat"><div><div class="title">${esc(text)}</div><div class="sub">No matching unit</div></div><span class="pill p-grey">unknown</span></div>`; }
-      });
-    }catch(e){ $('#reader').innerHTML='<div class="empty" style="color:#fff;padding:40px">Camera unavailable — needs HTTPS (hosted URL) and permission.</div>'; }
-  }
-
-  // ---- Modal system ----
-  function openModal(title, bodyHTML, onSave){
-    closeModal();
-    const bg=el('<div class="modal-bg" id="modal"></div>');
-    const sheet=el(`<div class="sheet"></div>`);
-    sheet.appendChild(el(`<h3>${esc(title)}</h3>`));
-    const body=el('<div></div>'); body.innerHTML=bodyHTML; sheet.appendChild(body);
-    const btns=el('<div class="row-btns"></div>');
-    if(onSave){ const save=el('<button class="btn">Save</button>'); save.onclick=async()=>{ save.disabled=true; const ok=await onSave(); save.disabled=false; if(ok!==false) closeModal(); }; btns.appendChild(save); }
-    const close=el(`<button class="btn ghost">${onSave?'Cancel':'Close'}</button>`); close.onclick=async()=>{ if(scanner){try{await scanner.stop()}catch(e){}scanner=null;} closeModal(); };
-    btns.appendChild(close); sheet.appendChild(btns);
-    bg.appendChild(sheet); bg.addEventListener('click',e=>{ if(e.target===bg){ close.click(); } });
-    document.body.appendChild(bg);
-  }
-  function closeModal(){ const m=$('#modal'); if(m) m.remove(); }
-
-  // ---- Action delegation ----
-  document.addEventListener('click',e=>{
-    const a=e.target.closest('[data-act]'); if(!a) return;
-    const id=a.dataset.id;
-    switch(a.dataset.act){
-      case 'addLead': openAddLead(); break;
-      case 'lead': openLead(id); break;
-      case 'unit': openUnit(id); break;
-      case 'addClient': openAddClient(); break;
-      case 'client': openClient(id); break;
-      case 'paid': togglePaid(id); break;
-      case 'scan': openScan(); break;
-    }
-  });
-
-  refresh();
-</script>
+<!-- Production React + prebuilt bundle (JSX precompiled at build time; no in-browser Babel). -->
+<script src="vendor/react.production.min.js" integrity="sha384-DGyLxAyjq0f9SPpVevD6IgztCFlnMF6oW/XQGmfe+IsZ8TqEiDrcHkMLKI6fiB/Z" crossorigin="anonymous"></script>
+<script src="vendor/react-dom.production.min.js" integrity="sha384-gTGxhz21lVGYNMcdJOyq01Edg0jhn/c22nsx0kyqP0TxaV5WVdsSH1fSDUf5YJj1" crossorigin="anonymous"></script>
+<script src="bundle.js?v=a3ede7d8"></script>
 </body>
 </html>
