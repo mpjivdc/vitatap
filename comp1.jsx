@@ -26,7 +26,8 @@ const Ico = {
   spark: (p) => <svg viewBox="0 0 24 24" fill="none" {...p}><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M18 6l-2.5 2.5M8.5 15.5 6 18" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" /></svg>,
   phone: (p) => <svg viewBox="0 0 24 24" fill="none" {...p}><rect x="7" y="3" width="10" height="18" rx="2.5" stroke="currentColor" strokeWidth="1.8" /><path d="M11 18h2" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" /></svg>,
   filter: (p) => <svg viewBox="0 0 24 24" fill="none" {...p}><path d="M4 5h16l-6 7v6l-4 2v-8L4 5Z" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" /></svg>,
-  recycle: (p) => <svg viewBox="0 0 24 24" fill="none" {...p}><path d="M7 7l2-3 3 5M17 9l2 3-5 1M9 19l-3-1 1-5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" /></svg>
+  recycle: (p) => <svg viewBox="0 0 24 24" fill="none" {...p}><polyline points="23 4 23 10 17 10" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" /><polyline points="1 20 1 14 7 14" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" /><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" /></svg>,
+  box: (p) => <svg viewBox="0 0 24 24" fill="none" {...p}><path d="M21 8.2 12 3 3 8.2v7.6L12 21l9-5.2V8.2Z" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" /><path d="M3.3 7.8 12 12.9l8.7-5.1M12 12.9V21" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" /></svg>
 };
 
 /* ----------------------------------------------------------------

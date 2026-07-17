@@ -195,7 +195,7 @@ function Lifestyle() {
 const GUARANTEES = [
   { ico: "check", h: "Gratis & vrijblijvend", p: "Advies zonder aankoopverplichting." },
   { ico: "shield", h: "30 dagen proefperiode", p: "Niet overtuigd? Wij demonteren gratis." },
-  { ico: "recycle", h: "Alles inbegrepen", p: "Onderhoud & filters in je abonnement." },
+  { ico: "box", h: "Alles inbegrepen", p: "Onderhoud & filters in je abonnement." },
   { ico: "clock", h: "Maandelijks opzegbaar", p: "Met het maandplan, geen verrassingen." },
 ];
 
