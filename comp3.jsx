@@ -230,7 +230,7 @@ const CERTS = [
 ];
 const VSPECS = [
   { v: "1,2–1,6", u: "ppm", l: "Opgeloste waterstof (H₂)" },
-  { v: "−400/−600", u: "mV", l: "ORP antioxidant-potentiaal" },
+  { v: "−400/−600", u: "mV", l: "ORP (redoxpotentiaal)" },
   { v: "6", u: "stappen", l: "RO · remineralisatie · UV · SPE" },
   { v: "UV-C", u: "", l: "Sterilisatie in de tank" },
 ];

@@ -14,7 +14,7 @@ const STEPS = [
   { name: "Remineralisatie", sub: "Calcium & magnesium terug", tag: "pH 7,2–7,8", purity: 97,
     desc: "Zuiver water krijgt bewust calcium en magnesium terug en wordt in pH gebalanceerd. Precies wat je lichaam terugvraagt." },
   { name: "SPE Waterstof-infusie", sub: "Moleculaire H₂ via SPE", tag: "1200–1600 ppb", purity: 99,
-    desc: "Een SPE-cel (Solid Polymer Electrolysis) verrijkt het water met opgeloste moleculaire waterstof, een kleine en selectieve antioxidant." },
+    desc: "Een SPE-cel (Solid Polymer Electrolysis) verrijkt het water met opgeloste moleculaire waterstof (H₂)." },
   { name: "UV-sterilisatie", sub: "100% sterilisatie", tag: "UV-C lamp", purity: 100,
     desc: "Een ingebouwde UV-C-lamp steriliseert het water als laatste stap: bacteriën en virussen worden 100% geëlimineerd zonder chemicaliën, geur of bijsmaak." },
 ];
@@ -118,7 +118,7 @@ function Werking() {
 const SCI = [
   { ico: "shield", h: "PFAS & microplastics eruit", p: "Het RO-membraan houdt 'forever chemicals', microplastics, lood en nitraten tot 99,9% tegen; bacteriën en virussen worden nagenoeg volledig gestopt. De TDS-reductie (totaal opgeloste stoffen) bedraagt gemiddeld 95%.",
     k: "Verwijdering verontreinigingen", big: "tot 99,9%" },
-  { ico: "bolt", h: "Moleculaire waterstof erin", p: "De SPE-cel (Solid Polymer Electrolysis) genereert opgeloste H₂, een kleine en selectieve antioxidant die neutrale watermoleculen en mineralen ongemoeid laat.",
+  { ico: "bolt", h: "Moleculaire waterstof erin", p: "De SPE-cel (Solid Polymer Electrolysis) genereert opgeloste H₂, een klein molecuul dat neutrale watermoleculen en mineralen ongemoeid laat.",
     k: "Concentratie H₂", big: "1200–1600 ppb" },
   { ico: "spark", h: "UV-sterilisatie: 100% zuiver", p: "Een ingebouwde UV-C-lamp doodt in de laatste stap alle resterende bacteriën en virussen. Zonder chemicaliën, zonder bijsmaak.",
     k: "UV-sterilisatie", big: "100%" },
@@ -136,7 +136,7 @@ function Wetenschap() {
           <div className="sec-head">
             <p className="eyebrow">03 · Wetenschap</p>
             <h2 className="display" style={{ fontSize: "clamp(32px,4vw,52px)", marginTop: 16 }}>Niet zomaar zuiver. Vitaal.</h2>
-            <p className="lead" style={{ marginTop: 18 }}>Zuiveren is stap één. Het verschil zit in wat we daarna toevoegen: mineralen die je lichaam herkent en moleculaire waterstof die als antioxidant werkt. Meetbaar in elke druppel.</p>
+            <p className="lead" style={{ marginTop: 18 }}>Zuiveren is stap één. Het verschil zit in wat we daarna toevoegen: mineralen die je lichaam herkent en opgeloste moleculaire waterstof. Meetbaar in elke druppel.</p>
           </div>
         </div>
         <div className="sci-grid">
@@ -154,10 +154,10 @@ function Wetenschap() {
         </div>
         <div className="callout">
           <div className="qi">“</div>
-          <p className="qt">Wat je lichaam terugvraagt: schoon water, herkenbare mineralen en een antioxidante lading. VitaTap houdt PFAS, microplastics en bacteriën tot 99,9% tegen, reduceert de opgeloste stoffen met 95% en steriliseert daarna met UV-C. Vers en vitaal aan de uitloop.</p>
+          <p className="qt">Wat je lichaam terugvraagt: schoon water, herkenbare mineralen en opgeloste waterstof. VitaTap houdt PFAS, microplastics en bacteriën tot 99,9% tegen, reduceert de opgeloste stoffen met 95% en steriliseert daarna met UV-C. Vers en vitaal aan de uitloop.</p>
           <a className="btn btn-ghost" href="#kraan" style={{ color: "#fff", borderColor: "rgba(255,255,255,.5)" }}>Bekijk de kraan</a>
         </div>
-        <p className="claims-note">Verwijdering tot 99,9% verwijst naar specifieke verontreinigingen (PFAS, microplastics, lood, bacteriën en virussen) volgens fabrikantsmetingen van het RO-membraan. De 95%-reductie van totaal opgeloste stoffen (TDS) is een gemiddelde fabrikantsmeting van datzelfde membraan. UV-sterilisatie elimineert bacteriën en virussen in het opslagtank-stadium. H₂-concentratie (1,2–1,6 ppm) en ORP-waarden (−400/−600 mV) zijn fabrikantspecificaties gemeten aan de uitloop. Verwijzingen naar antioxidante eigenschappen beschrijven algemene kenmerken van moleculaire waterstof, geen medische of gezondheidsclaims.</p>
+        <p className="claims-note">Verwijdering tot 99,9% verwijst naar specifieke verontreinigingen (PFAS, microplastics, lood, bacteriën en virussen) volgens fabrikantsmetingen van het RO-membraan. De 95%-reductie van totaal opgeloste stoffen (TDS) is een gemiddelde fabrikantsmeting van datzelfde membraan. UV-sterilisatie elimineert bacteriën en virussen in het opslagtank-stadium. H₂-concentratie (1,2–1,6 ppm) en ORP-waarden (−400/−600 mV) zijn fabrikantspecificaties gemeten aan de uitloop. Wij doen geen gezondheids- of medische claims.</p>
       </div>
     </section>
   );
