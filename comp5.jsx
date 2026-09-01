@@ -15,6 +15,7 @@ const W3F_KEY = "2ad121b7-621a-4eb7-864f-3b7e6e63945e";
 // BCP lead intake (Apps Script -> BCP_INVENTORY_DB Clients+Leads; token = bot-deterrence, public by design)
 const INTAKE_URL = "https://script.google.com/macros/s/AKfycbxNwJwl8Y7vFmuxxyzU5QS3qq-0ZlW1yoResnrIs0i5iQHRhioNgZ6YdUhUJfZtAMNGjw/exec";
 const INTAKE_TOKEN = "92080ba26ec171538493362054ae65655c851a79482a82cf";
+const INTAKE_TIMEOUT_MS = 6000;
 
 function Advies() {
   const [plan, setPlan] = uS5("");
@@ -48,21 +49,18 @@ function Advies() {
     setError("");
     const fd = new FormData(e.target);
     const nm = String(fd.get("naam") || "").trim().split(" ")[0];
-    const payload = {
-      access_key: W3F_KEY,
-      subject: "Nieuwe adviesaanvraag via de website",
-      from_name: "VitaTap website",
-      naam: fd.get("naam"),
-      email: fd.get("email"),
-      telefoon: fd.get("telefoon"),
-      postcode: fd.get("postcode"),
-      interesse: fd.get("plan") || "Geen voorkeur",
-      bericht: fd.get("bericht") || "",
-    };
-    // Best-effort parallel: lead straight into BCP_INVENTORY_DB (Clients + Leads).
-    // text/plain avoids the CORS preflight Apps Script cannot answer.
+
+    // --- 1. Lead intake into BCP_INVENTORY_DB (Clients + Leads), AWAITED.
+    // This used to be fire-and-forget with .catch(()=>{}), which is how every
+    // submission between 16 Jul and 1 Sep 2026 was silently dropped while the
+    // visitor was shown "Bedankt!". The Apps Script /exec response is readable
+    // cross-origin (302 -> googleusercontent, both carry ACAO:*), and text/plain
+    // is a CORS-safelisted content type, so no preflight is needed.
+    let intakeStatus = "unknown";
+    const ac = new AbortController();
+    const killer = setTimeout(() => ac.abort(), INTAKE_TIMEOUT_MS);
     try {
-      fetch(INTAKE_URL, {
+      const r = await fetch(INTAKE_URL, {
         method: "POST",
         headers: { "Content-Type": "text/plain;charset=utf-8" },
         body: JSON.stringify({
@@ -72,11 +70,45 @@ function Advies() {
           phone: fd.get("telefoon"),
           postcode: fd.get("postcode"),
           city: "",
-          website: "",
+          // Real honeypot. The old code hardcoded website:"" so the trap was inert
+          // for real submissions; it only ever guarded direct posts to the endpoint.
+          website: fd.get("vt_hp") || "",
+          // Sent now, ignored by the script until a Message column exists on Leads
+          // and CONFIG.LEADS_COLUMNS is extended in lockstep (CONFIG.MAX_MSG_LEN
+          // is already defined and unused). Sending it early means that change
+          // needs no second site deploy.
+          message: fd.get("bericht") || "",
           gdpr_consent: fd.get("consent") != null,
         }),
-      }).catch(() => { /* web3forms email remains the fallback */ });
-    } catch (err) { /* never block the visitor on intake */ }
+        signal: ac.signal,
+      });
+      const j = await r.json();
+      intakeStatus = j && j.ok === true ? "ok" : "rejected";
+    } catch (err) {
+      intakeStatus = ac.signal.aborted ? "timeout" : "unreachable";
+    } finally {
+      clearTimeout(killer);
+    }
+
+    // --- 2. web3forms notification. Carries the intake result, so a lead that
+    // did not reach the sheet announces itself in the mail that does arrive.
+    const payload = {
+      access_key: W3F_KEY,
+      subject: intakeStatus === "ok"
+        ? "Nieuwe adviesaanvraag via de website"
+        : "LET OP: adviesaanvraag NIET in de database (" + intakeStatus + ")",
+      from_name: "VitaTap website",
+      naam: fd.get("naam"),
+      email: fd.get("email"),
+      telefoon: fd.get("telefoon"),
+      postcode: fd.get("postcode"),
+      interesse: fd.get("plan") || "Geen voorkeur",
+      bericht: fd.get("bericht") || "",
+      intake_status: intakeStatus,
+    };
+
+    let mailOk = false;
+    let mailReached = true;
     try {
       const res = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
@@ -84,21 +116,29 @@ function Advies() {
         body: JSON.stringify(payload),
       });
       const data = await res.json();
-      if (data.success) {
-        setFirstName(nm);
-        setSent(true);
-        try {
-          localStorage.setItem("vt-lead-sent", "1");
-          localStorage.setItem("vt-lead-name", nm);
-        } catch (err) { /* private mode */ }
-      } else {
-        setError("Er ging iets mis. Probeer het opnieuw of mail ons rechtstreeks.");
-      }
+      mailOk = data.success === true;
     } catch (err) {
-      setError("Geen verbinding. Controleer je internet en probeer opnieuw.");
-    } finally {
-      setLoading(false);
+      mailReached = false;
     }
+
+    // The visitor is told it worked if EITHER channel worked - in both of those
+    // cases we really do have the request. Only a double failure is a real loss,
+    // and only then is the visitor asked to retry (which also stops the old
+    // behaviour of showing an error, and inviting a duplicate, when the lead was
+    // in fact recorded).
+    if (mailOk || intakeStatus === "ok") {
+      setFirstName(nm);
+      setSent(true);
+      try {
+        localStorage.setItem("vt-lead-sent", "1");
+        localStorage.setItem("vt-lead-name", nm);
+      } catch (err) { /* private mode */ }
+    } else if (!mailReached && intakeStatus !== "rejected") {
+      setError("Geen verbinding. Controleer je internet en probeer opnieuw.");
+    } else {
+      setError("Er ging iets mis. Probeer het opnieuw of mail ons rechtstreeks.");
+    }
+    setLoading(false);
   };
   const reset = () => {
     setSent(false);
@@ -153,6 +193,10 @@ function Advies() {
             <label>Vraag of opmerking <span className="opt">(optioneel)</span>
               <textarea name="bericht" value={bericht} onChange={(e) => setBericht(e.target.value)} placeholder="Bv. type keukenblad, huidige kraan, beste belmoment..."></textarea>
             </label>
+            {/* Honeypot: off-screen, not focusable, not autofilled. Named vt_hp rather
+                than "website" so password managers do not fill it and drop real leads. */}
+            <input name="vt_hp" type="text" tabIndex={-1} autoComplete="off" aria-hidden="true"
+              style={{ position: "absolute", left: "-9999px", width: 1, height: 1, opacity: 0 }} />
             <label className="consent">
               <input name="consent" type="checkbox" required />
               <span>Ik ga akkoord dat VitaTap mijn gegevens gebruikt om mijn adviesaanvraag te behandelen, zoals beschreven in het <a href="privacy.html" target="_blank" rel="noopener">privacybeleid</a>.</span>
