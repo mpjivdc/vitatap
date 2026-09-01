@@ -12,9 +12,11 @@ const PLAN_OPTS = [
 ];
 
 const W3F_KEY = "2ad121b7-621a-4eb7-864f-3b7e6e63945e";
-// BCP lead intake (Apps Script -> BCP_INVENTORY_DB Clients+Leads; token = bot-deterrence, public by design)
-const INTAKE_URL = "https://script.google.com/macros/s/AKfycbxNwJwl8Y7vFmuxxyzU5QS3qq-0ZlW1yoResnrIs0i5iQHRhioNgZ6YdUhUJfZtAMNGjw/exec";
-const INTAKE_TOKEN = "92080ba26ec171538493362054ae65655c851a79482a82cf";
+// BCP lead intake since 2026-09-01: Supabase Edge Function `web-lead` -> the app's own
+// leads table (was: Apps Script -> BCP_INVENTORY_DB sheet). Same {ok} contract, same
+// bot-deterrence token model (public by design), plus server-side volume caps.
+const INTAKE_URL = "https://hblhalopooblmzrdwokt.supabase.co/functions/v1/web-lead";
+const INTAKE_TOKEN = "a2b4c082193dfa8ea51d581274881f410d1aa48e37915dae";
 const INTAKE_TIMEOUT_MS = 6000;
 
 function Advies() {
@@ -48,14 +50,13 @@ function Advies() {
     setLoading(true);
     setError("");
     const fd = new FormData(e.target);
-    const nm = String(fd.get("naam") || "").trim().split(" ")[0];
+    const nm = String(fd.get("voornaam") || "").trim();
 
-    // --- 1. Lead intake into BCP_INVENTORY_DB (Clients + Leads), AWAITED.
-    // This used to be fire-and-forget with .catch(()=>{}), which is how every
-    // submission between 16 Jul and 1 Sep 2026 was silently dropped while the
-    // visitor was shown "Bedankt!". The Apps Script /exec response is readable
-    // cross-origin (302 -> googleusercontent, both carry ACAO:*), and text/plain
-    // is a CORS-safelisted content type, so no preflight is needed.
+    // --- 1. Lead intake into Supabase (leads table via the web-lead Edge Function),
+    // AWAITED, {ok} read. Name and address travel as COMPONENTS (voornaam/achternaam,
+    // straat/huisnummer/postcode/gemeente) because the database stores them that way
+    // (full_name is a generated column). text/plain keeps the request preflight-free;
+    // the function parses the JSON body regardless of content type.
     let intakeStatus = "unknown";
     const ac = new AbortController();
     const killer = setTimeout(() => ac.abort(), INTAKE_TIMEOUT_MS);
@@ -65,18 +66,16 @@ function Advies() {
         headers: { "Content-Type": "text/plain;charset=utf-8" },
         body: JSON.stringify({
           token: INTAKE_TOKEN,
-          name: fd.get("naam"),
+          first_name: fd.get("voornaam"),
+          last_name: fd.get("achternaam"),
           email: fd.get("email"),
           phone: fd.get("telefoon"),
+          street: fd.get("straat"),
+          house_number: fd.get("huisnummer"),
           postcode: fd.get("postcode"),
-          city: "",
-          // Real honeypot. The old code hardcoded website:"" so the trap was inert
-          // for real submissions; it only ever guarded direct posts to the endpoint.
+          city: fd.get("gemeente"),
+          // Real honeypot (named vt_hp so password managers do not fill it).
           website: fd.get("vt_hp") || "",
-          // Sent now, ignored by the script until a Message column exists on Leads
-          // and CONFIG.LEADS_COLUMNS is extended in lockstep (CONFIG.MAX_MSG_LEN
-          // is already defined and unused). Sending it early means that change
-          // needs no second site deploy.
           message: fd.get("bericht") || "",
           gdpr_consent: fd.get("consent") != null,
         }),
@@ -98,10 +97,14 @@ function Advies() {
         ? "Nieuwe adviesaanvraag via de website"
         : "LET OP: adviesaanvraag NIET in de database (" + intakeStatus + ")",
       from_name: "VitaTap website",
-      naam: fd.get("naam"),
+      voornaam: fd.get("voornaam"),
+      achternaam: fd.get("achternaam"),
       email: fd.get("email"),
       telefoon: fd.get("telefoon"),
+      straat: fd.get("straat"),
+      huisnummer: fd.get("huisnummer"),
       postcode: fd.get("postcode"),
+      gemeente: fd.get("gemeente"),
       interesse: fd.get("plan") || "Geen voorkeur",
       bericht: fd.get("bericht") || "",
       intake_status: intakeStatus,
@@ -170,26 +173,42 @@ function Advies() {
         ) : (
           <form className="advies-form" onSubmit={submit}>
             <div className="f-row">
-              <label>Naam
-                <input name="naam" type="text" autoComplete="name" placeholder="Voor- en achternaam" required />
+              <label>Voornaam
+                <input name="voornaam" type="text" autoComplete="given-name" placeholder="Bv. Jan" required />
               </label>
+              <label>Achternaam
+                <input name="achternaam" type="text" autoComplete="family-name" placeholder="Bv. Peeters" required />
+              </label>
+            </div>
+            <div className="f-row">
               <label>Telefoon
                 <input name="telefoon" type="tel" autoComplete="tel" placeholder="+32 ..." required />
               </label>
+              <label>E-mail
+                <input name="email" type="email" autoComplete="email" placeholder="jij@voorbeeld.be" required />
+              </label>
             </div>
-            <label>E-mail
-              <input name="email" type="email" autoComplete="email" placeholder="jij@voorbeeld.be" required />
-            </label>
+            <div className="f-row">
+              <label>Straat
+                <input name="straat" type="text" autoComplete="address-line1" placeholder="Bv. Kerkstraat" required />
+              </label>
+              <label>Nr.
+                <input name="huisnummer" type="text" placeholder="Bv. 12A" required />
+              </label>
+            </div>
             <div className="f-row">
               <label>Postcode
                 <input name="postcode" inputMode="numeric" maxLength="4" pattern="[0-9]{4}" title="Een Belgische postcode bestaat uit 4 cijfers" placeholder="Bv. 9000" onInput={(e) => { e.target.value = e.target.value.replace(/\D/g, "").slice(0, 4); }} required />
               </label>
-              <label>Interesse
-                <select name="plan" value={plan} onChange={(e) => setPlan(e.target.value)}>
-                  {PLAN_OPTS.map(([v, l]) => <option key={v} value={v}>{l}</option>)}
-                </select>
+              <label>Gemeente
+                <input name="gemeente" type="text" autoComplete="address-level2" placeholder="Bv. Gent" required />
               </label>
             </div>
+            <label>Interesse
+              <select name="plan" value={plan} onChange={(e) => setPlan(e.target.value)}>
+                {PLAN_OPTS.map(([v, l]) => <option key={v} value={v}>{l}</option>)}
+              </select>
+            </label>
             <label>Vraag of opmerking <span className="opt">(optioneel)</span>
               <textarea name="bericht" value={bericht} onChange={(e) => setBericht(e.target.value)} placeholder="Bv. type keukenblad, huidige kraan, beste belmoment..."></textarea>
             </label>
