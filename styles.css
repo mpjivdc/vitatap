@@ -747,6 +747,13 @@ button{ font-family: inherit; cursor: pointer; }
 .price-setup .ps-incl{ display:block; margin-top: 3px; opacity: .72; }
 .price-card.featured .price-setup{ background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.35); color: rgba(255,255,255,.85); }
 .price-card.featured .price-setup b{ color:#fff; }
+/* Stripe payment links (staged 2026-09-01) */
+.price-actions{ margin-top:auto; display:flex; flex-direction:column; gap: 10px; }
+.price-actions .btn{ margin-top: 0; }
+.price-online-note{ margin: 2px 0 0; font-family:var(--font-mono); font-size: 11.5px; line-height:1.45; letter-spacing:.02em; color: var(--ink-soft); text-align:center; }
+.price-card.featured .price-online-note{ color: rgba(255,255,255,.8); }
+.price-card.featured .btn-ghost{ color:#fff; border-color: rgba(255,255,255,.4); }
+.price-card.featured .btn-ghost:hover{ color:#fff; border-color:#fff; background: rgba(255,255,255,.08); }
 
 .liter-compare{ margin-top: 26px; background:#fff; border:1px solid var(--line); border-radius:16px; padding:26px 28px; box-shadow: var(--shadow-soft); }
 .liter-compare .lc-head{ font-family:var(--font-display); font-weight:800; text-transform:uppercase; font-size:16px; letter-spacing:.03em; color:var(--ink); }

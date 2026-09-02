@@ -20,6 +20,27 @@ const PLANS = [
     billing: "Eén betaling van €2.340 per 5 jaar", extra: "−40% · prijsgarantie 5 jaar", featured: false, tag: "Beste waarde" },
 ];
 
+// Stripe Payment Links (Maarten, 2026-09-01/02, option 3): the customer pays ONLINE FIRST,
+// the install visit follows. Jaar/5-jaar = opstartkost €500 + plan in one checkout (one-off).
+// Maandelijks = opstartkost €500 ONLY online; the €65/mnd subscription is created in Stripe on
+// install day (start date = install date, SEPA DD or card), so the first billing date is variable.
+// Stripe Tax adds 21% btw at checkout; prices excl. btw. LIVE-mode links since 2026-09-02
+// (account acct_1U9PQNP6faFiSAdx); the sandbox twins are in the hub runbook. No secret involved.
+const STRIPE_LINKS = {
+  m:   "https://buy.stripe.com/bJeeVfe7c9Ye71H2lh2B202", // opstartkost €500 only (subscription set up at install)
+  y:   "https://buy.stripe.com/14AcN74wC9YegCh4tp2B200", // opstartkost €500 + jaarlijks €540
+  "5": "https://buy.stripe.com/dRm14p8MS1rI3PvaRN2B203", // opstartkost €500 + 5-jaarlijks €2.340
+};
+// ?locale=nl: Dutch checkout regardless of browser language.
+// client_reference_id: the chosen plan travels with the payment into the Stripe dashboard.
+const stripeUrl = (k) => STRIPE_LINKS[k] + "?locale=nl&client_reference_id=plan-" + k;
+// Shown under the buttons (tooltips don't exist on phones): what is paid now, what follows.
+const STRIPE_NOTE = {
+  m: "Online: nu enkel de opstartkost; het maandabonnement start op de installatiedag.",
+  y: "Online: opstartkost + jaarabonnement in één betaling; daarna plannen we de installatie.",
+  "5": "Online: opstartkost + 5-jaarabonnement in één betaling; daarna plannen we de installatie.",
+};
+
 const WATER_BRANDS = [
   { key: "dl",  name: "Delhaize huismerk", priceL: 0.27 },
   { key: "spa", name: "Spa Reine",          priceL: 0.57 },
@@ -150,10 +171,16 @@ function Prijzen() {
                 {COMMON.map((f, i) => <li key={i}><Ico.check className="ck" /><span>{f}</span></li>)}
               </ul>
               <div className="price-setup">+ <b>€500</b> opstartkost eenmalig<span className="ps-incl">€605 incl. btw</span></div>
-              <a className={"btn " + (p.featured ? "btn-primary solid-white" : "btn-primary")} href="#contact"
-                onClick={() => window.dispatchEvent(new CustomEvent("vt-plan", { detail: p.key }))}>
-                Kies {p.name.toLowerCase()} <Ico.arrow className="arr" width="18" height="18" />
-              </a>
+              <div className="price-actions">
+                <a className={"btn " + (p.featured ? "btn-primary solid-white" : "btn-primary")} href="#contact"
+                  onClick={() => window.dispatchEvent(new CustomEvent("vt-plan", { detail: p.key }))}>
+                  Kies {p.name.toLowerCase()} <Ico.arrow className="arr" width="18" height="18" />
+                </a>
+                <a className="btn btn-ghost" href={stripeUrl(p.key)} target="_blank" rel="noopener noreferrer">
+                  Online afsluiten
+                </a>
+                <p className="price-online-note">{STRIPE_NOTE[p.key]}</p>
+              </div>
             </div>
           ))}
         </div>
