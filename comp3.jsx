@@ -32,11 +32,9 @@ function Spark({ up }) {
 }
 
 function Dashboard() {
-  const [tds, setTds] = uS3(11);
-  uE3(() => {
-    const id = setInterval(() => setTds(9 + Math.floor(Math.random() * 6)), 2600);
-    return () => clearInterval(id);
-  }, []);
+  // Static example value. The phone panel is an illustration of the app, not a sensor feed:
+  // do not animate or randomise these numbers (they sat under a LIVE badge until 2026-09-04).
+  const tds = 11;
   const feats = [
     { ico: "phone", h: "Draadloze app-verbinding", p: "Koppel de Blue Companion-app en lees TDS, H₂-concentratie en ORP (−400/−600 mV) rechtstreeks van je kraan af." },
     { ico: "gauge", h: "Live waterkwaliteit", p: "Realtime metingen tonen exact hoe zuiver en hoe waterstofrijk je water op dit moment is." },
@@ -62,12 +60,13 @@ function Dashboard() {
               })}
             </div>
           </div>
+          <div className="phone-wrap">
           <div className="phone">
             <span className="notch" />
             <div className="screen">
               <div className="ph-top">
                 <span className="h">Blue Companion</span>
-                <span className="live"><span className="d" /> LIVE</span>
+                <span className="live">VOORBEELD</span>
               </div>
               <div className="ph-ring">
                 <div style={{ position: "relative" }}>
@@ -97,6 +96,8 @@ function Dashboard() {
               </div>
               <button className="ph-btn">Kalibreer ORP</button>
             </div>
+          </div>
+          <p className="phone-caption">Voorbeeldweergave: illustratie, geen live meting.</p>
           </div>
         </div>
       </div>
