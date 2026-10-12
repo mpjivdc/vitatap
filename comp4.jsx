@@ -386,7 +386,7 @@ function Footer() {
         </div>
         <div className="foot-bottom">
           <span>© 2026 VitaTap · Prijzen excl. btw tenzij anders vermeld</span>
-          <span><a href="mailto:info@vitatap.be">info@vitatap.be</a> · <a href="tel:+32476371722">+32 476 37 17 22</a></span>
+          <span><a href="mailto:info@vitatap.be">info@vitatap.be</a> · <a href="tel:+3256891766">+32 56 89 17 66</a></span>
         </div>
       </div>
     </footer>

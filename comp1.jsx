@@ -70,8 +70,7 @@ function Header() {
         </nav>
         <a className="btn btn-primary" href="#contact" onClick={() => setOpen(false)}>Vraag gratis advies <Ico.arrow className="arr" width="18" height="18" /></a>
         <div className="mobile-contact">
-          <a href="tel:+32476371722">Bel +32 476 37 17 22</a>
-          <a href="https://wa.me/32476371722" target="_blank" rel="noopener">Chat via WhatsApp</a>
+          <a href="tel:+3256891766">Bel +32 56 89 17 66</a>
         </div>
       </div>
     </header>);
