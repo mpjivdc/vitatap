@@ -92,9 +92,9 @@ function Hero({ t, finish }) {
           <h1 className="display">{t.heroTitle}</h1>
           <p className="hero-sub">{t.heroSub}</p>
           <div className="hero-stats">
-            <div className="stat-chip"><div className="val">tot 99,9%</div><div className="cap">PFAS, microplastics &amp; bacteriën</div></div>
+            <div className="stat-chip"><div className="val">RO-filtratie</div><div className="cap">Meerstaps zuivering</div></div>
             <div className="stat-chip"><div className="val">1200–1600 ppb</div><div className="cap">Moleculaire H₂</div></div>
-            <div className="stat-chip"><div className="val">100%</div><div className="cap">UV-sterilisatie</div></div>
+            <div className="stat-chip"><div className="val">UV-C</div><div className="cap">Microbiologische stap</div></div>
           </div>
           <div className="hero-actions">
             <a className="btn btn-primary solid-white" href="#contact">Vraag gratis advies <Ico.arrow className="arr" width="18" height="18" /></a>
@@ -129,10 +129,10 @@ function Trust() {
         <div className="items">
           <span><span className="d" /><b>PFAS &amp; microplastics</b></span>
           <span><span className="d" /><b>6-staps omgekeerde osmose</b></span>
-          <span><span className="d" /><b>UV-sterilisatie</b></span>
+          <span><span className="d" /><b>UV-behandeling</b></span>
           <span><span className="d" /><b>H₂ via SPE</b></span>
           <span><span className="d" /><b>Lekbeveiliging</b></span>
-          <span><span className="d" /><b>Erkende installateurs</b></span>
+          <span><span className="d" /><b>VitaTap-installateurs</b></span>
         </div>
       </div>
     </div>);

@@ -36,7 +36,7 @@ function Advies() {
     const onTopic = (e) => {
       if (e.detail === "partner") {
         setPlan("");
-        setBericht("Ik ben geïnteresseerd om erkende VitaTap-installatiepartner te worden.");
+        setBericht("Ik ben installateur en wil graag meer weten over een samenwerking met VitaTap.");
         setSent(false);
       }
     };
@@ -157,7 +157,7 @@ function Advies() {
           <h2 className="display" style={{ fontSize: "clamp(32px,4vw,52px)", marginTop: 16 }}>Eerst advies,<br />dan beslissen.</h2>
           <p className="lead" style={{ marginTop: 18 }}>Laat je gegevens achter en we contacteren je binnen 2 werkdagen voor een gratis en vrijblijvend adviesgesprek, op een moment dat jou past.</p>
             <ul className="advies-points">
-            <li><Ico.check className="ck" /><span>Een <b>erkende installateur uit jouw regio</b> bekijkt je keuken en aansluiting</span></li>
+            <li><Ico.check className="ck" /><span>Een <b>VitaTap-installateur uit jouw regio</b> bekijkt je keuken en aansluiting</span></li>
             <li><Ico.check className="ck" /><span>Op afspraak: <b>bij jou thuis of telefonisch</b>, zoals je zelf wil</span></li>
             <li><Ico.check className="ck" /><span><b>Volledig vrijblijvend.</b> Geen aankoopverplichting, geen opdringerige opvolging</span></li>
           </ul>
