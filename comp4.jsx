@@ -51,10 +51,10 @@ const VT_MONTH_INCL = 47.19; // 5-jarenplan €39/mnd excl. 21% btw
 function fmt(n) { return n.toFixed(2).replace(".", ","); }
 
 const VT_QUALITY = [
-  "PFAS & microplastics verwijderd",
+  "Meerstaps RO-zuivering",
   "Geremineraliseerd (Ca, Mg)",
   "Moleculaire H₂, 1200–1600 ppb",
-  "UV-gesteriliseerd",
+  "UV-C-behandeling",
   "Geen plastic flessen",
   "Onbeperkt beschikbaar",
 ];
@@ -113,7 +113,7 @@ function LiterSim() {
       <div className="lc-insights">
         <div className="lc-insight">
           <span className="lc-insight-val">{bottlesPerYear.toLocaleString("nl-BE")}</span>
-          <span className="lc-insight-lab">plastic flessen per jaar vermeden</span>
+          <span className="lc-insight-lab">flessen van 50 cl per jaar (rekenvoorbeeld)*</span>
         </div>
         {yearlySavings > 0 ? (
           <div className="lc-insight lc-insight-win">
@@ -128,7 +128,7 @@ function LiterSim() {
         )}
         <div className="lc-insight">
           <span className="lc-insight-val">6-staps</span>
-          <span className="lc-insight-lab">zuivering incl. PFAS, UV & H₂</span>
+          <span className="lc-insight-lab">zuivering: RO, UV-C & H₂</span>
         </div>
       </div>
 
@@ -140,7 +140,8 @@ function LiterSim() {
 
       <p className="lc-note">
         †VitaTap 5-jarenplan · €39/mnd excl. 21% btw (€47,19 incl. btw) · vaste kost ongeacht verbruik · excl. eenmalige opstartkost €605 incl. btw.<br />
-        Flessenwater: winkelprijs Delhaize.be juni 2026 (6×1,5 l), incl. 6% btw. Plastic: 1 fles = 50 cl. Prijzen kunnen variëren.
+        Flessenwater: winkelprijs Delhaize.be juni 2026 (6×1,5 l), incl. 6% btw. Prijzen kunnen variëren.<br />
+        *Rekenvoorbeeld flessen: liter per dag × 365 ÷ 0,5 l. Dat is het aantal flessen van 50 cl dat je niet koopt als je al dit water anders uit flessen zou halen. Het is geen milieuberekening: spoelwater, filters, stroom en transport zijn niet meegerekend.
       </p>
     </div>
   );
@@ -185,7 +186,7 @@ function Prijzen() {
           ))}
         </div>
         <div className="startup-banner">
-          <span><Ico.wrench className="ic" width="20" height="20" /> <span>Installatie door <b>erkende vakman</b> · opstartkost €500 eenmalig · betaling via Bancontact, overschrijving of domiciliëring</span></span>
+          <span><Ico.wrench className="ic" width="20" height="20" /> <span>Installatie door een <b>VitaTap-installateur</b> · opstartkost €500 eenmalig · betaling via Bancontact, overschrijving of domiciliëring</span></span>
           <span><Ico.recycle className="ic" width="20" height="20" /> Onderhoud &amp; filters inbegrepen</span>
           <span><Ico.shield className="ic" width="20" height="20" /> Prijzen excl. btw · incl. btw telkens vermeld</span>
         </div>
@@ -213,7 +214,7 @@ function Locator() {
           <div>
             <p className="eyebrow on-dark">07 · Installatie in jouw regio</p>
             <h2 className="display" style={{ color: "#fff", fontSize: "clamp(32px,4vw,52px)", marginTop: 16 }}>Installatie bij jou thuis</h2>
-            <p className="lead" style={{ color: "rgba(255,255,255,.88)", marginTop: 18 }}>Geef je postcode in en we bekijken de mogelijkheden in jouw regio en nemen contact op. Een erkende vakman, uit ons eigen team of een gecertificeerde partner, plaatst alles volgens het 30-minuten protocol en kalibreert via de Blue Companion-app.</p>
+            <p className="lead" style={{ color: "rgba(255,255,255,.88)", marginTop: 18 }}>Geef je postcode in en we bekijken de mogelijkheden in jouw regio en nemen contact op. Een VitaTap-installateur, uit ons eigen team of een partner, plaatst alles volgens het 30-minuten protocol, met checklist en nazicht.</p>
             <form className="loc-form" onSubmit={submit}>
               <input value={zip} onChange={(e) => setZip(e.target.value.replace(/\D/g, "").slice(0, 4))} inputMode="numeric" placeholder="Bv. 9000" aria-label="Postcode" maxLength="4" />
               <button className="btn btn-primary solid-white" type="submit">Check beschikbaarheid <Ico.arrow className="arr" width="18" height="18" /></button>
@@ -231,7 +232,7 @@ function Locator() {
                 </div>
               )}
             </div>
-            <p className="loc-partner">Ben je zelf installateur? <a href="#contact" onClick={() => window.dispatchEvent(new CustomEvent("vt-topic", { detail: "partner" }))}>Word erkende VitaTap-partner →</a></p>
+            <p className="loc-partner">Ben je zelf installateur? <a href="#contact" onClick={() => window.dispatchEvent(new CustomEvent("vt-topic", { detail: "partner" }))}>Word VitaTap-partner →</a></p>
           </div>
           <div className="loc-map" aria-hidden="true">
             <svg className="loc-be" viewBox={"0 0 " + MAP.W + " " + MAP.H} preserveAspectRatio="xMidYMid meet" focusable="false">
@@ -259,8 +260,8 @@ function Locator() {
 const INSTALL = [
   { ph: "01", ti: "Voorbereiding", p: "De bestaande kraanopening (21 mm) en de 3/8\"-aansluiting vrijmaken. Geen extra boorwerk nodig.", chip: "21 mm · 3/8\"" },
   { ph: "02", ti: "Plaatsing", p: "Systeem in de onderkast, kraan monteren en leidingen koppelen, in zo'n 30 minuten.", chip: "± 30 min" },
-  { ph: "03", ti: "Kalibratie", p: "Met de Blue Companion-app de ORP-waarden bevestigen tussen −400 en −600 mV.", chip: "−400 / −600 mV" },
-  { ph: "04", ti: "Service-ID", p: "We maken een digitale service-ID aan zodat je jaarlijkse onderhoud en calibratie vlot opgevolgd worden. Allemaal inbegrepen in je abonnement, jij hoeft nergens naar om te kijken.", chip: "Jaarlijks inbegrepen" },
+  { ph: "03", ti: "Nazicht", p: "Installatie afronden en werking controleren aan de uitloop.", chip: "Controle" },
+  { ph: "04", ti: "Service-ID", p: "We maken een digitale service-ID aan zodat je jaarlijkse onderhoud vlot opgevolgd wordt. Allemaal inbegrepen in je abonnement, jij hoeft nergens naar om te kijken.", chip: "Jaarlijks inbegrepen" },
 ];
 
 function Installer() {
@@ -270,7 +271,7 @@ function Installer() {
         <div className="sec-head" style={{ maxWidth: 820 }}>
           <p className="eyebrow">08 · Installatie &amp; service</p>
           <h2 className="display">In 30 minuten<br />geïnstalleerd.</h2>
-          <p className="lead">Onze erkende installateurs volgen een strak protocol, van voorbereiding tot kalibratie, zodat je dezelfde dag nog vitaal water tapt.</p>
+          <p className="lead">Onze VitaTap-installateurs volgen een strak protocol met checklist en nazicht, van voorbereiding tot controle, zodat je dezelfde dag nog vitaal water tapt.</p>
         </div>
         <div className="install-grid">
           {INSTALL.map((s) => (
@@ -298,13 +299,17 @@ function Installer() {
 const FAQS = [
   ["Wat is waterstofrijk water?", "Moleculaire waterstof (H₂) is een van nature voorkomend, smaakloos gas dat volledig opgelost in het water zit. Wetenschappelijk onderzoek naar moleculaire waterstof loopt volop; wij doen geen gezondheids- of medische claims. Wat vaststaat, zijn de gemeten waarden aan de uitloop: 1.200–1.600 ppb opgeloste H₂ en een ORP van −400/−600 mV. Dagelijks drinken is volkomen normaal. Je proeft zuiver, fris water."],
   ["Hoeveel water verbruikt het systeem?", "Zoals elk omgekeerde-osmosesysteem gebruikt VitaTap spoelwater om het membraan schoon te houden."],
-  ["Hoe vaak moet het filter vervangen worden?", "De meeste filters gaan een jaar mee, maar elk onderdeel heeft zijn eigen levensduur. Vuistregels: sedimentfilter 3–12 maanden (afhankelijk van waterkwaliteit), koolfilter en remineralisatiefilter elk jaar, UV-lamp elk jaar, RO-membraan elke 3 jaar. Al dit onderhoud zit in het abonnement inbegrepen. De Blue Companion-app houdt automatisch bij wanneer vervanging nodig is."],
-  ["Past de kraan op mijn bestaande keuken?", "In de meeste keukens wel. De kraan gebruikt een standaard 21 mm doorvoer en 3/8\"-aansluiting, en het systeem verdwijnt compact in je onderkast. Een erkende installateur controleert dit vooraf."],
-  ["Wat is het verschil met een gewone waterfilter?", "Een gewone filter haalt alleen smaak en chloor weg. VitaTap zuivert moleculair en houdt verontreinigingen zoals PFAS, microplastics en bacteriën tot 99,9% tegen, remineraliseert daarna bewust en voegt moleculaire waterstof toe. Zuiver én vitaal, niet zomaar gefilterd."],
+  ["Hoe vaak moet het filter vervangen worden?", "De meeste filters gaan een jaar mee, maar elk onderdeel heeft zijn eigen levensduur. Vuistregels: sedimentfilter 3–12 maanden (afhankelijk van waterkwaliteit), koolfilter en remineralisatiefilter elk jaar, UV-lamp elk jaar, RO-membraan elke 3 jaar. Al dit onderhoud zit in het abonnement inbegrepen. Wij houden bij wanneer vervanging nodig is en contacteren je tijdig."],
+  ["Past de kraan op mijn bestaande keuken?", "In de meeste keukens wel. De kraan gebruikt een standaard 21 mm doorvoer en 3/8\"-aansluiting, en het systeem verdwijnt compact in je onderkast. Een VitaTap-installateur controleert dit vooraf."],
+  ["Wat is het verschil met een gewone waterfilter?", "Een gewone filter richt zich vooral op smaak en chloor. VitaTap combineert omgekeerde osmose (RO) met remineralisatie en moleculaire waterstof (H₂), met een UV-C-behandelingsstap in het voorraadvat. Zuiver én vitaal, niet zomaar gefilterd."],
+  ["Wist je dat: hoe werkt omgekeerde osmose?", "Omgekeerde osmose gebruikt een halfdoorlatend membraan. Stofcategorieën zoals PFAS en microplastics worden in de technologie vaak genoemd als deeltjes of opgeloste stoffen die zo'n membraan kan tegenhouden. Dat is uitleg over de techniek, geen gemeten VitaTap-percentage per stof."],
+  ["Wist je dat: wat zegt TDS?", "TDS (totaal opgeloste stoffen) is een somparameter. Leveranciersmetingen van dit membraan geven een gemiddelde TDS-reductie van ca. 95% (fabrikant). Een laag TDS-getal alleen bewijst geen specifieke stofverwijdering, zoals van PFAS."],
+  ["Wist je dat: hoe werkt UV-C?", "UV-C-licht wordt in drinkwaterbehandeling gebruikt om micro-organismen te inactiveren; het effect hangt af van dosis (intensiteit x blootstellingstijd) en installatie. Bij VitaTap staat de UV-C-lamp in het voorraadvat als extra microbiologische behandelingsstap na RO. Wij publiceren geen kill-% zonder leveranciersvalidatie."],
+  ["Waarom zowel filtratie als UV-C?", "De omgekeerde osmose houdt micro-organismen tegen op grootte; de UV-C-lamp staat in het voorraadvat en bewaakt water dat daar klaarstaat. Dat is een architectuurkeuze, geen prestatiepercentage."],
   ["Kan ik er ook bruiswater mee maken?", "Nee, en dat is bewust. VitaTap is gemaakt voor stil, zuiver en waterstofrijk water: net die zuivere smaak en de moleculaire waterstof (H₂) zijn wat je proeft en meet. Een carbonatiemodule zit dus niet in het toestel. Wil je af en toe toch bruis, dan gebruik je je gezuiverde VitaTap-water gewoon in een los bruistoestel — je vertrekt dan nog altijd van dezelfde zuivere basis."],
   ["Koop of abonnement?", "VitaTap werkt met een abonnement waarin installatie-ondersteuning, onderhoud en filters zijn inbegrepen. Zo blijft je water altijd op niveau zonder verrassingen. Een eenmalige opstartkost van €500 dekt de installatie."],
-  ["Wat als ik verhuis?", "Je abonnement verhuist gewoon mee. Een erkende installateur demonteert het systeem op je oude adres en plaatst het opnieuw op je nieuwe adres. Je betaalt enkel de verplaatsing, geen nieuwe opstartkost. Eén telefoontje volstaat om dit in te plannen."],
-  ["Hoe zeg ik mijn abonnement op?", "Het maandplan is per maand opzegbaar; jaar- en 5-jaarplannen lopen tot het einde van de gekozen periode en worden nooit stilzwijgend voor een nieuwe volledige termijn verlengd. Bij stopzetting komt een erkende installateur het systeem netjes demonteren."],
+  ["Wat als ik verhuis?", "Je abonnement verhuist gewoon mee. Een VitaTap-installateur demonteert het systeem op je oude adres en plaatst het opnieuw op je nieuwe adres. Je betaalt enkel de verplaatsing, geen nieuwe opstartkost. Eén telefoontje volstaat om dit in te plannen."],
+  ["Hoe zeg ik mijn abonnement op?", "Het maandplan is per maand opzegbaar; jaar- en 5-jaarplannen lopen tot het einde van de gekozen periode en worden nooit stilzwijgend voor een nieuwe volledige termijn verlengd. Bij stopzetting komt een VitaTap-installateur het systeem netjes demonteren."],
   ["Welke garantie krijg ik?", "Zolang je abonnement loopt, valt de werking van kraan en systeem onder de service: defecte onderdelen worden hersteld of vervangen zonder extra kosten, en het jaarlijkse onderhoud met filtervervanging zit standaard inbegrepen."],
 ];
 
@@ -341,7 +346,7 @@ function CTA() {
       <div className="wrap">
         <p className="eyebrow on-dark" style={{ justifyContent: "center", display: "flex" }}>Klaar voor de overstap?</p>
         <h2 className="display">Zuiver water. Elke dag.</h2>
-        <p className="lead">Vraag vandaag je gratis en vrijblijvend adviesgesprek aan. Een erkende installateur bekijkt je situatie en plaatst alles nadien in zo'n 30 minuten.</p>
+        <p className="lead">Vraag vandaag je gratis en vrijblijvend adviesgesprek aan. Een VitaTap-installateur bekijkt je situatie en plaatst alles nadien in zo'n 30 minuten.</p>
         <div className="hero-actions">
           <a className="btn btn-primary solid-white" href="#contact">Vraag gratis advies <Ico.arrow className="arr" width="18" height="18" /></a>
           <a className="btn btn-ghost" href="#prijzen">Bekijk prijzen</a>
@@ -354,7 +359,7 @@ function CTA() {
 const FOOT = [
   ["Product", [["De aanpak", "#aanpak"], ["Werking", "#werking"], ["De kraan", "#kraan"], ["Wetenschap", "#wetenschap"]]],
   ["Service", [["Prijzen", "#prijzen"], ["Installateurs", "#installateurs"], ["Installatie", "#installatie"], ["FAQ", "#faq"]]],
-  ["Juridisch", [["Erkend partner worden", "#installateurs"], ["Privacybeleid", "privacy.html"], ["Algemene voorwaarden", "voorwaarden.html"], ["Cookiebeleid", "cookiebeleid.html"]]],
+  ["Juridisch", [["Partner worden", "#installateurs"], ["Privacybeleid", "privacy.html"], ["Algemene voorwaarden", "voorwaarden.html"], ["Cookiebeleid", "cookiebeleid.html"]]],
 ];
 
 function Footer() {

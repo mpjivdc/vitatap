@@ -22,7 +22,7 @@ async function main() {
   for (const f of ORDER) {
     const src = fs.readFileSync(path.join(SITE, f), "utf8");
     const res = babel.transformSync(src, {
-      presets: [["@babel/preset-react", { runtime: "classic" }]],
+      presets: [["@babel/preset-react", { runtime: "classic", useSpread: true }]],
       compact: false,
       comments: false,
     });

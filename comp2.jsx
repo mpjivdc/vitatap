@@ -5,18 +5,18 @@ const { useState: useState2, useEffect: useEffect2 } = React;
    AANPAK - interactive 6-step molecular reverse osmosis
 ----------------------------------------------------------------- */
 const STEPS = [
-  { name: "Sediment-voorfilter", sub: "Grove deeltjes & roest", tag: "5 µm", purity: 28,
+  { name: "Sediment-voorfilter", sub: "Grove deeltjes & roest", tag: "5 µm",
     desc: "Zand, roestdeeltjes en zwevend vuil worden als eerste afgevangen, zodat de fijnere filters optimaal blijven presteren." },
-  { name: "Actieve-koolblok", sub: "Chloor, smaak & geur", tag: "Carbon", purity: 52,
+  { name: "Actieve-koolblok", sub: "Chloor, smaak & geur", tag: "Carbon",
     desc: "Een geperst koolblok bindt chloor, organische stoffen en geurtjes, de basis voor een neutrale, zuivere smaak." },
-  { name: "RO-membraan", sub: "PFAS · virussen · microplastics", tag: "0,0001 µm", purity: 96,
-    desc: "Het hart van het systeem: een halfdoorlatend membraan houdt bacteriën, virussen, PFAS, microplastics en zware metalen tot 99,9% tegen. De gemiddelde TDS-reductie (totaal opgeloste stoffen) bedraagt 95%." },
-  { name: "Remineralisatie", sub: "Calcium & magnesium terug", tag: "pH 7,2–7,8", purity: 97,
+  { name: "RO-membraan", sub: "Filtratie op moleculaire schaal", tag: "0,0001 µm",
+    desc: "Het hart van het systeem: een halfdoorlatend RO-membraan filtert op moleculaire schaal, onder meer deeltjes en opgeloste stoffen. Een aparte waterstroom voert de tegengehouden stoffen af." },
+  { name: "Remineralisatie", sub: "Calcium & magnesium terug", tag: "pH 7,2–7,8",
     desc: "Zuiver water krijgt bewust calcium en magnesium terug en wordt in pH gebalanceerd. Precies wat je lichaam terugvraagt." },
-  { name: "SPE Waterstof-infusie", sub: "Moleculaire H₂ via SPE", tag: "1200–1600 ppb", purity: 99,
+  { name: "SPE Waterstof-infusie", sub: "Moleculaire H₂ via SPE", tag: "1200–1600 ppb",
     desc: "Een SPE-cel (Solid Polymer Electrolysis) verrijkt het water met opgeloste moleculaire waterstof (H₂)." },
-  { name: "UV-sterilisatie", sub: "100% sterilisatie", tag: "UV-C lamp", purity: 100,
-    desc: "Een ingebouwde UV-C-lamp steriliseert het water als laatste stap: bacteriën en virussen worden 100% geëlimineerd zonder chemicaliën, geur of bijsmaak." },
+  { name: "UV-behandeling", sub: "Microbiologische stap", tag: "UV-C · 7 W",
+    desc: "Een ingebouwde UV-C-lamp (7 W) in het voorraadvat is een extra microbiologische behandelingsstap na de RO. Correct gebruik en tijdig onderhoud (jaarlijkse lamp) blijven nodig." },
 ];
 
 function Aanpak() {
@@ -29,7 +29,7 @@ function Aanpak() {
         <div className="sec-head">
           <p className="eyebrow">01 · De aanpak</p>
           <h2 className="display">Zes stappen.<br />Eén glas perfectie.</h2>
-          <p className="lead">Moleculaire omgekeerde osmose verwijdert vrijwel alles wat niet in je glas thuishoort, en bouwt daarna bewust weer op wat wél bijdraagt. Ontdek elke stap.</p>
+          <p className="lead">Omgekeerde osmose filtert op moleculaire schaal, daarna bouwen we bewust weer op wat wél bijdraagt. Ontdek elke stap.</p>
         </div>
         <div className="steps-layout">
           <div className="steps-sticky">
@@ -42,8 +42,9 @@ function Aanpak() {
               <div className="flow-name">{s.name}</div>
               <p className="flow-desc">{s.desc}</p>
               <div className="flow-meter">
-                <div className="bar"><div className="fill" style={{ width: s.purity + "%" }} /></div>
-                <div className="lab"><span>Zuiverheid</span><span>{s.purity}%</span></div>
+                {/* Step progress, not a purity percentage (no % claims without supplier evidence, R2/R3). */}
+                <div className="bar"><div className="fill" style={{ width: Math.round((active + 1) / STEPS.length * 100) + "%" }} /></div>
+                <div className="lab"><span>Zuiveringsstap</span><span>{active + 1} van {STEPS.length}</span></div>
               </div>
             </div>
           </div>
@@ -73,7 +74,7 @@ const WERK = [
   { ico: "filter", h: "Onzichtbaar onder de gootsteen", p: "Het complete 6-staps systeem zit compact weggewerkt in je onderkast. Geen werkbladtoestellen, geen flessen. Alleen je kraan." },
   { ico: "waves", h: "Eén kraan, twee stromen", p: "Een aparte uitloop levert gezuiverd én vitaal water, naast je gewone leidingwater. Kies bewust wat er in je glas komt." },
   { ico: "drop", h: "Sensorbediening, touchless", p: "Een geïntegreerde sensor activeert de stroom. Zo bedien je de kraan hygiënisch met de rug van je hand, ook met volle handen." },
-  { ico: "wrench", h: "Past op je bestaande kraan", p: "De kraan past in de bestaande kraanopening (21 mm) met standaard 3/8\"-aansluiting. Een erkende installateur plaatst alles in ongeveer 30 minuten." },
+  { ico: "wrench", h: "Past op je bestaande kraan", p: "De kraan past in de bestaande kraanopening (21 mm) met standaard 3/8\"-aansluiting. Een VitaTap-installateur plaatst alles in ongeveer 30 minuten, volgens checklist en nazicht." },
 ];
 
 function Werking() {
@@ -116,12 +117,12 @@ function Werking() {
    WETENSCHAP - the science
 ----------------------------------------------------------------- */
 const SCI = [
-  { ico: "shield", h: "PFAS & microplastics eruit", p: "Het RO-membraan houdt 'forever chemicals', microplastics, lood en nitraten tot 99,9% tegen; bacteriën en virussen worden nagenoeg volledig gestopt. De TDS-reductie (totaal opgeloste stoffen) bedraagt gemiddeld 95%.",
-    k: "Verwijdering verontreinigingen", big: "tot 99,9%" },
+  { ico: "shield", h: "RO als kernstap", p: "Het RO-membraan is de kernstap van de zuivering. Stofcategorieën zoals PFAS en microplastics worden in deze technologie genoemd als deeltjes en opgeloste stoffen die zo'n membraan kan tegenhouden. Dat is uitleg over de techniek, geen gemeten VitaTap-percentage per stof.",
+    k: "Poriegrootte membraan", big: "0,0001 µm" },
   { ico: "bolt", h: "Moleculaire waterstof erin", p: "De SPE-cel (Solid Polymer Electrolysis) genereert opgeloste H₂, een klein molecuul dat neutrale watermoleculen en mineralen ongemoeid laat.",
     k: "Concentratie H₂", big: "1200–1600 ppb" },
-  { ico: "spark", h: "UV-sterilisatie: 100% zuiver", p: "Een ingebouwde UV-C-lamp doodt in de laatste stap alle resterende bacteriën en virussen. Zonder chemicaliën, zonder bijsmaak.",
-    k: "UV-sterilisatie", big: "100%" },
+  { ico: "spark", h: "UV-behandeling: microbiologische stap", p: "UV-C bewaakt het water in het voorraadvat als laatste barrière na filtratie. Geen chemicaliën, geen bijsmaak. Geen kill-percentage zonder validatierapport.",
+    k: "UV-behandeling", big: "UV-C" },
 ];
 
 function Wetenschap() {
@@ -154,10 +155,10 @@ function Wetenschap() {
         </div>
         <div className="callout">
           <div className="qi">“</div>
-          <p className="qt">Wat je lichaam terugvraagt: schoon water, herkenbare mineralen en opgeloste waterstof. VitaTap houdt PFAS, microplastics en bacteriën tot 99,9% tegen, reduceert de opgeloste stoffen met 95% en steriliseert daarna met UV-C. Vers en vitaal aan de uitloop.</p>
+          <p className="qt">Wat je lichaam terugvraagt: schoon water, herkenbare mineralen en opgeloste waterstof. VitaTap filtert met een RO-membraan, remineraliseert bewust en voegt daarna een UV-C-behandelingsstap toe in het voorraadvat. Vers en vitaal aan de uitloop.</p>
           <a className="btn btn-ghost" href="#kraan" style={{ color: "#fff", borderColor: "rgba(255,255,255,.5)" }}>Bekijk de kraan</a>
         </div>
-        <p className="claims-note">Verwijdering tot 99,9% verwijst naar specifieke verontreinigingen (PFAS, microplastics, lood, bacteriën en virussen) volgens fabrikantsmetingen van het RO-membraan. De 95%-reductie van totaal opgeloste stoffen (TDS) is een gemiddelde fabrikantsmeting van datzelfde membraan. UV-sterilisatie elimineert bacteriën en virussen in het opslagtank-stadium. H₂-concentratie (1,2–1,6 ppm) en ORP-waarden (−400/−600 mV) zijn fabrikantspecificaties gemeten aan de uitloop. Wij doen geen gezondheids- of medische claims.</p>
+        <p className="claims-note">PFAS en microplastics zijn stofcategorieën die RO-technologie kan tegenhouden; wij vermelden voor VitaTap geen verwijderingspercentage per stof. Over TDS (een somparameter, fabrikantsmeting van het membraan) lees je meer in de FAQ. UV-C in het voorraadvat is een microbiologische behandelingsstap; wij claimen geen 100% of log-reductie zonder leveranciersvalidatie. H₂-concentratie (1,2–1,6 ppm) en ORP-waarden (−400/−600 mV) zijn fabrikantspecificaties gemeten aan de uitloop. Wij doen geen gezondheids- of medische claims.</p>
       </div>
     </section>
   );

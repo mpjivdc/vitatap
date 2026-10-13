@@ -36,9 +36,9 @@ function Dashboard() {
   // do not animate or randomise these numbers (they sat under a LIVE badge until 2026-09-04).
   const tds = 11;
   const feats = [
-    { ico: "phone", h: "Draadloze app-verbinding", p: "Koppel de Blue Companion-app en lees TDS, H₂-concentratie en ORP (−400/−600 mV) rechtstreeks van je kraan af." },
-    { ico: "gauge", h: "Live waterkwaliteit", p: "Realtime metingen tonen exact hoe zuiver en hoe waterstofrijk je water op dit moment is." },
-    { ico: "recycle", h: "Filter-levenscyclus", p: "Een digitale ID houdt je 12-maandelijkse filterbeurt bij en seint op tijd je installateur in." },
+    { ico: "phone", h: "Draadloze app-verbinding", p: "De Blue Companion-app ondersteunt service en opvolging. Live uitlezen van TDS, H₂ of ORP vanaf de kraan is nog niet beschikbaar." },
+    { ico: "gauge", h: "Service & opvolging", p: "We houden je filtercyclus bij en contacteren je tijdig voor onderhoud." },
+    { ico: "recycle", h: "Filter-levenscyclus", p: "Een digitale ID houdt je 12-maandelijkse filterbeurt bij, zodat je onderhoudsbeurt op tijd ingepland wordt." },
   ];
   return (
     <section className="section bg-paper2" id="dashboard">
@@ -47,7 +47,7 @@ function Dashboard() {
           <div>
             <p className="eyebrow">04 · Wellness-dashboard</p>
             <h2 className="display" style={{ fontSize: "clamp(32px,4vw,52px)", marginTop: 16 }}>Je water,<br />in cijfers.</h2>
-            <p className="lead" style={{ marginTop: 18 }}>Met de Blue Companion-app zie je precies wat er uit je kraan komt. Volg de kwaliteit van elk glas, kalibreer je ORP-waarden en plan onderhoud, allemaal vanaf je telefoon.</p>
+            <p className="lead" style={{ marginTop: 18 }}>Onderhoud en filters zitten in je abonnement. Wij plannen je servicebeurten; de Blue Companion-app is support bij dat traject. Een live meting van je kraan is er vandaag niet.</p>
             <div className="feature-list">
               {feats.map((f, i) => {
                 const I = Ico[f.ico];
@@ -195,7 +195,9 @@ function Lifestyle() {
 ----------------------------------------------------------------- */
 const GUARANTEES = [
   { ico: "check", h: "Gratis & vrijblijvend", p: "Advies zonder aankoopverplichting." },
-  { ico: "shield", h: "30 dagen proefperiode", p: "Niet overtuigd? Wij demonteren gratis." },
+  // Trial line aligned to the terms (voorwaarden.html art. 4 + 8, Commercial-cycle 02/03/04 §7): there is
+  // no 30-day trial in any contract, only the legal 14-day withdrawal right and a full refund before install.
+  { ico: "shield", h: "14 dagen herroepingsrecht", p: "Nog niet geïnstalleerd? Je krijgt alles terug." },
   { ico: "box", h: "Alles inbegrepen", p: "Onderhoud & filters in je abonnement." },
   { ico: "clock", h: "Maandelijks opzegbaar", p: "Met het maandplan, geen verrassingen." },
 ];
@@ -224,16 +226,16 @@ function Waarborgen() {
    CERTIFICERING - proven, document-backed quality (no source named)
 ----------------------------------------------------------------- */
 const CERTS = [
-  { ico: "shield", t: "BPA-vrij", s: "Onafhankelijk laboratorium getest" },
-  { ico: "check", t: "CE-gekeurd", s: "Voldoet aan Europese normen" },
-  { ico: "drop", t: "NSF-materialen", s: "Veilig in contact met drinkwater" },
+  { ico: "check", t: "CE-conform", s: "Gebouwd voor de Europese markt" },
+  { ico: "shield", t: "Terugstroombeveiliging", s: "Standaard in het systeem" },
+  { ico: "drop", t: "BPA-vrije materialen", s: "Volgens leveranciersdocumentatie" },
   { ico: "wrench", t: "RVS 304", s: "Roestvrijstalen designkraan" },
 ];
 const VSPECS = [
   { v: "1,2–1,6", u: "ppm", l: "Opgeloste waterstof (H₂)" },
   { v: "−400/−600", u: "mV", l: "ORP (redoxpotentiaal)" },
   { v: "6", u: "stappen", l: "RO · remineralisatie · UV · SPE" },
-  { v: "UV-C", u: "", l: "Sterilisatie in de tank" },
+  { v: "UV-C", u: "7 W", l: "Behandeling in het voorraadvat" },
 ];
 
 function Certificering() {
@@ -241,9 +243,9 @@ function Certificering() {
     <section className="section bg-paper3 certs">
       <div className="wrap">
         <div className="sec-head" style={{ maxWidth: 760 }}>
-          <p className="eyebrow">Getest &amp; gemeten</p>
+          <p className="eyebrow">Specificaties &amp; documentatie</p>
           <h2 className="display">Zwart op wit.</h2>
-          <p className="lead">Geen loze beloftes. Dit zijn de keuringen en gemeten waarden waarmee VitaTap is gebouwd.</p>
+          <p className="lead">Dit zijn de specificaties en documentatie waarop VitaTap steunt. Waarden volgens fabrikant en leverancier.</p>
         </div>
         <div className="certs-badges">
           {CERTS.map((c, i) => {

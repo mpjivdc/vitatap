@@ -76,7 +76,7 @@ const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
   "density": "compact",
   "finish": "steel",
   "heroTitle": "Zuiver. Vitaal. Onbeperkt.",
-  "heroSub": "6-staps omgekeerde osmose met UV-sterilisatie en moleculaire H₂. Houdt PFAS, microplastics en bacteriën tot 99,9% tegen en verwijdert tot 95% van de opgeloste stoffen (TDS). Daarna geremineraliseerd en verrijkt met waterstof. Vanaf €39 per maand, onderhoud en filters inbegrepen."
+  "heroSub": "6-staps omgekeerde osmose met UV-behandeling en moleculaire H₂. Het RO-membraan filtert op moleculaire schaal; daarna wordt het water geremineraliseerd en verrijkt met waterstof. Vanaf €39 per maand, onderhoud en filters inbegrepen."
 }/*EDITMODE-END*/;
 
 function App() {
