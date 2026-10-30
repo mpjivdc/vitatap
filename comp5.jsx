@@ -19,8 +19,20 @@ const INTAKE_URL = "https://hblhalopooblmzrdwokt.supabase.co/functions/v1/web-le
 const INTAKE_TOKEN = "a2b4c082193dfa8ea51d581274881f410d1aa48e37915dae";
 const INTAKE_TIMEOUT_MS = 6000;
 
+// Installation area: Benelux + France (Maarten, 2026-10-30). BE and LU postcodes are both
+// 4 digits, so the country is asked, not guessed. The same patterns are enforced again in
+// the web-lead Edge Function; keep the two in step.
+const COUNTRIES = [
+  ["BE", "België", "[0-9]{4}", "numeric", "Bv. 9000", "Een Belgische postcode bestaat uit 4 cijfers"],
+  ["NL", "Nederland", "[0-9]{4} ?[A-Za-z]{2}", "text", "Bv. 1234 AB", "Een Nederlandse postcode bestaat uit 4 cijfers en 2 letters"],
+  ["LU", "Luxemburg", "([Ll]-?)?[0-9]{4}", "text", "Bv. 1234", "Een Luxemburgse postcode bestaat uit 4 cijfers"],
+  ["FR", "Frankrijk", "[0-9]{5}", "numeric", "Bv. 75001", "Een Franse postcode bestaat uit 5 cijfers"],
+];
+
 function Advies() {
   const [plan, setPlan] = uS5("");
+  const [land, setLand] = uS5("BE");
+  const pc = COUNTRIES.find((c) => c[0] === land);
   const [sent, setSent] = uS5(() => {
     try { return localStorage.getItem("vt-lead-sent") === "1"; } catch (e) { return false; }
   });
@@ -74,6 +86,7 @@ function Advies() {
           house_number: fd.get("huisnummer"),
           postcode: fd.get("postcode"),
           city: fd.get("gemeente"),
+          country: land,
           // Real honeypot (named vt_hp so password managers do not fill it).
           website: fd.get("vt_hp") || "",
           message: fd.get("bericht") || "",
@@ -105,6 +118,7 @@ function Advies() {
       huisnummer: fd.get("huisnummer"),
       postcode: fd.get("postcode"),
       gemeente: fd.get("gemeente"),
+      land: land,
       interesse: fd.get("plan") || "Geen voorkeur",
       bericht: fd.get("bericht") || "",
       intake_status: intakeStatus,
@@ -196,9 +210,14 @@ function Advies() {
                 <input name="huisnummer" type="text" placeholder="Bv. 12A" required />
               </label>
             </div>
+            <label>Land
+              <select name="land" value={land} onChange={(e) => setLand(e.target.value)}>
+                {COUNTRIES.map(([v, l]) => <option key={v} value={v}>{l}</option>)}
+              </select>
+            </label>
             <div className="f-row">
               <label>Postcode
-                <input name="postcode" inputMode="numeric" maxLength="4" pattern="[0-9]{4}" title="Een Belgische postcode bestaat uit 4 cijfers" placeholder="Bv. 9000" onInput={(e) => { e.target.value = e.target.value.replace(/\D/g, "").slice(0, 4); }} required />
+                <input name="postcode" inputMode={pc[3]} maxLength="7" pattern={pc[2]} title={pc[5]} placeholder={pc[4]} autoComplete="postal-code" onInput={(e) => { e.target.value = e.target.value.replace(/[^0-9A-Za-z -]/g, "").toUpperCase().slice(0, 7); }} required />
               </label>
               <label>Gemeente
                 <input name="gemeente" type="text" autoComplete="address-level2" placeholder="Bv. Gent" required />
