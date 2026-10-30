@@ -45,8 +45,8 @@ function Dashboard() {
       <div className="wrap">
         <div className="dash-grid">
           <div>
-            <p className="eyebrow">04 · Wellness-dashboard</p>
-            <h2 className="display" style={{ fontSize: "clamp(32px,4vw,52px)", marginTop: 16 }}>Je water,<br />in cijfers.</h2>
+            <p className="eyebrow">04 · Service &amp; app</p>
+            <h2 className="display" style={{ fontSize: "clamp(32px,4vw,52px)", marginTop: 16 }}>Wij plannen.<br />Jij tapt.</h2>
             <p className="lead" style={{ marginTop: 18 }}>Onderhoud en filters zitten in je abonnement. Wij plannen je servicebeurten; de Blue Companion-app is support bij dat traject. Een live meting van je kraan is er vandaag niet.</p>
             <div className="feature-list">
               {feats.map((f, i) => {
@@ -177,7 +177,7 @@ function Lifestyle() {
           <div className="life-card">
             <img src="assets/kitchen-light.webp" alt="Familie in een lichte loft-keuken" width="820" height="1230" loading="lazy" decoding="async" />
             <span className="ov" />
-            <div className="txt"><div className="k">Voor het hele gezin</div><h3>Elke dag</h3></div>
+            <div className="txt"><div className="k">Voor het hele gezin</div><h3>Geen flessen meer</h3></div>
           </div>
           <div className="life-card">
             <img src="assets/kitchen-dark.webp" alt="Koppel in een moderne donkere keuken" width="820" height="1230" loading="lazy" decoding="async" />
@@ -227,7 +227,7 @@ function Waarborgen() {
 ----------------------------------------------------------------- */
 const CERTS = [
   { ico: "check", t: "CE-conform", s: "Gebouwd voor de Europese markt" },
-  { ico: "shield", t: "Terugstroombeveiliging", s: "Standaard in het systeem" },
+  { ico: "shield", t: "Terugstroombeveiliging", s: "Bij elke installatie geplaatst" },
   { ico: "drop", t: "BPA-vrije materialen", s: "Volgens leveranciersdocumentatie" },
   { ico: "wrench", t: "RVS 304", s: "Roestvrijstalen designkraan" },
 ];

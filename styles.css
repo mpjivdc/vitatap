@@ -660,7 +660,7 @@ button{ font-family: inherit; cursor: pointer; }
 .cta-band .hero-actions{ justify-content:center; }
 
 .footer{ background: var(--paper); color: var(--ink-soft); padding-block: 56px 30px; border-top: 1px solid var(--line); }
-.foot-grid{ display:grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 40px; align-items:start; }
+.foot-grid{ display:grid; grid-template-columns: 1.5fr 1fr 1fr 1fr 1.2fr; gap: 32px; align-items:start; }
 .foot-lockup{ display:inline-flex; flex-direction:column; align-items:center; gap: 8px; }
 .foot-brand .logo{ height: 50px; width: auto; }
 .foot-brand .wordmark{ font-family: var(--font-wordmark, var(--font-display)); font-weight: var(--wm-weight, 800); text-transform:uppercase; letter-spacing: var(--wm-track, .16em); color: var(--ink); font-size: calc(var(--wm-size, 17px) + 1px); }

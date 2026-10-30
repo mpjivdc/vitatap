@@ -87,19 +87,19 @@ function Hero({ t, finish }) {
     <section className="hero" id="top">
       <div className="wrap hero-grid">
         <div className="hero-copy">
-          <p className="hero-eyebrow"><span className="dot" /> De wellness-utility voor thuis</p>
+          <p className="hero-eyebrow"><span className="dot" /> Meerstaps waterzuivering voor thuis</p>
           <h1 className="display">{t.heroTitle}</h1>
           <p className="hero-sub">{t.heroSub}</p>
           <div className="hero-stats">
             <div className="stat-chip"><div className="val">RO-filtratie</div><div className="cap">Meerstaps zuivering</div></div>
-            <div className="stat-chip"><div className="val">1200–1600 ppb</div><div className="cap">Moleculaire H₂</div></div>
+            <div className="stat-chip"><div className="val">1200–1600 ppb</div><div className="cap">H₂ volgens fabrikant</div></div>
             <div className="stat-chip"><div className="val">UV-C</div><div className="cap">Microbiologische stap</div></div>
           </div>
           <div className="hero-actions">
             <a className="btn btn-primary solid-white" href="#contact">Vraag gratis advies <Ico.arrow className="arr" width="18" height="18" /></a>
             <a className="btn btn-ghost" href="#prijzen">Bekijk prijzen</a>
           </div>
-          <p className="hero-fine">Vanaf €39 / mnd excl. btw · onderhoud &amp; filters inbegrepen · specificaties volgens fabrikant</p>
+          <p className="hero-fine">Vanaf €39 / mnd excl. btw (€47,19 incl.) · onderhoud &amp; filters inbegrepen · specificaties volgens fabrikant</p>
         </div>
         <div className="hero-media">
           <div className="hero-card">
@@ -109,7 +109,7 @@ function Hero({ t, finish }) {
               <span className="ico"><Ico.drop width="20" height="20" /></span>
               <div>
                 <div className="t">Vers getapt</div>
-                <div className="s">Gezuiverd + waterstofrijk</div>
+                <div className="s">Gezuiverd + geremineraliseerd</div>
               </div>
             </div>
           </div>
@@ -126,11 +126,11 @@ function Trust() {
       <div className="wrap" data-comment-anchor="d1878b9bf1-div-122-7">
         <span className="label">In één oogopslag</span>
         <div className="items">
-          <span><span className="d" /><b>PFAS &amp; microplastics</b></span>
           <span><span className="d" /><b>6-staps omgekeerde osmose</b></span>
           <span><span className="d" /><b>UV-behandeling</b></span>
           <span><span className="d" /><b>H₂ via SPE</b></span>
-          <span><span className="d" /><b>Lekbeveiliging</b></span>
+          <span><span className="d" /><b>Onderhoud &amp; filters inbegrepen</b></span>
+          <span><span className="d" /><b>Designkraan in 4 finishes</b></span>
           <span><span className="d" /><b>VitaTap-installateurs</b></span>
         </div>
       </div>

@@ -12,7 +12,7 @@ const STEPS = [
   { name: "RO-membraan", sub: "Filtratie op moleculaire schaal", tag: "0,0001 µm",
     desc: "Het hart van het systeem: een halfdoorlatend RO-membraan filtert op moleculaire schaal, onder meer deeltjes en opgeloste stoffen. Een aparte waterstroom voert de tegengehouden stoffen af." },
   { name: "Remineralisatie", sub: "Calcium & magnesium terug", tag: "pH 7,2–7,8",
-    desc: "Zuiver water krijgt bewust calcium en magnesium terug en wordt in pH gebalanceerd. Precies wat je lichaam terugvraagt." },
+    desc: "Het gezuiverde water krijgt calcium en magnesium terug en wordt in pH gebalanceerd. Zo smaakt het zacht en rond, niet vlak." },
   { name: "SPE Waterstof-infusie", sub: "Moleculaire H₂ via SPE", tag: "1200–1600 ppb",
     desc: "Een SPE-cel (Solid Polymer Electrolysis) verrijkt het water met opgeloste moleculaire waterstof (H₂)." },
   { name: "UV-behandeling", sub: "Microbiologische stap", tag: "UV-C · 7 W",
@@ -28,8 +28,8 @@ function Aanpak() {
       <div className="wrap">
         <div className="sec-head">
           <p className="eyebrow">01 · De aanpak</p>
-          <h2 className="display">Zes stappen.<br />Eén glas perfectie.</h2>
-          <p className="lead">Omgekeerde osmose filtert op moleculaire schaal, daarna bouwen we bewust weer op wat wél bijdraagt. Ontdek elke stap.</p>
+          <h2 className="display">Van leidingwater<br />tot glas.</h2>
+          <p className="lead">Omgekeerde osmose filtert op moleculaire schaal. Daarna krijgt het water calcium en magnesium terug, voor de smaak. Ontdek elke stap.</p>
         </div>
         <div className="steps-layout">
           <div className="steps-sticky">
@@ -72,7 +72,7 @@ function Aanpak() {
 ----------------------------------------------------------------- */
 const WERK = [
   { ico: "filter", h: "Onzichtbaar onder de gootsteen", p: "Het complete 6-staps systeem zit compact weggewerkt in je onderkast. Geen werkbladtoestellen, geen flessen. Alleen je kraan." },
-  { ico: "waves", h: "Eén kraan, twee stromen", p: "Een aparte uitloop levert gezuiverd én vitaal water, naast je gewone leidingwater. Kies bewust wat er in je glas komt." },
+  { ico: "waves", h: "Eén kraan, twee stromen", p: "Een aparte uitloop levert gezuiverd water, naast je gewone leidingwater. Gezuiverd om te drinken en te koken, gewoon voor de afwas." },
   { ico: "drop", h: "Sensorbediening, touchless", p: "Een geïntegreerde sensor activeert de stroom. Zo bedien je de kraan hygiënisch met de rug van je hand, ook met volle handen." },
   { ico: "wrench", h: "Past op je bestaande kraan", p: "De kraan past in de bestaande kraanopening (21 mm) met standaard 3/8\"-aansluiting. Een VitaTap-installateur plaatst alles in ongeveer 30 minuten, volgens checklist en nazicht." },
 ];
@@ -84,7 +84,7 @@ function Werking() {
         <div className="werking-grid">
           <div className="werking-visual">
             <div className="werking-faucet">
-              <img src="assets/finish-steel.webp" alt="VitaTap-designkraan in geborsteld staal met een aparte uitloop voor gezuiverd, vitaal water" width="760" height="1140" loading="lazy" decoding="async" />
+              <img src="assets/finish-steel.webp" alt="VitaTap-designkraan in geborsteld staal met een aparte uitloop voor gezuiverd water" width="760" height="1140" loading="lazy" decoding="async" />
             </div>
             <div className="werking-filter">
               <img src="assets/under-sink-filter.webp" alt="Het 6-staps zuiveringssysteem onder de gootsteen" width="900" height="900" loading="lazy" decoding="async" />
@@ -94,7 +94,7 @@ function Werking() {
           <div className="werking-copy">
             <p className="eyebrow">02 · Werking</p>
             <h2 className="display" style={{ fontSize: "clamp(32px,4vw,52px)", marginTop: 16 }}>Slimme techniek.<br />Strakke kraan.</h2>
-            <p className="lead" style={{ marginTop: 18 }}>Alle techniek verdwijnt in je onderkast. Boven blijft alleen een strakke designkraan die twee soorten water levert: gewoon en gezuiverd-vitaal.</p>
+            <p className="lead" style={{ marginTop: 18 }}>Alle techniek verdwijnt in je onderkast. Boven blijft alleen een strakke designkraan die twee soorten water levert: gewoon leidingwater en gezuiverd drinkwater.</p>
             <div className="werk-steps">
               {WERK.map((w, i) => {
                 const I = Ico[w.ico];
@@ -120,7 +120,7 @@ const SCI = [
   { ico: "shield", h: "RO als kernstap", p: "Het RO-membraan is de kernstap van de zuivering. Stofcategorieën zoals PFAS en microplastics worden in deze technologie genoemd als deeltjes en opgeloste stoffen die zo'n membraan kan tegenhouden. Dat is uitleg over de techniek, geen gemeten VitaTap-percentage per stof.",
     k: "Poriegrootte membraan", big: "0,0001 µm" },
   { ico: "bolt", h: "Moleculaire waterstof erin", p: "De SPE-cel (Solid Polymer Electrolysis) genereert opgeloste H₂, een klein molecuul dat neutrale watermoleculen en mineralen ongemoeid laat.",
-    k: "Concentratie H₂", big: "1200–1600 ppb" },
+    k: "H₂ volgens fabrikant", big: "1200–1600 ppb" },
   { ico: "spark", h: "UV-behandeling: microbiologische stap", p: "UV-C bewaakt het water in het voorraadvat als laatste barrière na filtratie. Geen chemicaliën, geen bijsmaak. Geen kill-percentage zonder validatierapport.",
     k: "UV-behandeling", big: "UV-C" },
 ];
@@ -136,8 +136,8 @@ function Wetenschap() {
           </div>
           <div className="sec-head">
             <p className="eyebrow">03 · Wetenschap</p>
-            <h2 className="display" style={{ fontSize: "clamp(32px,4vw,52px)", marginTop: 16 }}>Niet zomaar zuiver. Vitaal.</h2>
-            <p className="lead" style={{ marginTop: 18 }}>Zuiveren is stap één. Het verschil zit in wat we daarna toevoegen: mineralen die je lichaam herkent en opgeloste moleculaire waterstof. Meetbaar in elke druppel.</p>
+            <h2 className="display" style={{ fontSize: "clamp(32px,4vw,52px)", marginTop: 16 }}>Zuiveren. Aanvullen. Bewaken.</h2>
+            <p className="lead" style={{ marginTop: 18 }}>Eerst filtert het RO-membraan het water. Daarna krijgt het calcium en magnesium terug en voegt een SPE-cel opgeloste waterstof toe. Een UV-C-lamp bewaakt het voorraadvat.</p>
           </div>
         </div>
         <div className="sci-grid">
@@ -155,7 +155,7 @@ function Wetenschap() {
         </div>
         <div className="callout">
           <div className="qi">“</div>
-          <p className="qt">Wat je lichaam terugvraagt: schoon water, herkenbare mineralen en opgeloste waterstof. VitaTap filtert met een RO-membraan, remineraliseert bewust en voegt daarna een UV-C-behandelingsstap toe in het voorraadvat. Vers en vitaal aan de uitloop.</p>
+          <p className="qt">Geen flessen meer kopen, sleuren of wegbrengen. Gewoon de kraan open: gefilterd met een RO-membraan, met mineralen voor de smaak en een UV-C-stap in het voorraadvat. Vers getapt, elke keer.</p>
           <a className="btn btn-ghost" href="#kraan" style={{ color: "#fff", borderColor: "rgba(255,255,255,.5)" }}>Bekijk de kraan</a>
         </div>
         <p className="claims-note">PFAS en microplastics zijn stofcategorieën die RO-technologie kan tegenhouden; wij vermelden voor VitaTap geen verwijderingspercentage per stof. Over TDS (een somparameter, fabrikantsmeting van het membraan) lees je meer in de FAQ. UV-C in het voorraadvat is een microbiologische behandelingsstap; wij claimen geen 100% of log-reductie zonder leveranciersvalidatie. H₂-concentratie (1,2–1,6 ppm) en ORP-waarden (−400/−600 mV) zijn fabrikantspecificaties gemeten aan de uitloop. Wij doen geen gezondheids- of medische claims.</p>

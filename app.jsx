@@ -75,8 +75,8 @@ const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
   "wordmark": "Raleway",
   "density": "compact",
   "finish": "steel",
-  "heroTitle": "Zuiver. Vitaal. Onbeperkt.",
-  "heroSub": "6-staps omgekeerde osmose met UV-behandeling en moleculaire H₂. Het RO-membraan filtert op moleculaire schaal; daarna wordt het water geremineraliseerd en verrijkt met waterstof. Vanaf €39 per maand, onderhoud en filters inbegrepen."
+  "heroTitle": "Zes zuiveringsstappen. Eén kraan.",
+  "heroSub": "Sediment, actieve kool, omgekeerde osmose, remineralisatie, waterstof en UV-C: zes stappen in één toestel onder je gootsteen, met een designkraan op je aanrecht. Wij installeren het bij jou thuis en onderhouden het elk jaar. Nooit meer flessen sleuren."
 }/*EDITMODE-END*/;
 
 function App() {

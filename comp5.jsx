@@ -6,9 +6,9 @@ const { useState: uS5, useEffect: uE5 } = React;
 ----------------------------------------------------------------- */
 const PLAN_OPTS = [
   ["", "Nog geen voorkeur"],
-  ["m", "Maandelijks · €65 / mnd"],
-  ["y", "Jaarlijks · €45 / mnd"],
-  ["5", "5-jaarlijks · €39 / mnd"],
+  ["m", "Maandelijks · €65 / mnd (€78,65 incl. btw)"],
+  ["y", "Jaarlijks · €45 / mnd (€54,45 incl. btw)"],
+  ["5", "5-jaarlijks · €39 / mnd (€47,19 incl. btw)"],
 ];
 
 const W3F_KEY = "2ad121b7-621a-4eb7-864f-3b7e6e63945e";
@@ -250,7 +250,7 @@ function StickyCTA() {
   }, []);
   return (
     <div className={"sticky-cta" + (show ? " show" : "")} aria-hidden={!show}>
-      <div className="sc-price"><b>Vanaf €39 / mnd</b><span>Alles inbegrepen</span></div>
+      <div className="sc-price"><b>Vanaf €39 / mnd excl. btw</b><span>€47,19 incl. btw · alles inbegrepen</span></div>
       <a className="btn btn-primary" href="#contact" tabIndex={show ? 0 : -1}>Gratis advies <Ico.arrow className="arr" width="16" height="16" /></a>
     </div>
   );

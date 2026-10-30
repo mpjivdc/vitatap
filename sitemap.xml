@@ -2,9 +2,39 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://vitatap.be/</loc>
-    <lastmod>2026-06-17</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://vitatap.be/waterfilter-onder-de-gootsteen.html</loc>
+    <lastmod>2026-10-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://vitatap.be/omgekeerde-osmose-keuken.html</loc>
+    <lastmod>2026-10-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://vitatap.be/kraanwater-filteren.html</loc>
+    <lastmod>2026-10-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://vitatap.be/geen-flessen-meer.html</loc>
+    <lastmod>2026-10-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://vitatap.be/waterfilter-installatie.html</loc>
+    <lastmod>2026-10-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://vitatap.be/privacy.html</loc>
@@ -20,7 +50,7 @@
   </url>
   <url>
     <loc>https://vitatap.be/cookiebeleid.html</loc>
-    <lastmod>2026-06-17</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
