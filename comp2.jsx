@@ -7,14 +7,14 @@ const { useState: useState2, useEffect: useEffect2 } = React;
 const STEPS = [
   { name: "Sediment-voorfilter", sub: "Grove deeltjes & roest", tag: "5 µm",
     desc: "Zand, roestdeeltjes en zwevend vuil worden als eerste afgevangen, zodat de fijnere filters optimaal blijven presteren." },
-  { name: "Actieve-koolblok", sub: "Chloor, smaak & geur", tag: "Carbon",
-    desc: "Een geperst koolblok bindt chloor, organische stoffen en geurtjes, de basis voor een neutrale, zuivere smaak." },
+  { name: "Actieve-koolblok", sub: "Chloor, smaak & geur", tag: "Chloor −99%",
+    desc: "Een geperst koolblok bindt organische stoffen en geurtjes en vermindert chloor met 99%: de basis voor een neutrale, zuivere smaak." },
   { name: "RO-membraan", sub: "Filtratie op moleculaire schaal", tag: "0,0001 µm",
     desc: "Het hart van het systeem: een halfdoorlatend RO-membraan filtert op moleculaire schaal, onder meer deeltjes en opgeloste stoffen. Een aparte waterstroom voert de tegengehouden stoffen af." },
-  { name: "Remineralisatie", sub: "Calcium & magnesium terug", tag: "pH 7,2–7,8",
-    desc: "Het gezuiverde water krijgt calcium en magnesium terug en wordt in pH gebalanceerd. Zo smaakt het zacht en rond, niet vlak." },
+  { name: "Remineralisatie", sub: "Calcium & magnesium terug", tag: "Ca · Mg",
+    desc: "Het gezuiverde water krijgt calcium en magnesium terug. Zo smaakt het zacht en rond, niet vlak." },
   { name: "SPE Waterstof-infusie", sub: "Moleculaire H₂ via SPE", tag: "1200–1600 ppb",
-    desc: "Een SPE-cel (Solid Polymer Electrolysis) verrijkt het water met opgeloste moleculaire waterstof (H₂)." },
+    desc: "Een SPE-cel (Solid Polymer Electrolysis) voegt 1.200 tot 1.600 ppb opgeloste moleculaire waterstof (H₂) toe, bij een ORP van −400 tot −600 mV." },
   { name: "UV-behandeling", sub: "Microbiologische stap", tag: "UV-C · 7 W",
     desc: "Een ingebouwde UV-C-lamp (7 W) in het voorraadvat is een extra microbiologische behandelingsstap na de RO. Correct gebruik en tijdig onderhoud (jaarlijkse lamp) blijven nodig." },
 ];
@@ -120,8 +120,8 @@ const SCI = [
   { ico: "shield", h: "RO als kernstap", p: "Het RO-membraan is de kernstap van de zuivering. Stofcategorieën zoals PFAS en microplastics worden in deze technologie genoemd als deeltjes en opgeloste stoffen die zo'n membraan kan tegenhouden. Dat is uitleg over de techniek, geen gemeten VitaTap-percentage per stof.",
     k: "Poriegrootte membraan", big: "0,0001 µm" },
   { ico: "bolt", h: "Moleculaire waterstof erin", p: "De SPE-cel (Solid Polymer Electrolysis) genereert opgeloste H₂, een klein molecuul dat neutrale watermoleculen en mineralen ongemoeid laat.",
-    k: "H₂ volgens fabrikant", big: "1200–1600 ppb" },
-  { ico: "spark", h: "UV-behandeling: microbiologische stap", p: "UV-C bewaakt het water in het voorraadvat als laatste barrière na filtratie. Geen chemicaliën, geen bijsmaak. Geen kill-percentage zonder validatierapport.",
+    k: "Opgeloste waterstof", big: "1200–1600 ppb" },
+  { ico: "spark", h: "UV-behandeling: microbiologische stap", p: "UV-C bewaakt het water in het voorraadvat als laatste barrière na filtratie. Geen chemicaliën, geen bijsmaak.",
     k: "UV-behandeling", big: "UV-C" },
 ];
 
@@ -131,7 +131,7 @@ function Wetenschap() {
       <div className="wrap">
         <div className="sci-feature">
           <div className="sci-shot">
-            <img src="assets/dark-teal-pour.webp" alt="Waterstofrijk water met micro-bubbels stroomt uit de VitaTap-kraan" width="1000" height="1501" loading="lazy" decoding="async" />
+            <img src="assets/dark-teal-pour.webp" alt="Water met opgeloste waterstof en micro-bubbels stroomt uit de VitaTap-kraan" width="1000" height="1501" loading="lazy" decoding="async" />
             <span className="tag">Microbubbels · moleculaire H₂</span>
           </div>
           <div className="sec-head">
@@ -158,7 +158,7 @@ function Wetenschap() {
           <p className="qt">Geen flessen meer kopen, sleuren of wegbrengen. Gewoon de kraan open: gefilterd met een RO-membraan, met mineralen voor de smaak en een UV-C-stap in het voorraadvat. Vers getapt, elke keer.</p>
           <a className="btn btn-ghost" href="#kraan" style={{ color: "#fff", borderColor: "rgba(255,255,255,.5)" }}>Bekijk de kraan</a>
         </div>
-        <p className="claims-note">PFAS en microplastics zijn stofcategorieën die RO-technologie kan tegenhouden; wij vermelden voor VitaTap geen verwijderingspercentage per stof. Over TDS (een somparameter, fabrikantsmeting van het membraan) lees je meer in de FAQ. UV-C in het voorraadvat is een microbiologische behandelingsstap; wij claimen geen 100% of log-reductie zonder leveranciersvalidatie. H₂-concentratie (1,2–1,6 ppm) en ORP-waarden (−400/−600 mV) zijn fabrikantspecificaties gemeten aan de uitloop. Wij doen geen gezondheids- of medische claims.</p>
+        <p className="claims-note">PFAS en microplastics zijn stofcategorieën die RO-technologie kan tegenhouden; wij vermelden voor VitaTap geen verwijderingspercentage per stof. Over TDS (een somparameter) lees je meer in de FAQ. UV-C in het voorraadvat is een extra behandelingsstap, geen belofte van steriel water. De elektrolysecel levert 1,2–1,6 ppm opgeloste waterstof bij een ORP van −400 tot −600 mV. Wij doen geen gezondheids- of medische claims.</p>
       </div>
     </section>
   );

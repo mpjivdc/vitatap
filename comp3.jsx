@@ -228,7 +228,7 @@ function Waarborgen() {
 const CERTS = [
   { ico: "check", t: "CE-conform", s: "Gebouwd voor de Europese markt" },
   { ico: "shield", t: "Terugstroombeveiliging", s: "Bij elke installatie geplaatst" },
-  { ico: "drop", t: "BPA-vrije materialen", s: "Volgens leveranciersdocumentatie" },
+  { ico: "drop", t: "BPA-vrije materialen", s: "Kunststoffen zonder BPA" },
   { ico: "wrench", t: "RVS 304", s: "Roestvrijstalen designkraan" },
 ];
 const VSPECS = [
@@ -245,7 +245,7 @@ function Certificering() {
         <div className="sec-head" style={{ maxWidth: 760 }}>
           <p className="eyebrow">Specificaties &amp; documentatie</p>
           <h2 className="display">Zwart op wit.</h2>
-          <p className="lead">Dit zijn de specificaties en documentatie waarop VitaTap steunt. Waarden volgens fabrikant en leverancier.</p>
+          <p className="lead">Dit zijn de specificaties en documentatie waarop VitaTap steunt.</p>
         </div>
         <div className="certs-badges">
           {CERTS.map((c, i) => {

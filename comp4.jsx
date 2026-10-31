@@ -56,7 +56,7 @@ function fmt(n) { return n.toFixed(2).replace(".", ","); }
 const VT_QUALITY = [
   "Meerstaps RO-zuivering",
   "Geremineraliseerd (Ca, Mg)",
-  "Opgeloste H₂ (fabrikant: 1200–1600 ppb)",
+  "Opgeloste H₂ (1200–1600 ppb)",
   "UV-C-behandeling",
   "Geen plastic flessen",
   "Rechtstreeks uit de kraan",
@@ -300,14 +300,15 @@ function Installer() {
    FAQ
 ----------------------------------------------------------------- */
 const FAQS = [
-  ["Wat is waterstofrijk water?", "Moleculaire waterstof (H₂) is een van nature voorkomend, smaakloos gas dat volledig opgelost in het water zit. Wetenschappelijk onderzoek naar moleculaire waterstof loopt volop; wij doen geen gezondheids- of medische claims. Volgens de specificaties van de fabrikant bevat het water aan de uitloop 1.200 tot 1.600 ppb opgeloste H₂, bij een ORP van −400/−600 mV. Je proeft zuiver, fris water."],
+  ["Wat is water met opgeloste waterstof?", "Moleculaire waterstof (H₂) is een van nature voorkomend, smaakloos gas dat volledig opgelost in het water zit. Wetenschappelijk onderzoek naar moleculaire waterstof loopt volop; wij doen geen gezondheids- of medische claims. De elektrolysecel van VitaTap levert 1.200 tot 1.600 ppb opgeloste H₂, bij een ORP van −400 tot −600 mV. Je proeft zuiver, fris water."],
   ["Hoeveel water verbruikt het systeem?", "Zoals elk omgekeerde-osmosesysteem gebruikt VitaTap spoelwater om het membraan schoon te houden."],
   ["Hoe vaak moet het filter vervangen worden?", "De meeste filters gaan een jaar mee, maar elk onderdeel heeft zijn eigen levensduur. Vuistregels: sedimentfilter 3–12 maanden (afhankelijk van waterkwaliteit), koolfilter en remineralisatiefilter elk jaar, UV-lamp elk jaar, RO-membraan elke 3 jaar. Al dit onderhoud zit in het abonnement inbegrepen. Wij houden bij wanneer vervanging nodig is en contacteren je tijdig."],
   ["Past de kraan op mijn bestaande keuken?", "In de meeste keukens wel. De kraan gebruikt een standaard 21 mm doorvoer en 3/8\"-aansluiting, en het systeem verdwijnt compact in je onderkast. Een VitaTap-installateur controleert dit vooraf."],
   ["Wat is het verschil met een gewone waterfilter?", "Een gewone filter richt zich vooral op smaak en chloor. VitaTap combineert omgekeerde osmose (RO) met remineralisatie en moleculaire waterstof (H₂), met een UV-C-behandelingsstap in het voorraadvat. En wij plaatsen en onderhouden het voor je: geen filter om zelf aan te denken."],
   ["Wist je dat: hoe werkt omgekeerde osmose?", "Omgekeerde osmose gebruikt een halfdoorlatend membraan. Stofcategorieën zoals PFAS en microplastics worden in de technologie vaak genoemd als deeltjes of opgeloste stoffen die zo'n membraan kan tegenhouden. Dat is uitleg over de techniek, geen gemeten VitaTap-percentage per stof."],
-  ["Wist je dat: wat zegt TDS?", "TDS (totaal opgeloste stoffen) is een somparameter. Leveranciersmetingen van dit membraan geven een gemiddelde TDS-reductie van ca. 95% (fabrikant). Een laag TDS-getal alleen bewijst geen specifieke stofverwijdering, zoals van PFAS."],
-  ["Wist je dat: hoe werkt UV-C?", "UV-C-licht wordt in drinkwaterbehandeling gebruikt om micro-organismen te inactiveren; het effect hangt af van dosis (intensiteit x blootstellingstijd) en installatie. Bij VitaTap staat de UV-C-lamp in het voorraadvat als extra microbiologische behandelingsstap na RO. Wij publiceren geen kill-% zonder leveranciersvalidatie."],
+  ["Wist je dat: wat zegt TDS?", "TDS (totaal opgeloste stoffen) is een somparameter. Het membraan van VitaTap geeft een gemiddelde TDS-reductie van ongeveer 95%. Een laag TDS-getal alleen bewijst geen specifieke stofverwijdering, zoals van PFAS."],
+  ["Wist je dat: hoe werkt UV-C?", "UV-C-licht wordt in drinkwaterbehandeling gebruikt om micro-organismen te inactiveren; het effect hangt af van dosis (intensiteit x blootstellingstijd) en installatie. Bij VitaTap staat de UV-C-lamp in het voorraadvat als extra microbiologische behandelingsstap na RO."],
+  ["Hoe bewaakt het toestel zichzelf?", "VitaTap heeft een lekdetector, een meter die de waterkwaliteit (TDS) bewaakt en alarmen bij een onderbroken watertoevoer, een storing van de UV-lamp en het einde van de filterlevensduur. Zo weet je meteen wanneer er iets aandacht vraagt."],
   ["Waarom zowel filtratie als UV-C?", "De omgekeerde osmose houdt micro-organismen tegen op grootte; de UV-C-lamp staat in het voorraadvat en bewaakt water dat daar klaarstaat. Dat is een architectuurkeuze, geen prestatiepercentage."],
   ["Kan ik er ook bruiswater mee maken?", "Nee, en dat is bewust. VitaTap is gemaakt voor stil, gezuiverd water. Een carbonatiemodule zit dus niet in het toestel. Wil je af en toe toch bruis, dan gebruik je je VitaTap-water gewoon in een los bruistoestel. Je vertrekt dan nog altijd van dezelfde gezuiverde basis."],
   ["Koop of abonnement?", "VitaTap werkt met een abonnement waarin installatie-ondersteuning, onderhoud en filters zijn inbegrepen. Zo blijft je water altijd op niveau zonder verrassingen. Een eenmalige opstartkost van €500 excl. btw (€605 incl. btw) dekt de installatie."],

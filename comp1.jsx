@@ -92,14 +92,14 @@ function Hero({ t, finish }) {
           <p className="hero-sub">{t.heroSub}</p>
           <div className="hero-stats">
             <div className="stat-chip"><div className="val">RO-filtratie</div><div className="cap">Meerstaps zuivering</div></div>
-            <div className="stat-chip"><div className="val">1200–1600 ppb</div><div className="cap">H₂ volgens fabrikant</div></div>
+            <div className="stat-chip"><div className="val">1200–1600 ppb</div><div className="cap">Opgeloste waterstof</div></div>
             <div className="stat-chip"><div className="val">UV-C</div><div className="cap">Microbiologische stap</div></div>
           </div>
           <div className="hero-actions">
             <a className="btn btn-primary solid-white" href="#contact">Vraag gratis advies <Ico.arrow className="arr" width="18" height="18" /></a>
             <a className="btn btn-ghost" href="#prijzen">Bekijk prijzen</a>
           </div>
-          <p className="hero-fine">Vanaf €39 / mnd excl. btw (€47,19 incl.) · onderhoud &amp; filters inbegrepen · specificaties volgens fabrikant</p>
+          <p className="hero-fine">Vanaf €39 / mnd excl. btw (€47,19 incl.) · onderhoud &amp; filters inbegrepen</p>
         </div>
         <div className="hero-media">
           <div className="hero-card">
