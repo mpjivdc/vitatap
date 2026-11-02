@@ -19,6 +19,10 @@ const INTAKE_URL = "https://hblhalopooblmzrdwokt.supabase.co/functions/v1/web-le
 const INTAKE_TOKEN = "a2b4c082193dfa8ea51d581274881f410d1aa48e37915dae";
 const INTAKE_TIMEOUT_MS = 6000;
 
+// Wording of the e-mail opt-in below. Change the text, change the version: the lead row
+// stores the version as proof of what the person agreed to (GDPR art. 7.1).
+const MARKETING_TEXT_VERSION = "2026-11-02";
+
 // Installation area: Benelux + France (Maarten, 2026-10-30). BE and LU postcodes are both
 // 4 digits, so the country is asked, not guessed. The same patterns are enforced again in
 // the web-lead Edge Function; keep the two in step.
@@ -91,6 +95,10 @@ function Advies() {
           website: fd.get("vt_hp") || "",
           message: fd.get("bericht") || "",
           gdpr_consent: fd.get("consent") != null,
+          // Separate, optional e-mail opt-in (never pre-ticked). The function stores the
+          // time and MARKETING_TEXT_VERSION as proof of consent.
+          marketing_consent: fd.get("marketing") != null,
+          marketing_text_version: MARKETING_TEXT_VERSION,
         }),
         signal: ac.signal,
       });
@@ -121,6 +129,7 @@ function Advies() {
       land: land,
       interesse: fd.get("plan") || "Geen voorkeur",
       bericht: fd.get("bericht") || "",
+      emails_gewenst: fd.get("marketing") != null ? "ja" : "nee",
       intake_status: intakeStatus,
     };
 
@@ -238,6 +247,10 @@ function Advies() {
             <label className="consent">
               <input name="consent" type="checkbox" required />
               <span>Ik ga akkoord dat VitaTap mijn gegevens gebruikt om mijn adviesaanvraag te behandelen, zoals beschreven in het <a href="privacy.html" target="_blank" rel="noopener">privacybeleid</a>.</span>
+            </label>
+            <label className="consent">
+              <input name="marketing" type="checkbox" />
+              <span>Ja, stuur me ook e-mails van VitaTap met nieuws, tips en aanbiedingen. <span className="opt">(optioneel, afmelden kan altijd met één klik)</span></span>
             </label>
             <button className="btn btn-primary" type="submit" disabled={loading}>
               {loading ? "Versturen..." : <span>Plan mijn gratis adviesgesprek <Ico.arrow className="arr" width="18" height="18" /></span>}
